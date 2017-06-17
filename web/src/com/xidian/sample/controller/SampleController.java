@@ -27,7 +27,7 @@ public class SampleController {
 		logger.info("name:" + name);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("name", name);
-		sampleService.executeSample(map);
+//		sampleService.executeSample(map);
 		return map;
 	}
 }

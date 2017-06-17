@@ -7,7 +7,7 @@
 <title>sample</title>
 </head>
 <body>
-	<form action="/springmvc/sample" method="post">
+	<form action="/web/sample" method="post">
 		<input type="text" id="name" name="name" value="my_name" /> <input
 			type="submit" value="提交" />
 	</form>
