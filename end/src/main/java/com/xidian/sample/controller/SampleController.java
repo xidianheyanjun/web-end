@@ -33,6 +33,7 @@ import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -47,7 +48,8 @@ import com.xidian.sample.service.SampleService;
 public class SampleController {
 	private Logger logger = Logger.getLogger(getClass());
 
-	private String server_url = "http://localhost:8280/resource/upload/pic";
+	@Value("#{config[server_url]}")
+	private String server_url = "";
 
 	private String token = "v@#$%^v";
 
