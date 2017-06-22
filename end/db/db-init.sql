@@ -1,6 +1,6 @@
 /*==============================================================*/
 /* DBMS name:      MySQL 5.0                                    */
-/* Created on:     2017/6/18 星期日 下午 4:05:09                     */
+/* Created on:     2017/6/22 星期四 下午 11:41:33                    */
 /*==============================================================*/
 
 
@@ -79,7 +79,7 @@ create table t_config
    id                   integer not null,
    code                 varchar(32),
    name                 varchar(127),
-   val                  varchar(127),
+   val                  varchar(255),
    create_time          datetime,
    update_time          datetime,
    status               tinyint(4) comment '0：启用
@@ -159,7 +159,7 @@ create table t_credit_card
    funds                integer,
    name                 varchar(127),
    product_desc         varchar(255),
-   create_time         datetime,
+   create_time          datetime,
    create_user          integer,
    update_time          datetime,
    update_user          integer,
@@ -225,7 +225,7 @@ create table t_finance
    purchase_phone       varchar(32),
    income_rate          integer,
    product_desc         varchar(255),
-   create_time         datetime,
+   create_time          datetime,
    create_user          integer,
    update_time          datetime,
    update_user          integer,
@@ -319,6 +319,7 @@ create table t_gb_banner
 (
    id                   integer not null,
    title                varchar(128),
+   url                  varchar(255),
    position             integer,
    create_time          datetime,
    create_user          integer,
@@ -357,6 +358,7 @@ create table t_gb_swap_banner
 (
    id                   integer not null,
    title                varchar(128),
+   url                  varchar(255),
    position             integer,
    create_time          datetime,
    create_user          integer,
@@ -490,6 +492,7 @@ create table t_policy_banner
 (
    id                   integer not null,
    title                varchar(128),
+   url                  varchar(255),
    position             integer,
    create_time          datetime,
    create_user          integer,
