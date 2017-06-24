@@ -7,7 +7,12 @@
 <title>sample</title>
 </head>
 <body>
-	<form action="/end/gb/sample" method="post">
+	<form action="/end/gb/send/sms" method="post">
+		<input type="text" id="name" name="name" value="my_name" /> <input
+			type="submit" value="提交" />
+	</form>
+	<br />
+	<form action="/end/gb/send/email" method="post">
 		<input type="text" id="name" name="name" value="my_name" /> <input
 			type="submit" value="提交" />
 	</form>

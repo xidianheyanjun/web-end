@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.qcloud.sms.SmsSingleSender;
 import com.qcloud.sms.SmsSingleSenderResult;
+import com.xidian.module.core.CoreService;
 
 @Controller
 public class GbController {
@@ -29,9 +30,24 @@ public class GbController {
 	@Qualifier("GbService")
 	private GbService gbService;
 
-	@RequestMapping(value = "/gb/sample", method = { RequestMethod.POST })
+	@Autowired
+	@Qualifier("CoreService")
+	private CoreService coreService;
+
+	@RequestMapping(value = "/gb/send/email", method = { RequestMethod.POST })
 	@ResponseBody
-	public Object sample(String name) {
+	public Object sendEmail(String name) {
+		logger.info("name:" + name);
+		boolean sendFlag = coreService.sendEmail("xidianheyanjun@163.com",
+				"这里是title", "这里是正文");
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("send-flag", sendFlag);
+		return map;
+	}
+
+	@RequestMapping(value = "/gb/send/sms", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object sendSms(String name) {
 		logger.info("name:" + name);
 		try {
 			SmsSingleSender singleSender = new SmsSingleSender(this.sms_app_id,
