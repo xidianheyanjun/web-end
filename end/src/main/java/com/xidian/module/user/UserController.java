@@ -19,7 +19,7 @@ public class UserController {
 	@Qualifier("UserService")
 	private UserService userService;
 
-	@RequestMapping(value = "/sample", method = { RequestMethod.POST })
+	@RequestMapping(value = "/user/sample", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object sample(String name) {
 		logger.info("name:" + name);

@@ -19,7 +19,7 @@ public class InfoController {
 	@Qualifier("InfoService")
 	private InfoService infoService;
 
-	@RequestMapping(value = "/sample", method = { RequestMethod.POST })
+	@RequestMapping(value = "/info/sample", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object sample(String name) {
 		logger.info("name:" + name);

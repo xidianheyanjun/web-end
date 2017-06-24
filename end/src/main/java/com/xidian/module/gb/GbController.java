@@ -6,6 +6,7 @@ import java.util.Map;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -18,20 +19,26 @@ import com.qcloud.sms.SmsSingleSenderResult;
 public class GbController {
 	private Logger logger = Logger.getLogger(getClass());
 
+	@Value("#{config[sms_app_id]}")
+	private int sms_app_id;
+
+	@Value("#{config[sms_app_key]}")
+	private String sms_app_key;
+
 	@Autowired
 	@Qualifier("GbService")
 	private GbService gbService;
 
-	@RequestMapping(value = "/sample", method = { RequestMethod.POST })
+	@RequestMapping(value = "/gb/sample", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object sample(String name) {
 		logger.info("name:" + name);
-		int appid = 123456;
-		String appkey = "1234567890abcdef1234567890abcdef";
 		try {
-			SmsSingleSender singleSender = new SmsSingleSender(appid, appkey);
+			SmsSingleSender singleSender = new SmsSingleSender(this.sms_app_id,
+					this.sms_app_key);
 			SmsSingleSenderResult singleSenderResult = singleSender.send(0,
-					"86", "12345678902", "测试短信，普通单发，深圳，小明，上学。", "", "");
+					"86", "13692141127", "测试短信，普通单发，深圳，小明，上学。", "", "");
+			logger.info(singleSenderResult);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
