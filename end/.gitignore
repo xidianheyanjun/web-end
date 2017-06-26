@@ -2,3 +2,7 @@
 .settings
 .classpath
 .project
+./src/main/resources/mail.properties
+./src/main/resources/sms.properties
+./target/classes/mail.properties
+./target/classes/sms.properties
