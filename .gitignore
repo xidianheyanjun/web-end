@@ -1,0 +1,8 @@
+./end/target
+./end/.settings
+./end/.classpath
+./end/.project
+./end/src/main/resources/mail.properties
+./end/src/main/resources/sms.properties
+./end/target/classes/mail.properties
+./end/target/classes/sms.properties
