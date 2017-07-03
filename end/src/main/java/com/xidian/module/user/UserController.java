@@ -1,8 +1,5 @@
 package com.xidian.module.user;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,11 +16,30 @@ public class UserController {
 	@Qualifier("UserService")
 	private UserService userService;
 
-	@RequestMapping(value = "/user/sample", method = { RequestMethod.POST })
+	@RequestMapping(value = "/user/register", method = { RequestMethod.POST })
 	@ResponseBody
-	public Object sample(String name) {
-		logger.info("name:" + name);
-		Map<String, Object> map = new HashMap<String, Object>();
-		return map;
+	public Object register(String account, String password, String verifyCode) {
+		logger.info(String.format("%s|%s|%s", account, password, verifyCode));
+		// 校验数据合法性 todo
+
+		return userService.register(account, password, verifyCode);
+	}
+
+	@RequestMapping(value = "/user/login", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object login(String account, String password) {
+		logger.info(String.format("%s|%s", account, password));
+		// 校验数据合法性 todo
+
+		return userService.login(account, password);
+	}
+
+	@RequestMapping(value = "/user/logout", method = { RequestMethod.POST })
+	@ResponseBody
+	public Object logout(String account, String token) {
+		logger.info(String.format("%s|%s", account, token));
+		// 校验数据合法性 todo
+
+		return userService.logout(account, token);
 	}
 }
