@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+	<sql id="user-query-by-acc">
+		<![CDATA[
+			select id, acc
+			from t_user
+			where acc = :acc
+		]]>
+	</sql>
+
+	<sql id="user-register">
+		<![CDATA[
+			insert into t_user(acc, psw, create_time, status)
+			values(:acc, :psw, now(), 0)
+		]]>
+	</sql>
+</sqls>

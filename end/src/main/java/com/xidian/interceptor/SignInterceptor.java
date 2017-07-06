@@ -1,16 +1,16 @@
 package com.xidian.interceptor;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import org.apache.log4j.Logger;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
-public class TokenInterceptor implements HandlerInterceptor {
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+public class SignInterceptor implements HandlerInterceptor {
     private Logger logger = Logger.getLogger(getClass());
 
-    public TokenInterceptor() {
+    public SignInterceptor() {
     }
 
     @Override
@@ -28,6 +28,7 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
+        logger.info(String.format("%s", request.getParameter("data")));
         return true;
     }
 

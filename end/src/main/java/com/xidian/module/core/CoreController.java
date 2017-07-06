@@ -19,7 +19,7 @@ public class CoreController {
 	@Qualifier("CoreService")
 	private CoreService coreService;
 
-	@RequestMapping(value = "/info/sample", method = { RequestMethod.POST })
+	@RequestMapping(value = "/core/sample", method = { RequestMethod.POST })
 	@ResponseBody
 	public Object sample(String name) {
 		logger.info("name:" + name);

@@ -1,5 +1,6 @@
 package com.xidian.module.user;
 
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -10,36 +11,46 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class UserController {
-	private Logger logger = Logger.getLogger(getClass());
+    private Logger logger = Logger.getLogger(getClass());
 
-	@Autowired
-	@Qualifier("UserService")
-	private UserService userService;
+    @Autowired
+    @Qualifier("UserService")
+    private UserService userService;
 
-	@RequestMapping(value = "/user/register", method = { RequestMethod.POST })
-	@ResponseBody
-	public Object register(String account, String password, String verifyCode) {
-		logger.info(String.format("%s|%s|%s", account, password, verifyCode));
-		// 校验数据合法性 todo
+    @RequestMapping(value = "/user/register", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object register(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String account = (String) jsonObject.get("account");
+        String password = (String) jsonObject.get("password");
+        String verifyCode = (String) jsonObject.get("verifyCode");
+        logger.info(String.format("%s|%s|%s", account, password, verifyCode));
+        // 校验数据合法性 todo
 
-		return userService.register(account, password, verifyCode);
-	}
+        return userService.register(account, password, verifyCode);
+    }
 
-	@RequestMapping(value = "/user/login", method = { RequestMethod.POST })
-	@ResponseBody
-	public Object login(String account, String password) {
-		logger.info(String.format("%s|%s", account, password));
-		// 校验数据合法性 todo
+    @RequestMapping(value = "/user/login", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object login(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String account = (String) jsonObject.get("account");
+        String password = (String) jsonObject.get("password");
+        logger.info(String.format("%s|%s", account, password));
+        // 校验数据合法性 todo
 
-		return userService.login(account, password);
-	}
+        return userService.login(account, password);
+    }
 
-	@RequestMapping(value = "/user/logout", method = { RequestMethod.POST })
-	@ResponseBody
-	public Object logout(String account, String token) {
-		logger.info(String.format("%s|%s", account, token));
-		// 校验数据合法性 todo
+    @RequestMapping(value = "/user/logout", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object logout(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String account = (String) jsonObject.get("account");
+        String token = (String) jsonObject.get("token");
+        logger.info(String.format("%s|%s", account, token));
+        // 校验数据合法性 todo
 
-		return userService.logout(account, token);
-	}
+        return userService.logout(account, token);
+    }
 }
