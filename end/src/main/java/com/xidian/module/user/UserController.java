@@ -19,8 +19,8 @@ public class UserController {
 
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})
     @ResponseBody
-    public Object register(String data) {
-        JSONObject jsonObject = JSONObject.fromObject(data);
+    public Object register(String params) {
+        JSONObject jsonObject = JSONObject.fromObject(params);
         String account = (String) jsonObject.get("account");
         String password = (String) jsonObject.get("password");
         String verifyCode = (String) jsonObject.get("verifyCode");
