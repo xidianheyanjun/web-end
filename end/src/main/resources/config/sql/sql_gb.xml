@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql id="gb-gb-list">
+        <![CDATA[
+            select id, title
+            from t_gb
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="gb-gb">
+        <![CDATA[
+            select id, title, content
+            from t_gb
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="gb-swap-list">
+        <![CDATA[
+            select id, title
+            from t_gb_swap
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="gb-swap">
+        <![CDATA[
+            select id, title, content
+            from t_gb_swap
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+</sqls>

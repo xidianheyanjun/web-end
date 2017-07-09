@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqls>
-	<sql id="user-query-by-acc">
-		<![CDATA[
+    <sql id="user-query-by-acc">
+        <![CDATA[
 			select id, acc
 			from t_user
 			where acc = :acc
+			and status = 0
 		]]>
-	</sql>
+    </sql>
 
-	<sql id="user-register">
-		<![CDATA[
+    <sql id="user-register">
+        <![CDATA[
 			insert into t_user(acc, psw, create_time, status)
-			values(:acc, :psw, now(), 0)
+			values(:acc, password(:psw), now(), 0)
 		]]>
-	</sql>
+    </sql>
+
+    <sql id="user-query">
+        <![CDATA[
+			select id
+			from t_user
+			where acc = :acc
+			and psw = password(:psw)
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="user-login">
+        <![CDATA[
+			insert into t_login(user_id, token, create_time, status)
+			values(:id, :token, now(), 0)
+		]]>
+    </sql>
+
+    <sql id="user-logout">
+        <![CDATA[
+            delete from t_login
+            where user_id = :id
+            and token = :token
+            and status = 0
+		]]>
+    </sql>
 </sqls>

@@ -1,5 +1,7 @@
 package com.xidian.module.gb;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.log4j.Logger;
@@ -11,15 +13,37 @@ import com.xidian.sample.service.SampleService;
 
 @Service("GbService")
 public class GbService implements SampleService {
-	private Logger logger = Logger.getLogger(getClass());
-	@Autowired
-	private Dao dao;
+    private Logger logger = Logger.getLogger(getClass());
+    @Autowired
+    private Dao dao;
 
-	@Override
-	public Map<String, Object> executeSample(Map<String, Object> map) {
-		int retCode = dao.executeUpdate("sample", map);
-		logger.info("retCode:" + retCode);
-		return map;
-	}
+    @Override
+    public Map<String, Object> executeSample(Map<String, Object> map) {
+        int retCode = dao.executeUpdate("sample", map);
+        logger.info("retCode:" + retCode);
+        return map;
+    }
+
+    public List<Map<String, Object>> gbGbList() {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        return dao.query4List("gb-gb-list", paramMap);
+    }
+
+    public Map<String, Object> gbGb(String id) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        return dao.executeQuery("gb-gb", paramMap);
+    }
+
+    public List<Map<String, Object>> gbSwapList() {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        return dao.query4List("gb-swap-list", paramMap);
+    }
+
+    public Map<String, Object> gbSwap(String id) {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        return dao.executeQuery("gb-swap", paramMap);
+    }
 
 }

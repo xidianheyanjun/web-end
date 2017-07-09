@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql id="info-policy-list">
+        <![CDATA[
+            select id, title
+            from t_policy
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="info-policy">
+        <![CDATA[
+            select id, title, content
+            from t_policy
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="info-industry-list">
+        <![CDATA[
+            select id, title
+            from t_industry
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="info-industry">
+        <![CDATA[
+            select id, title, content
+            from t_industry
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="info-forum-list">
+        <![CDATA[
+            select id, title
+            from t_forum
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="info-forum">
+        <![CDATA[
+            select id, title, content
+            from t_forum
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+</sqls>

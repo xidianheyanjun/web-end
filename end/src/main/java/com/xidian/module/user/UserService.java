@@ -1,5 +1,6 @@
 package com.xidian.module.user;
 
+import com.xidian.common.CacheHelper;
 import com.xidian.common.ResponseHelper;
 import com.xidian.dataAccess.Dao;
 import com.xidian.sample.service.SampleService;
@@ -44,20 +45,44 @@ public class UserService implements SampleService {
     }
 
     public Map<String, Object> login(String account, String password) {
-        // 查询用户是否存在 todo
+        // 查询用户是否存在
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("acc", account);
+        paramMap.put("psw", password);
+        List<Map<String, Object>> list = dao.query4List("user-query", paramMap);
 
-        // 生成token存入数据库
+        if (list.size() == 0) {
+            logger.info(String.format("%s|%s", account, list.size()));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "帳號不存在");
+        }
+
+        // 生成token
+        long curTime = System.currentTimeMillis();
+        String token = DigestUtils.md5Hex(String.format("%s-%d", account, curTime));
+        logger.info(String.format("%s|%d|%s", account, curTime, token));
+
+        // 存入数据库
+        Map<String, Object> user = list.get(0);
+        user.put("token", token);
+        dao.executeUpdate("user-login", user);
 
         // 将身份信息存入缓存
-        String token = DigestUtils.md5Hex(account);
-        return null;
+        CacheHelper.set(user.get("id").toString(), token);
+        Map<String, Object> retMap = ResponseHelper.createResponse();
+        retMap.put("id", user.get("id"));
+        return retMap;
     }
 
-    public Map<String, Object> logout(String account, String token) {
+    public Map<String, Object> logout(String id, String token) {
         // 清除缓存
+        CacheHelper.remove(id);
 
         // 清除数据库
-        return null;
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("token", token);
+        dao.executeUpdate("user-logout", paramMap);
+        return ResponseHelper.createResponse();
     }
 
 }
