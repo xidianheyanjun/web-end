@@ -23,9 +23,8 @@ public class InfoService implements SampleService {
         return map;
     }
 
-    public List<Map<String, Object>> infoPolicyList() {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        return dao.query4List("info-policy-list", paramMap);
+    public Map<String, Object> infoPolicyList(Map<String, Object> paramMap) {
+        return dao.pageQuery("info-policy-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
 
     public Map<String, Object> infoPolicy(String id) {
@@ -34,9 +33,8 @@ public class InfoService implements SampleService {
         return dao.executeQuery("info-policy", paramMap);
     }
 
-    public List<Map<String, Object>> infoIndustryList() {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        return dao.query4List("info-industry-list", paramMap);
+    public Map<String, Object> infoIndustryList(Map<String, Object> paramMap) {
+        return dao.pageQuery("info-industry-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
 
     public Map<String, Object> infoIndustry(String id) {
@@ -45,9 +43,8 @@ public class InfoService implements SampleService {
         return dao.executeQuery("info-industry", paramMap);
     }
 
-    public List<Map<String, Object>> infoForumList() {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        return dao.query4List("info-forum-list", paramMap);
+    public Map<String, Object> infoForumList(Map<String, Object> paramMap) {
+        return dao.pageQuery("info-forum-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
 
     public Map<String, Object> infoForum(String id) {

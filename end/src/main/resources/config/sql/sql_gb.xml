@@ -18,6 +18,15 @@
         ]]>
     </sql>
 
+    <sql id="gb-gb-banner">
+        <![CDATA[
+            select id, title, url
+            from t_gb_banner
+            where status = 0
+            order by position
+        ]]>
+    </sql>
+
     <sql id="gb-swap-list">
         <![CDATA[
             select id, title
@@ -33,6 +42,15 @@
             from t_gb_swap
             where id = :id
             and status = 0
+        ]]>
+    </sql>
+
+    <sql id="gb-swap-banner">
+        <![CDATA[
+            select id, title, url
+            from t_swap_banner
+            where status = 0
+            order by position
         ]]>
     </sql>
 </sqls>

@@ -41,4 +41,15 @@
             and status = 0
 		]]>
     </sql>
+
+    <sql id="user-collect">
+        <![CDATA[
+            select id, name, path
+            from t_store
+            where user_id = :userId
+            and kind = :storeKind
+            and status = 0
+            order by create_time desc
+		]]>
+    </sql>
 </sqls>

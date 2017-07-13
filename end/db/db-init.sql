@@ -67,7 +67,7 @@ create table t_bank
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_bank comment '银行信息表';
 
@@ -85,7 +85,7 @@ create table t_config
    status               tinyint(4) comment '0：启用
             1：禁用',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_config comment '系统配置表';
 
@@ -103,7 +103,7 @@ create table t_credit_activity
    update_user          integer,
    status               tinyint(4),
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_credit_activity comment '信用卡优惠活动表';
 
@@ -143,7 +143,7 @@ create table t_credit_apply
    update_user          integer,
    status               tinyint(4),
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_credit_apply comment '信用卡申请表';
 
@@ -166,7 +166,7 @@ create table t_credit_card
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_credit_card comment '信用卡表';
 
@@ -188,7 +188,7 @@ create table t_credit_coupon
    update_user          integer,
    status               tinyint(4),
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_credit_coupon comment '信用卡优惠券表';
 
@@ -207,7 +207,7 @@ create table t_data_info
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_data_info comment '大数据风控信息表';
 
@@ -232,7 +232,7 @@ create table t_finance
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_finance comment '理财产品表';
 
@@ -252,7 +252,7 @@ create table t_finance_popular
    update_user          integer,
    status               tinyint(4),
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_finance_popular comment '热销及推荐产品，用于运营配置';
 
@@ -271,7 +271,7 @@ create table t_forum
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_forum comment '金融论坛表';
 
@@ -289,7 +289,7 @@ create table t_forum_msg
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_forum_msg comment '金融论坛留言表';
 
@@ -308,7 +308,7 @@ create table t_gb
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_gb comment '政银信息表';
 
@@ -328,7 +328,7 @@ create table t_gb_banner
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_gb_banner comment '政银信息banner';
 
@@ -347,7 +347,7 @@ create table t_gb_swap
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_gb_swap comment '政银信息交流表';
 
@@ -367,7 +367,7 @@ create table t_gb_swap_banner
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_gb_swap_banner comment '政银信息交流banner';
 
@@ -386,7 +386,7 @@ create table t_industry
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_industry comment '行业动态表';
 
@@ -405,7 +405,7 @@ create table t_industry_banner
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_industry_banner comment '行业动态banner';
 
@@ -431,7 +431,7 @@ create table t_loan_product
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_loan_product comment '贷款产品表';
 
@@ -447,7 +447,7 @@ create table t_login
    status               tinyint(4) comment '0：可用
             1：不可用',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_login comment '用户登录记录表';
 
@@ -462,7 +462,7 @@ create table t_my_finance
    create_time          datetime,
    update_time          datetime,
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_my_finance comment '我的理财';
 
@@ -481,7 +481,7 @@ create table t_policy
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_policy comment '政策表';
 
@@ -501,7 +501,7 @@ create table t_policy_banner
    status               tinyint(4) comment '0：生效
             1：无效',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_policy_banner comment '政策宣传banner';
 
@@ -518,7 +518,7 @@ create table t_store
    status               tinyint(4) comment '0：已收藏
             1：已删除',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_store comment '我的收藏';
 
@@ -529,13 +529,13 @@ create table t_user
 (
    id                   int not null auto_increment,
    acc                  varchar(32),
-   psw                  varchar(32),
+   psw                  varchar(64),
    create_time          datetime,
    update_time          datetime,
    status               tinyint(4) comment '0：未删除
             1：已删除',
    primary key (id)
-);
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
 
 alter table t_user comment '用户信息表';
 

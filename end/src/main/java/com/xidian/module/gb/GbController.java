@@ -39,9 +39,12 @@ public class GbController {
     @ResponseBody
     public Object gbGbList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", gbService.gbGbList());
+        map.put("data", gbService.gbGbList(paramMap));
         return map;
     }
 
@@ -56,13 +59,26 @@ public class GbController {
         return map;
     }
 
+    @RequestMapping(value = "/gb/gb/banner", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbGbBanner(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbGbBanner());
+        return map;
+    }
+
     @RequestMapping(value = "/gb/swap/list", method = {RequestMethod.POST})
     @ResponseBody
     public Object gbSwapList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", gbService.gbSwapList());
+        map.put("data", gbService.gbSwapList(paramMap));
         return map;
     }
 
@@ -74,6 +90,16 @@ public class GbController {
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", gbService.gbSwap(id));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/swap/banner", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbSwapBanner(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbSwapBanner());
         return map;
     }
 

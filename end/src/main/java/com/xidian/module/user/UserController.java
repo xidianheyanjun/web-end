@@ -1,5 +1,6 @@
 package com.xidian.module.user;
 
+import com.xidian.common.ResponseHelper;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 public class UserController {
@@ -52,5 +56,20 @@ public class UserController {
         // 校验数据合法性 todo
 
         return userService.logout(account, token);
+    }
+
+    @RequestMapping(value = "/user/collect", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userCollect(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("userId", jsonObject.get("userId"));
+        paramMap.put("storeKind", jsonObject.get("storeKind"));
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.userCollect(paramMap));
+        return map;
     }
 }

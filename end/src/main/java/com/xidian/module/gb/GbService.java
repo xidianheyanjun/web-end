@@ -24,9 +24,8 @@ public class GbService implements SampleService {
         return map;
     }
 
-    public List<Map<String, Object>> gbGbList() {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        return dao.query4List("gb-gb-list", paramMap);
+    public Map<String, Object> gbGbList(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-gb-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
 
     public Map<String, Object> gbGb(String id) {
@@ -35,9 +34,8 @@ public class GbService implements SampleService {
         return dao.executeQuery("gb-gb", paramMap);
     }
 
-    public List<Map<String, Object>> gbSwapList() {
-        Map<String, Object> paramMap = new HashMap<String, Object>();
-        return dao.query4List("gb-swap-list", paramMap);
+    public Map<String, Object> gbSwapList(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-swap-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
 
     public Map<String, Object> gbSwap(String id) {
@@ -46,4 +44,13 @@ public class GbService implements SampleService {
         return dao.executeQuery("gb-swap", paramMap);
     }
 
+    public List<Map<String, Object>> gbGbBanner() {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        return dao.query4List("gb-gb-banner", paramMap);
+    }
+
+    public List<Map<String, Object>> gbSwapBanner() {
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        return dao.query4List("gb-swap-banner", paramMap);
+    }
 }

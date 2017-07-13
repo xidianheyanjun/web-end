@@ -85,4 +85,7 @@ public class UserService implements SampleService {
         return ResponseHelper.createResponse();
     }
 
+    public Map<String, Object> userCollect(Map<String, Object> paramMap) {
+        return dao.pageQuery("user-collect", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
 }

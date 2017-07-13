@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -24,9 +25,12 @@ public class InfoController {
     @ResponseBody
     public Object infoPolicyList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", infoService.infoPolicyList());
+        map.put("data", infoService.infoPolicyList(paramMap));
         return map;
     }
 
@@ -45,9 +49,12 @@ public class InfoController {
     @ResponseBody
     public Object infoIndustryList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", infoService.infoIndustryList());
+        map.put("data", infoService.infoIndustryList(paramMap));
         return map;
     }
 
@@ -66,9 +73,12 @@ public class InfoController {
     @ResponseBody
     public Object infoForumList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", infoService.infoForumList());
+        map.put("data", infoService.infoForumList(paramMap));
         return map;
     }
 
