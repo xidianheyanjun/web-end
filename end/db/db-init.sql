@@ -513,6 +513,7 @@ create table t_store
    id                   integer not null,
    user_id              integer,
    name                 varchar(64),
+   kind                 varchar(16),
    path                 varchar(255),
    create_time          datetime,
    status               tinyint(4) comment '0：已收藏
