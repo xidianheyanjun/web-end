@@ -57,7 +57,7 @@ drop table if exists t_user;
 /*==============================================================*/
 create table t_bank
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    code                 varchar(127),
    name                 varchar(255),
    create_time          datetime,
@@ -76,7 +76,7 @@ alter table t_bank comment '银行信息表';
 /*==============================================================*/
 create table t_config
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    code                 varchar(32),
    name                 varchar(127),
    val                  varchar(255),
@@ -94,7 +94,7 @@ alter table t_config comment '系统配置表';
 /*==============================================================*/
 create table t_credit_activity
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    name                 varchar(127),
    activity_kind        varchar(127),
    create_time          datetime,
@@ -112,7 +112,7 @@ alter table t_credit_activity comment '信用卡优惠活动表';
 /*==============================================================*/
 create table t_credit_apply
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    card_id              integer,
    user_name            varchar(127),
    card_no              varchar(32),
@@ -152,7 +152,7 @@ alter table t_credit_apply comment '信用卡申请表';
 /*==============================================================*/
 create table t_credit_card
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    bank_id              integer,
    work_kind            varchar(127),
    month_income         varchar(127),
@@ -175,7 +175,7 @@ alter table t_credit_card comment '信用卡表';
 /*==============================================================*/
 create table t_credit_coupon
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    bank_id              integer,
    activity_id          integer,
    name                 varchar(127),
@@ -197,7 +197,7 @@ alter table t_credit_coupon comment '信用卡优惠券表';
 /*==============================================================*/
 create table t_data_info
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    data_name            varchar(255),
    data_type            varchar(255),
    belong_type          tinyint(4) comment '0：个人
@@ -216,7 +216,7 @@ alter table t_data_info comment '大数据风控信息表';
 /*==============================================================*/
 create table t_finance
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    bank_id              integer,
    name                 varchar(127),
    purchase_condition   varchar(255),
@@ -241,7 +241,7 @@ alter table t_finance comment '理财产品表';
 /*==============================================================*/
 create table t_finance_popular
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    finance_id           integer,
    popular_type         varchar(4),
    start_time           datetime,
@@ -261,7 +261,7 @@ alter table t_finance_popular comment '热销及推荐产品，用于运营配�
 /*==============================================================*/
 create table t_forum
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(255),
    content              text,
    create_time          datetime,
@@ -280,7 +280,7 @@ alter table t_forum comment '金融论坛表';
 /*==============================================================*/
 create table t_forum_msg
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    msg                  varchar(255),
    create_time          datetime,
    create_user          integer,
@@ -298,7 +298,7 @@ alter table t_forum_msg comment '金融论坛留言表';
 /*==============================================================*/
 create table t_gb
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(255),
    content              text,
    create_time          datetime,
@@ -317,7 +317,7 @@ alter table t_gb comment '政银信息表';
 /*==============================================================*/
 create table t_gb_banner
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(128),
    url                  varchar(255),
    position             integer,
@@ -337,7 +337,7 @@ alter table t_gb_banner comment '政银信息banner';
 /*==============================================================*/
 create table t_gb_swap
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(255),
    content              text,
    create_time          datetime,
@@ -356,7 +356,7 @@ alter table t_gb_swap comment '政银信息交流表';
 /*==============================================================*/
 create table t_gb_swap_banner
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(128),
    url                  varchar(255),
    position             integer,
@@ -376,7 +376,7 @@ alter table t_gb_swap_banner comment '政银信息交流banner';
 /*==============================================================*/
 create table t_industry
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(255),
    content              text,
    create_time          datetime,
@@ -395,7 +395,7 @@ alter table t_industry comment '行业动态表';
 /*==============================================================*/
 create table t_industry_banner
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(128),
    position             integer,
    create_time          datetime,
@@ -414,7 +414,7 @@ alter table t_industry_banner comment '行业动态banner';
 /*==============================================================*/
 create table t_loan_product
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    name                 varchar(127),
    com_kind             varchar(64),
    register_funds       integer,
@@ -440,7 +440,7 @@ alter table t_loan_product comment '贷款产品表';
 /*==============================================================*/
 create table t_login
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    user_id              integer,
    token                varchar(32),
    create_time          datetime,
@@ -456,7 +456,7 @@ alter table t_login comment '用户登录记录表';
 /*==============================================================*/
 create table t_my_finance
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    user_id              integer,
    finance_id           integer,
    create_time          datetime,
@@ -471,7 +471,7 @@ alter table t_my_finance comment '我的理财';
 /*==============================================================*/
 create table t_policy
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(255),
    content              text,
    create_time          datetime,
@@ -490,7 +490,7 @@ alter table t_policy comment '政策表';
 /*==============================================================*/
 create table t_policy_banner
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    title                varchar(128),
    url                  varchar(255),
    position             integer,
@@ -510,7 +510,7 @@ alter table t_policy_banner comment '政策宣传banner';
 /*==============================================================*/
 create table t_store
 (
-   id                   integer not null,
+   id                   integer not null auto_increment,
    user_id              integer,
    name                 varchar(64),
    kind                 varchar(16),

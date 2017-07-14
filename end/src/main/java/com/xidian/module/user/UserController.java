@@ -23,11 +23,12 @@ public class UserController {
 
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})
     @ResponseBody
-    public Object register(String params) {
-        JSONObject jsonObject = JSONObject.fromObject(params);
+    public Object register(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
         String account = (String) jsonObject.get("account");
         String password = (String) jsonObject.get("password");
-        String verifyCode = (String) jsonObject.get("verifyCode");
+        // String verifyCode = (String) jsonObject.get("verifyCode");
+        String verifyCode = "";
         logger.info(String.format("%s|%s|%s", account, password, verifyCode));
         // 校验数据合法性 todo
 

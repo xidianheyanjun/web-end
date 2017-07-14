@@ -69,7 +69,8 @@ public class UserService implements SampleService {
         // 将身份信息存入缓存
         CacheHelper.set(user.get("id").toString(), token);
         Map<String, Object> retMap = ResponseHelper.createResponse();
-        retMap.put("id", user.get("id"));
+        retMap.put("userId", user.get("id"));
+        retMap.put("token", token);
         return retMap;
     }
 
