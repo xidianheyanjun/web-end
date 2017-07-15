@@ -35,10 +35,10 @@
 
     <sql id="user-logout">
         <![CDATA[
-            delete from t_login
-            where user_id = :id
+            update t_login
+            set status = 1
+            where user_id = :userId
             and token = :token
-            and status = 0
 		]]>
     </sql>
 

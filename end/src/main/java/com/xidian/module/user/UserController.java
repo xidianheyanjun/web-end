@@ -51,12 +51,12 @@ public class UserController {
     @ResponseBody
     public Object logout(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
-        String account = (String) jsonObject.get("account");
+        String userId = String.valueOf(jsonObject.get("userId"));
         String token = (String) jsonObject.get("token");
-        logger.info(String.format("%s|%s", account, token));
+        logger.info(String.format("%s|%s", userId, token));
         // 校验数据合法性 todo
 
-        return userService.logout(account, token);
+        return userService.logout(userId, token);
     }
 
     @RequestMapping(value = "/user/collect", method = {RequestMethod.POST})

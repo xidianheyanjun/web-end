@@ -74,13 +74,13 @@ public class UserService implements SampleService {
         return retMap;
     }
 
-    public Map<String, Object> logout(String id, String token) {
+    public Map<String, Object> logout(String userId, String token) {
         // 清除缓存
-        CacheHelper.remove(id);
+        CacheHelper.remove(userId);
 
         // 清除数据库
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("id", id);
+        paramMap.put("userId", userId);
         paramMap.put("token", token);
         dao.executeUpdate("user-logout", paramMap);
         return ResponseHelper.createResponse();
