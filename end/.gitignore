@@ -2,6 +2,8 @@
 .settings
 .classpath
 .project
+.idea
+end.iml
 ./src/main/resources/mail.properties
 ./src/main/resources/sms.properties
 ./target/classes/mail.properties
