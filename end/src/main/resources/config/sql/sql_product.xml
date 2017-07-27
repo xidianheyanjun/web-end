@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql id="product-bank-list">
+        <![CDATA[
+            select id, code, name
+            from t_bank
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+</sqls>

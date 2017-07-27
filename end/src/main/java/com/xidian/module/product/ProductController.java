@@ -1,0 +1,36 @@
+package com.xidian.module.product;
+
+import com.xidian.common.ResponseHelper;
+import net.sf.json.JSONObject;
+import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.HashMap;
+import java.util.Map;
+
+@Controller
+public class ProductController {
+    private Logger logger = Logger.getLogger(getClass());
+
+    @Autowired
+    @Qualifier("ProductService")
+    private ProductService productService;
+
+    @RequestMapping(value = "/product/bank/list", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productBankList(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productBankList(paramMap));
+        return map;
+    }
+}
