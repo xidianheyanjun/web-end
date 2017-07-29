@@ -540,3 +540,19 @@ create table t_user
 
 alter table t_user comment '用户信息表';
 
+/*==============================================================*/
+/* Table: t_credit_query                                                */
+/*==============================================================*/
+create table t_credit_query
+(
+   id                   int not null auto_increment,
+   stype                tinyint(4) comment '1:个人,2:企业',
+   customeruserid       varchar(32),
+   msg                  text,
+   content              text,
+   create_time          datetime,
+   update_time          datetime,
+   primary key (id)
+) ENGINE=InnoDB DEFAULT CHARSET=UTF8;
+
+alter table t_credit_query comment '征信信息表';

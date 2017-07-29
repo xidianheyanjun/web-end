@@ -2,6 +2,7 @@ package com.xidian.interceptor;
 
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -10,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 public class SignInterceptor implements HandlerInterceptor {
     private Logger logger = Logger.getLogger(getClass());
+
+    @Value("#{config[env_mode]}")
+    private String env_mode;
 
     public SignInterceptor() {
     }
@@ -29,6 +33,10 @@ public class SignInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
+        logger.info("this.env_mode|" + this.env_mode);
+        if ("dev".equals(this.env_mode)) {
+            return true;
+        }
         logger.info(String.format("%s", request.getParameter("data")));
         String data = request.getParameter("data");
         String sign = request.getParameter("sign");

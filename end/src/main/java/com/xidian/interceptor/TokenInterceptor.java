@@ -4,11 +4,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 public class TokenInterceptor implements HandlerInterceptor {
     private Logger logger = Logger.getLogger(getClass());
+
+    @Value("#{config[env_mode]}")
+    private String env_mode;
 
     public TokenInterceptor() {
     }
@@ -28,6 +32,10 @@ public class TokenInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
+        logger.info("this.env_mode|" + this.env_mode);
+        if ("dev".equals(this.env_mode)) {
+            return true;
+        }
         return true;
     }
 

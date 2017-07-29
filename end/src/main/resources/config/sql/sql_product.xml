@@ -8,4 +8,33 @@
             order by create_time desc
         ]]>
     </sql>
+
+    <sql id="product-insert-credit-apply">
+        <![CDATA[
+            insert into t_credit_apply(card_id, user_name, card_no, card_expire, card_office,
+            belong_city, edu, marriage, mobile, phone, house, address, zip_code, email,
+            emp_name, work_age, annual_salary, emp_industry, emp_address, emp_zip_code,
+            emp_phone, emp_phone_ext, emp_kind, emp_position, create_time, create_user, status)
+            values(:card_id, :user_name, :card_no, :card_expire, :card_office,
+            :belong_city, :edu, :marriage, :mobile, :phone, :house, :address, :zip_code, :email,
+            :emp_name, :work_age, :annual_salary, :emp_industry, :emp_address, :emp_zip_code,
+            :emp_phone, :emp_phone_ext, :emp_kind, :emp_position, now(), :create_user, 0)
+        ]]>
+    </sql>
+
+    <sql id="product-credit-card">
+        <![CDATA[
+            select id, bank_id, work_kind, month_income, funds, name, product_desc
+            from t_credit_card
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-credit-coupon">
+        <![CDATA[
+            select id, bank_id, activity_id, name, belong_kind_id, popular_star, coupon_desc
+            from t_credit_coupon
+            where status = 0
+        ]]>
+    </sql>
 </sqls>
