@@ -48,7 +48,7 @@ public class GbController {
         return map;
     }
 
-    @RequestMapping(value = "/gb/gb/{id}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/gb/gb/detail/{id}", method = {RequestMethod.POST})
     @ResponseBody
     public Object gbGb(String data, String id) {
         logger.info(id);
@@ -82,7 +82,7 @@ public class GbController {
         return map;
     }
 
-    @RequestMapping(value = "/gb/swap/{id}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/gb/swap/detail/{id}", method = {RequestMethod.POST})
     @ResponseBody
     public Object gbSwap(String data, String id) {
         logger.info(id);

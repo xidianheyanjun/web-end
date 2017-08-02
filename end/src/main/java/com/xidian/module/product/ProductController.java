@@ -33,4 +33,37 @@ public class ProductController {
         map.put("data", productService.productBankList(paramMap));
         return map;
     }
+
+    @RequestMapping(value = "/product/credit/apply", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productCreditApply(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productCreditApply(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/product/credit/card", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productCreditCard(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productCreditCard(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/product/credit/coupon", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productCreditCoupon(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productCreditCoupon(paramMap));
+        return map;
+    }
 }

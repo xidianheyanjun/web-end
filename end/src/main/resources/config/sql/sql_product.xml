@@ -15,10 +15,10 @@
             belong_city, edu, marriage, mobile, phone, house, address, zip_code, email,
             emp_name, work_age, annual_salary, emp_industry, emp_address, emp_zip_code,
             emp_phone, emp_phone_ext, emp_kind, emp_position, create_time, create_user, status)
-            values(:card_id, :user_name, :card_no, :card_expire, :card_office,
-            :belong_city, :edu, :marriage, :mobile, :phone, :house, :address, :zip_code, :email,
-            :emp_name, :work_age, :annual_salary, :emp_industry, :emp_address, :emp_zip_code,
-            :emp_phone, :emp_phone_ext, :emp_kind, :emp_position, now(), :create_user, 0)
+            values(:cardId, :userName, :cardNo, :cardExpire, :cardOffice,
+            :belongCity, :edu, :marriage, :mobile, :phone, :house, :address, :zipCode, :email,
+            :empName, :workAge, :annualSalary, :empIndustry, :empAddress, :empZipCode,
+            :empPhone, :empPhoneExt, :empKind, :empPosition, now(), :create_user, 0)
         ]]>
     </sql>
 

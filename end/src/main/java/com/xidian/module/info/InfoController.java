@@ -34,7 +34,7 @@ public class InfoController {
         return map;
     }
 
-    @RequestMapping(value = "/info/policy/{id}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/info/policy/detail/{id}", method = {RequestMethod.POST})
     @ResponseBody
     public Object infoPolicy(String data, String id) {
         logger.info(id);
@@ -58,7 +58,7 @@ public class InfoController {
         return map;
     }
 
-    @RequestMapping(value = "/info/industry/{id}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/info/industry/detail/{id}", method = {RequestMethod.POST})
     @ResponseBody
     public Object infoIndustry(String data, String id) {
         logger.info(id);
@@ -82,7 +82,7 @@ public class InfoController {
         return map;
     }
 
-    @RequestMapping(value = "/info/forum/{id}", method = {RequestMethod.POST})
+    @RequestMapping(value = "/info/forum/detail/{id}", method = {RequestMethod.POST})
     @ResponseBody
     public Object infoForum(String data, String id) {
         logger.info(id);

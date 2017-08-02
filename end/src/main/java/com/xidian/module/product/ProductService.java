@@ -25,4 +25,16 @@ public class ProductService implements SampleService {
     public Map<String, Object> productBankList(Map<String, Object> paramMap) {
         return dao.pageQuery("product-bank-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
     }
+
+    public Object productCreditApply(Map<String, Object> paramMap) {
+        return dao.executeUpdate("product-insert-credit-apply", paramMap);
+    }
+
+    public Object productCreditCard(Map<String, Object> paramMap) {
+        return dao.query4List("product-credit-card", paramMap);
+    }
+
+    public Object productCreditCoupon(Map<String, Object> paramMap) {
+        return dao.query4List("product-credit-coupon", paramMap);
+    }
 }
