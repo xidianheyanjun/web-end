@@ -46,6 +46,14 @@ public class CreditService implements SampleService {
         logger.info("creaditQuery|" + result);
         JSONObject jsonBean = JSONObject.fromObject(result);
         httpClient.close();
+        String success = jsonBean.getString("success");
+        if ("e".equals(success)) {
+            String message = jsonBean.getString("message");
+            logger.error("creaditQuery|error|" + message);
+            return map;
+        }
+
+        dao.executeUpdate("credit-insert", map);
         return map;
     }
 

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql id="credit-insert">
+        <![CDATA[
+            insert into t_credit_query(stype, user_name, card_id, content, create_time)
+            values(:stype, :user_name, :card_id, :content, now())
+        ]]>
+    </sql>
+</sqls>

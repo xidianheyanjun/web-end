@@ -547,8 +547,8 @@ create table t_credit_query
 (
    id                   int not null auto_increment,
    stype                tinyint(4) comment '1:个人,2:企业',
-   customeruserid       varchar(32),
-   msg                  text,
+   user_name            varchar(256),
+   card_id              varchar(32),
    content              text,
    create_time          datetime,
    update_time          datetime,
