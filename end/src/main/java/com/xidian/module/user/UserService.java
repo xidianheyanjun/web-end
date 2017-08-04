@@ -67,7 +67,7 @@ public class UserService implements SampleService {
         dao.executeUpdate("user-login", user);
 
         // 将身份信息存入缓存
-        CacheHelper.set(user.get("id").toString(), token);
+        CacheHelper.set(user.get("userId").toString(), token);
         Map<String, Object> retMap = ResponseHelper.createResponse();
         retMap.put("data", user);
         return retMap;

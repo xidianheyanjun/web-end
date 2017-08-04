@@ -18,7 +18,7 @@
 
     <sql id="user-query">
         <![CDATA[
-			select id
+			select id as id, id as userId
 			from t_user
 			where acc = :acc
 			and psw = password(:psw)
