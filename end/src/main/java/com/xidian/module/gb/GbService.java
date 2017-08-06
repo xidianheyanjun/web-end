@@ -53,4 +53,24 @@ public class GbService implements SampleService {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         return dao.query4List("gb-swap-banner", paramMap);
     }
+
+    public Map<String, Object> gbPublish(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-publish", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
+
+    public Map<String, Object> gbInfo(Map<String, Object> paramMap) {
+        return dao.executeQuery("gb-info", paramMap);
+    }
+
+    public Map<String, Object> gbMeet(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-meet", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
+
+    public Map<String, Object> gbForum(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-forum", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
+
+    public Map<String, Object> gbComment(Map<String, Object> paramMap) {
+        return dao.pageQuery("gb-comment", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
 }

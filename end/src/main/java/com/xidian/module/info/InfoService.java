@@ -52,4 +52,15 @@ public class InfoService implements SampleService {
         paramMap.put("id", id);
         return dao.executeQuery("info-forum", paramMap);
     }
+
+    public Map<String, Object> infoList(Map<String, Object> paramMap) {
+        String kind = (String) paramMap.get("kind");
+        if ("industry".equals(kind)) {
+            return dao.pageQuery("info-industry-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+        } else if ("forum".equals(kind)) {
+            return dao.pageQuery("info-forum-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+        }
+
+        return dao.pageQuery("info-policy-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
 }

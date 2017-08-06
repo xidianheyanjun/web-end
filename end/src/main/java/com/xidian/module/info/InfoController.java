@@ -21,6 +21,20 @@ public class InfoController {
     @Qualifier("InfoService")
     private InfoService infoService;
 
+    @RequestMapping(value = "/info/list", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object infoList(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+        paramMap.put("kind", jsonObject.get("kind"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", infoService.infoList(paramMap));
+        return map;
+    }
+
     @RequestMapping(value = "/info/policy/list", method = {RequestMethod.POST})
     @ResponseBody
     public Object infoPolicyList(String data) {

@@ -37,4 +37,24 @@
             where status = 0
         ]]>
     </sql>
+
+    <sql id="product-loan-search-company">
+        <![CDATA[
+            select id, name, com_kind, register_funds, loan_funds, loan_kind, loan_deadline,
+            bank_id, loan_desc, loan_condition
+            from t_loan_product
+            where loan_kind = "company"
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-loan-search-personal">
+        <![CDATA[
+            select id, name, com_kind, register_funds, loan_funds, loan_kind, loan_deadline,
+            bank_id, loan_desc, loan_condition
+            from t_loan_product
+            where loan_kind = "personal"
+            and status = 0
+        ]]>
+    </sql>
 </sqls>

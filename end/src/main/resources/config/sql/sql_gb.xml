@@ -53,4 +53,48 @@
             order by position
         ]]>
     </sql>
+
+    <sql id="gb-publish">
+        <![CDATA[
+            select id, title
+            from t_gb
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="gb-info">
+        <![CDATA[
+            select id, title, content
+            from t_gb
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="gb-meet">
+        <![CDATA[
+            select id, title, content, create_user
+            from t_gb_swap_detail
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="gb-forum">
+        <![CDATA[
+            select id, title
+            from t_gb_swap
+            where status = 0
+            order by create_time desc
+        ]]>
+    </sql>
+
+    <sql id="gb-comment">
+        <![CDATA[
+            select id, title, content, create_user
+            from t_gb_swap_detail
+            where swap_id = :id
+            and status = 0
+        ]]>
+    </sql>
 </sqls>

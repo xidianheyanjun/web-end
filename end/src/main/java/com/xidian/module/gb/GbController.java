@@ -103,6 +103,71 @@ public class GbController {
         return map;
     }
 
+    @RequestMapping(value = "/gb/publish", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbPublish(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbPublish(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/info/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbInfo(String data, String id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbInfo(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/meet", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbMeet(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbMeet(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/forum", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbForum(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbForum(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/comment/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbComment(String data, String id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
+        paramMap.put("pageSize", jsonObject.get("pageSize"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbComment(paramMap));
+        return map;
+    }
+
     @RequestMapping(value = "/gb/send/email", method = {RequestMethod.POST})
     @ResponseBody
     public Object sendEmail(String name) {

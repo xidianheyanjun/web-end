@@ -66,4 +66,25 @@ public class ProductController {
         map.put("data", productService.productCreditCoupon(paramMap));
         return map;
     }
+
+    @RequestMapping(value = "/product/loan/search", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productLoanSearch(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        String pageType = jsonObject.getString("pageType");
+        Map<String, Object> map = ResponseHelper.createResponse();
+        if ("company".equals(pageType)) {
+            paramMap.put("companyNature", jsonObject.get("companyNature"));
+            paramMap.put("registeredCapital", jsonObject.get("registeredCapital"));
+            paramMap.put("loanAmount", jsonObject.get("loanAmount"));
+            paramMap.put("loanType", jsonObject.get("loanType"));
+            paramMap.put("loanPeriod", jsonObject.get("loanPeriod"));
+            map.put("data", productService.productLoanSearchCompany(paramMap));
+        } else {
+            map.put("data", productService.productLoanSearchPersonal(paramMap));
+        }
+
+        return map;
+    }
 }

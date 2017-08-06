@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service("ProductService")
@@ -36,5 +37,13 @@ public class ProductService implements SampleService {
 
     public Object productCreditCoupon(Map<String, Object> paramMap) {
         return dao.query4List("product-credit-coupon", paramMap);
+    }
+
+    public List<Map<String, Object>> productLoanSearchCompany(Map<String, Object> paramMap) {
+        return dao.query4List("product-loan-search-company", paramMap);
+    }
+
+    public List<Map<String, Object>> productLoanSearchPersonal(Map<String, Object> paramMap) {
+        return dao.query4List("product-loan-search-personal", paramMap);
     }
 }
