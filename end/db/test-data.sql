@@ -1,3 +1,9 @@
+insert into t_user(id, acc, psw, create_time, status)
+values(1, "13974680000", password("123456"), now(), 0),
+(2, "13974680001", password("123456"), now(), 0),
+(3, "13974680002", password("123456"), now(), 0);
+
+
 insert into t_gb(title, content, create_time, create_user, status)
 values("t_gb测试标题1", "t_gb测试的内容1", now(), 0, 0),
 ("t_gb测试标题2", "t_gb测试的内容2", now(), 0, 0),
@@ -25,6 +31,19 @@ values("t_gb_banner测试标题1", "http://119.23.41.237:8180/end/image/hawk.png
 ("t_gb_banner测试标题10", "http://119.23.41.237:8180/end/image/hawk.png", 10, now(), 0, 0),
 ("t_gb_banner测试标题11", "http://119.23.41.237:8180/end/image/hawk.png", 11, now(), 0, 0);
 
+insert into t_gb_chat(title, content, create_time, create_user, status)
+values("t_gb_chat测试标题1", "t_gb_chat测试的内容1", now(), 1, 0),
+("t_gb_chat测试标题2", "t_gb_chat测试的内容2", now(), 1, 0),
+("t_gb_chat测试标题3", "t_gb_chat测试的内容3", now(), 2, 0),
+("t_gb_chat测试标题4", "t_gb_chat测试的内容4", now(), 3, 0),
+("t_gb_chat测试标题5", "t_gb_chat测试的内容5", now(), 2, 0),
+("t_gb_chat测试标题6", "t_gb_chat测试的内容6", now(), 2, 0),
+("t_gb_chat测试标题7", "t_gb_chat测试的内容7", now(), 3, 0),
+("t_gb_chat测试标题8", "t_gb_chat测试的内容8", now(), 3, 0),
+("t_gb_chat测试标题9", "t_gb_chat测试的内容9", now(), 1, 0),
+("t_gb_chat测试标题10", "t_gb_chat测试的内容10", now(), 3, 0),
+("t_gb_chat测试标题11", "t_gb_chat测试的内容11", now(), 2, 0);
+
 insert into t_gb_swap(title, content, create_time, create_user, status)
 values("t_gb_swap测试标题1", "t_gb_swap测试的内容1", now(), 0, 0),
 ("t_gb_swap测试标题2", "t_gb_swap测试的内容2", now(), 0, 0),
@@ -37,6 +56,19 @@ values("t_gb_swap测试标题1", "t_gb_swap测试的内容1", now(), 0, 0),
 ("t_gb_swap测试标题9", "t_gb_swap测试的内容9", now(), 0, 0),
 ("t_gb_swap测试标题10", "t_gb_swap测试的内容10", now(), 0, 0),
 ("t_gb_swap测试标题11", "t_gb_swap测试的内容11", now(), 0, 0);
+
+insert into t_gb_swap_detail_detail(swap_id, content, create_time, create_user, status)
+values(1, "t_gb_swap_detail测试的内容1", now(), 0, 0),
+(1, "t_gb_swap_detail测试的内容2", now(), 1, 0),
+(1, "t_gb_swap_detail测试的内容3", now(), 1, 0),
+(1, "t_gb_swap_detail测试的内容4", now(), 1, 0),
+(2, "t_gb_swap_detail测试的内容5", now(), 1, 0),
+(2, "t_gb_swap_detail测试的内容6", now(), 2, 0),
+(3, "t_gb_swap_detail测试的内容7", now(), 3, 0),
+(2, "t_gb_swap_detail测试的内容8", now(), 3, 0),
+(2, "t_gb_swap_detail测试的内容9", now(), 2, 0),
+(1, "t_gb_swap_detail测试的内容10", now(), 2, 0),
+(1, "t_gb_swap_detail测试的内容11", now(), 3, 0);
 
 insert into t_swap_banner(title, url, position, create_time, create_user, status)
 values("t_swap_banner测试标题1", "http://119.23.41.237:8180/end/image/hawk.png", 1, now(), 0, 0),

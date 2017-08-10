@@ -62,15 +62,17 @@ public class GbService implements SampleService {
         return dao.executeQuery("gb-info", paramMap);
     }
 
-    public Map<String, Object> gbMeet(Map<String, Object> paramMap) {
-        return dao.pageQuery("gb-meet", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    public List<Map<String, Object>> gbMeet(Map<String, Object> paramMap) {
+        return dao.query4List("gb-meet", paramMap);
     }
 
-    public Map<String, Object> gbForum(Map<String, Object> paramMap) {
-        return dao.pageQuery("gb-forum", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    public List<Map<String, Object>> gbForum(Map<String, Object> paramMap) {
+        return dao.query4List("gb-forum", paramMap);
     }
 
     public Map<String, Object> gbComment(Map<String, Object> paramMap) {
-        return dao.pageQuery("gb-comment", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+        Map<String, Object> swap = dao.executeQuery("gb-comment", paramMap);
+        swap.put("message", dao.query4List("gb-comment-message", paramMap));
+        return swap;
     }
 }

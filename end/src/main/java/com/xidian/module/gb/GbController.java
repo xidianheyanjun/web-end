@@ -3,6 +3,7 @@ package com.xidian.module.gb;
 import com.qcloud.sms.SmsSingleSender;
 import com.qcloud.sms.SmsSingleSenderResult;
 import com.xidian.common.ResponseHelper;
+import com.xidian.common.ValidHelper;
 import com.xidian.module.core.CoreService;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
@@ -108,8 +109,10 @@ public class GbController {
     public Object gbPublish(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
-        paramMap.put("pageSize", jsonObject.get("pageSize"));
+        String pageIndex = (String) jsonObject.get("pageIndex");
+        String pageSize = (String) jsonObject.get("pageSize");
+        paramMap.put("pageIndex", ValidHelper.isNumber(pageIndex) ? Integer.valueOf(pageIndex) : 1);
+        paramMap.put("pageSize", ValidHelper.isNumber(pageSize) ? Integer.valueOf(pageSize) : 20);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", gbService.gbPublish(paramMap));
@@ -160,8 +163,6 @@ public class GbController {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
-        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
-        paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", gbService.gbComment(paramMap));

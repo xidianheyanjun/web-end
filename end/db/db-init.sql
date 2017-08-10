@@ -374,6 +374,28 @@ ALTER TABLE t_gb_banner
   COMMENT '政银信息banner';
 
 /*==============================================================*/
+/* Table: t_gb_chat                                             */
+/*==============================================================*/
+CREATE TABLE t_gb_chat
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  title       VARCHAR(255),
+  content     TEXT,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_gb_chat
+  COMMENT '政银信息群聊表';
+
+/*==============================================================*/
 /* Table: t_gb_swap                                             */
 /*==============================================================*/
 CREATE TABLE t_gb_swap
@@ -402,7 +424,6 @@ CREATE TABLE t_gb_swap_detail
 (
   id          INTEGER NOT NULL AUTO_INCREMENT,
   swap_id     INTEGER,
-  title       VARCHAR(255),
   content     TEXT,
   create_time DATETIME,
   create_user INTEGER,
@@ -416,7 +437,7 @@ CREATE TABLE t_gb_swap_detail
   DEFAULT CHARSET = UTF8;
 
 ALTER TABLE t_gb_swap
-  COMMENT '政银信息交流表';
+  COMMENT '政银论坛交流表';
 
 /*==============================================================*/
 /* Table: t_gb_swap_banner                                      */
