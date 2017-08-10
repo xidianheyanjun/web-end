@@ -57,7 +57,7 @@ values("t_gb_swap测试标题1", "t_gb_swap测试的内容1", now(), 0, 0),
 ("t_gb_swap测试标题10", "t_gb_swap测试的内容10", now(), 0, 0),
 ("t_gb_swap测试标题11", "t_gb_swap测试的内容11", now(), 0, 0);
 
-insert into t_gb_swap_detail_detail(swap_id, content, create_time, create_user, status)
+insert into t_gb_swap_detail(swap_id, content, create_time, create_user, status)
 values(1, "t_gb_swap_detail测试的内容1", now(), 0, 0),
 (1, "t_gb_swap_detail测试的内容2", now(), 1, 0),
 (1, "t_gb_swap_detail测试的内容3", now(), 1, 0),
@@ -70,18 +70,18 @@ values(1, "t_gb_swap_detail测试的内容1", now(), 0, 0),
 (1, "t_gb_swap_detail测试的内容10", now(), 2, 0),
 (1, "t_gb_swap_detail测试的内容11", now(), 3, 0);
 
-insert into t_swap_banner(title, url, position, create_time, create_user, status)
-values("t_swap_banner测试标题1", "http://119.23.41.237:8180/end/image/hawk.png", 1, now(), 0, 0),
-("t_swap_banner测试标题2", "http://119.23.41.237:8180/end/image/hawk.png", 2, now(), 0, 0),
-("t_swap_banner测试标题3", "http://119.23.41.237:8180/end/image/hawk.png", 3, now(), 0, 0),
-("t_swap_banner测试标题4", "http://119.23.41.237:8180/end/image/hawk.png", 4, now(), 0, 0),
-("t_swap_banner测试标题5", "http://119.23.41.237:8180/end/image/hawk.png", 5, now(), 0, 0),
-("t_swap_banner测试标题6", "http://119.23.41.237:8180/end/image/hawk.png", 6, now(), 0, 0),
-("t_swap_banner测试标题7", "http://119.23.41.237:8180/end/image/hawk.png", 7, now(), 0, 0),
-("t_swap_banner测试标题8", "http://119.23.41.237:8180/end/image/hawk.png", 8, now(), 0, 0),
-("t_swap_banner测试标题9", "http://119.23.41.237:8180/end/image/hawk.png", 9, now(), 0, 0),
-("t_swap_banner测试标题10", "http://119.23.41.237:8180/end/image/hawk.png", 10, now(), 0, 0),
-("t_swap_banner测试标题11", "http://119.23.41.237:8180/end/image/hawk.png", 11, now(), 0, 0);
+insert into t_gb_swap_banner(title, url, position, create_time, create_user, status)
+values("t_gb_swap_banner测试标题1", "http://119.23.41.237:8180/end/image/hawk.png", 1, now(), 0, 0),
+("t_gb_swap_banner测试标题2", "http://119.23.41.237:8180/end/image/hawk.png", 2, now(), 0, 0),
+("t_gb_swap_banner测试标题3", "http://119.23.41.237:8180/end/image/hawk.png", 3, now(), 0, 0),
+("t_gb_swap_banner测试标题4", "http://119.23.41.237:8180/end/image/hawk.png", 4, now(), 0, 0),
+("t_gb_swap_banner测试标题5", "http://119.23.41.237:8180/end/image/hawk.png", 5, now(), 0, 0),
+("t_gb_swap_banner测试标题6", "http://119.23.41.237:8180/end/image/hawk.png", 6, now(), 0, 0),
+("t_gb_swap_banner测试标题7", "http://119.23.41.237:8180/end/image/hawk.png", 7, now(), 0, 0),
+("t_gb_swap_banner测试标题8", "http://119.23.41.237:8180/end/image/hawk.png", 8, now(), 0, 0),
+("t_gb_swap_banner测试标题9", "http://119.23.41.237:8180/end/image/hawk.png", 9, now(), 0, 0),
+("t_gb_swap_banner测试标题10", "http://119.23.41.237:8180/end/image/hawk.png", 10, now(), 0, 0),
+("t_gb_swap_banner测试标题11", "http://119.23.41.237:8180/end/image/hawk.png", 11, now(), 0, 0);
 
 insert into t_policy(title, content, create_time, create_user, status)
 values("t_policy测试标题1", "t_policy测试的内容1", now(), 0, 0),

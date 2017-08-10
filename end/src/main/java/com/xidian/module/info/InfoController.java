@@ -6,6 +6,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -37,7 +38,7 @@ public class InfoController {
 
     @RequestMapping(value = "/info/policy/{id}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object infoPolicy(String data, String id) {
+    public Object infoPolicy(String data, @PathVariable int id) {
         logger.info(id);
         JSONObject jsonObject = JSONObject.fromObject(data);
 
@@ -48,7 +49,7 @@ public class InfoController {
 
     @RequestMapping(value = "/info/industry/{id}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object infoIndustry(String data, String id) {
+    public Object infoIndustry(String data, @PathVariable int id) {
         logger.info(id);
         JSONObject jsonObject = JSONObject.fromObject(data);
 
@@ -60,7 +61,7 @@ public class InfoController {
 
     @RequestMapping(value = "/info/forum/{id}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object infoForum(String data, String id) {
+    public Object infoForum(String data, @PathVariable int id) {
         logger.info(id);
         JSONObject jsonObject = JSONObject.fromObject(data);
 

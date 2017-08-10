@@ -34,6 +34,7 @@ public class SignInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request,
                              HttpServletResponse response, Object handler) throws Exception {
         logger.info("this.env_mode|" + this.env_mode);
+        logger.info("data|" + request.getParameter("data"));
         if ("dev".equals(this.env_mode)) {
             return true;
         }

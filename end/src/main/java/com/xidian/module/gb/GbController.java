@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -121,7 +122,7 @@ public class GbController {
 
     @RequestMapping(value = "/gb/info/{id}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object gbInfo(String data, String id) {
+    public Object gbInfo(String data, @PathVariable int id) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
@@ -140,7 +141,9 @@ public class GbController {
         paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", gbService.gbMeet(paramMap));
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("list", gbService.gbMeet(paramMap));
+        map.put("data", retMap);
         return map;
     }
 
@@ -153,13 +156,15 @@ public class GbController {
         paramMap.put("pageSize", jsonObject.get("pageSize"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", gbService.gbForum(paramMap));
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("list", gbService.gbForum(paramMap));
+        map.put("data", retMap);
         return map;
     }
 
     @RequestMapping(value = "/gb/comment/{id}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object gbComment(String data, String id) {
+    public Object gbComment(String data, @PathVariable int id) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);

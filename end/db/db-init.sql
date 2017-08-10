@@ -14,6 +14,8 @@ DROP TABLE IF EXISTS t_credit_apply;
 
 DROP TABLE IF EXISTS t_credit_card;
 
+DROP TABLE IF EXISTS t_credit_query;
+
 DROP TABLE IF EXISTS t_credit_coupon;
 
 DROP TABLE IF EXISTS t_data_info;
@@ -31,6 +33,8 @@ DROP TABLE IF EXISTS t_gb;
 DROP TABLE IF EXISTS t_gb_banner;
 
 DROP TABLE IF EXISTS t_gb_swap;
+
+DROP TABLE IF EXISTS t_gb_chat;
 
 DROP TABLE IF EXISTS t_gb_swap_detail;
 
