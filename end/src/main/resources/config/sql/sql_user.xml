@@ -33,6 +33,16 @@
 		]]>
     </sql>
 
+    <sql id="user-login-cache">
+        <![CDATA[
+			select id
+			from t_login
+			where user_id = :userId
+			and token = :token
+			and status = 0
+		]]>
+    </sql>
+
     <sql id="user-logout">
         <![CDATA[
             update t_login

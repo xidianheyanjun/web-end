@@ -6,6 +6,7 @@ import com.xidian.common.ResponseHelper;
 import com.xidian.common.ValidHelper;
 import com.xidian.module.core.CoreService;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -171,6 +172,25 @@ public class GbController {
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", gbService.gbComment(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/gb/message", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbMessage(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String userId = (String) jsonObject.get("userId");
+        String token = (String) jsonObject.get("token");
+        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(token) || !coreService.isLogin(userId, token)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "用户未登录");
+        }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("userId", Integer.valueOf(userId));
+        paramMap.put("commontId", jsonObject.get("commontId"));
+        paramMap.put("message", jsonObject.get("message"));
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", gbService.gbMessage(paramMap));
         return map;
     }
 

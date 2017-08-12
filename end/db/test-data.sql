@@ -122,27 +122,112 @@ values("t_forum测试标题1", "t_forum测试的内容1", now(), 0, 0),
 ("t_forum测试标题10", "t_forum测试的内容10", now(), 0, 0),
 ("t_forum测试标题11", "t_forum测试的内容11", now(), 0, 0);
 
-insert into t_bank(code, name, create_time, create_user, status)
-values("zhaoshang", "招商银行", now(), 0, 0),
-("jianshe", "建设银行", now(), 0, 0),
-("minsheng", "民生银行", now(), 0, 0),
-("nongye", "农业银行", now(), 0, 0),
-("huaxia", "华夏银行", now(), 0, 0),
-("shanghai", "上海银行", now(), 0, 0),
-("zhongguo", "中国银行", now(), 0, 0),
-("ningbo", "宁波银行", now(), 0, 0),
-("zheshang", "浙商银行", now(), 0, 0),
-("nongshang", "农商银行", now(), 0, 0);
+insert into t_bank(code, name, icon, create_time, create_user, status)
+values("zhaoshang", "招商银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("jianshe", "建设银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("minsheng", "民生银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("nongye", "农业银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("huaxia", "华夏银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("shanghai", "上海银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("zhongguo", "中国银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("ningbo", "宁波银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("zheshang", "浙商银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+("nongshang", "农商银行", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0);
 
-insert into t_credit_card(bank_id, work_kind, month_income, funds, name, product_desc, create_time, create_user, status)
-values(1, "kind1", "5-10", 100000, "招商信用卡", "招商信用卡铂金卡1说明", now(), 0, 0),
-(1, "kind2", "5-10", 110000, "招商信用卡", "招商信用卡铂金卡2说明", now(), 0, 0),
-(1, "kind3", "5-10", 120000, "招商信用卡", "招商信用卡铂金卡3说明", now(), 0, 0),
-(1, "kind4", "5-10", 130000, "招商信用卡", "招商信用卡铂金卡4说明", now(), 0, 0),
-(1, "kind5", "5-10", 140000, "招商信用卡", "招商信用卡铂金卡5说明", now(), 0, 0),
-(1, "kind6", "5-10", 150000, "招商信用卡", "招商信用卡铂金卡6说明", now(), 0, 0),
-(1, "kind7", "5-10", 160000, "招商信用卡", "招商信用卡铂金卡7说明", now(), 0, 0),
-(1, "kind8", "5-10", 170000, "招商信用卡", "招商信用卡铂金卡8说明", now(), 0, 0),
-(1, "kind9", "5-10", 180000, "招商信用卡", "招商信用卡铂金卡9说明", now(), 0, 0),
-(1, "kind10", "5-10", 1900000, "招商信用卡", "招商信用卡铂金卡10说明", now(), 0, 0),
-(1, "kind11", "5-10", 200000, "招商信用卡", "招商信用卡铂金卡11说明", now(), 0, 0);
+insert into t_type_use(name, create_time, create_user, status)
+values("用途1", now(), 0, 0),
+("用途2", now(), 0, 0),
+("用途3", now(), 0, 0),
+("用途4", now(), 0, 0),
+("用途5", now(), 0, 0),
+("用途6", now(), 0, 0),
+("用途7", now(), 0, 0),
+("用途8", now(), 0, 0);
+
+insert into t_card_level(name, create_time, create_user, status)
+values("等级1", now(), 0, 0),
+("等级2", now(), 0, 0),
+("等级3", now(), 0, 0),
+("等级4", now(), 0, 0),
+("等级5", now(), 0, 0),
+("等级6", now(), 0, 0),
+("等级7", now(), 0, 0),
+("等级8", now(), 0, 0);
+
+insert into t_credit_card(bank_id, work_kind, month_income, type_use_id, card_level_id, funds, name, info, image, product_desc, type_use, type_hot, create_time, create_user, status)
+values(1, "kind1", "5-10", 100000, 1, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡1说明", 1, 1, now(), 0, 0),
+(1, "kind2", "5-10", 110000, 1, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡2说明", 1, 1, now(), 0, 0),
+(1, "kind3", "5-10", 120000, 2, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡3说明", 1, 1, now(), 0, 0),
+(1, "kind4", "5-10", 130000, 3, 1, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡4说明", 1, 1, now(), 0, 0),
+(1, "kind5", "5-10", 140000, 2, 1, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡5说明", 1, 1, now(), 0, 0),
+(1, "kind6", "5-10", 150000, 1, 1, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡6说明", 1, 1, now(), 0, 0),
+(1, "kind7", "5-10", 160000, 3, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡7说明", 1, 1, now(), 0, 0),
+(1, "kind8", "5-10", 170000, 3, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡8说明", 1, 1, now(), 0, 0),
+(1, "kind9", "5-10", 180000, 3, 1, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡9说明", 1, 1, now(), 0, 0),
+(1, "kind10", "5-10", 1900000, 1, 2, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡10说明", 1, 1, now(), 0, 0),
+(1, "kind11", "5-10", 200000, 1, 1, "招商信用卡", "给高颜值的你", "http://119.23.41.237:8180/front/static/images/credit.jpg", "招商信用卡铂金卡11说明", 1, 1, now(), 0, 0);
+
+insert into t_code_loan(id, name, loan_kind, icon, create_time, create_user, status)
+values(1, "贷款形式1", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(2, "贷款形式2", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0,
+(3, "贷款形式3", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(4, "贷款形式4", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(5, "贷款形式5", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(6, "贷款形式6", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(7, "贷款形式7", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(8, "贷款形式8", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(9, "贷款形式9", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(10, "贷款形式10", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(11, "贷款形式11", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(12, "贷款形式12", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(13, "贷款形式13", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(14, "贷款形式14", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(15, "贷款形式15", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
+(16, "贷款形式16", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0);
+
+insert into t_loan_product(name, loan_kind_id, icon, loan_desc, create_time, create_user, status)
+values("loan_product_1", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_2", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_3", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_4", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_5", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_6", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_7", 3, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_8", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_9", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_10", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_11", 9, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_12", 9, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_13", 10, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0);
+
+
+insert into t_notice(title, url, create_time, create_user, status)
+values("[快银通推送]江西银行高资产净值客户理财产品火热发售", "#/info/policy/1", now(), 0, 0),
+("[快银通推送]浦发银行信用卡新开户好礼相送", "#/info/policy/1", now(), 0, 0),
+("[快银通推送]赣州银行xx区开张迎宾贺大礼", "#/info/policy/1", now(), 0, 0);
+
+
+insert into t_finance(bank_id, name, purchase_condition, purchase_period, purchase_point,
+purchase_phone, income_rate, num, tag, product_desc, create_time, create_user, status)
+values(1, "江西银行优盛理财财-创鑫16366A", "条件1", 87, 6,
+        "13974680000", 1, 34, "人气", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 1, 6,
+        "13974680000", 3, 13, "", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 234, 6,
+        "13974680000", 3, 45, "推荐", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 534, 6,
+        "13974680000", 8, 56, "人气", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 43, 6,
+        "13974680000", 9, 23, "推荐", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 67, 6,
+        "13974680000", 13, 32, "人气", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 8, 6,
+        "13974680000", 34, 33, "", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 567, 6,
+        "13974680000", 23, 30, "推荐", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 456, 6,
+        "13974680000", 32, 1, "", "产品简介1", now(), 0, 0),
+(1, "江西银行优盛理财财-创鑫16366A", "条件1", 76, 6,
+        "13974680000", 23, 89, "人气", "产品简介1", now(), 0, 0);
+
+

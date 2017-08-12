@@ -3,7 +3,9 @@ package com.xidian.module.core;
 import com.qcloud.sms.SmsSingleSender;
 import com.qcloud.sms.SmsSingleSenderResult;
 import com.sun.mail.util.MailSSLSocketFactory;
+import com.xidian.common.CacheHelper;
 import com.xidian.dataAccess.Dao;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,8 +16,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.security.GeneralSecurityException;
-import java.util.ArrayList;
-import java.util.Properties;
+import java.util.*;
 
 @Service("CoreService")
 public class CoreService {
@@ -109,4 +110,22 @@ public class CoreService {
         return true;
     }
 
+    public boolean isLogin(String userId, String token) {
+        String cacheToken = CacheHelper.get(userId);
+        if (token.equals(cacheToken)) {
+            return true;
+        }
+
+        if (StringUtils.isEmpty(cacheToken)) {
+            Map<String, Object> paramMap = new HashMap<String, Object>();
+            paramMap.put("userId", userId);
+            paramMap.put("token", token);
+            List<Map<String, Object>> list = dao.query4List("user-login-cache", paramMap);
+            if (list.size() > 0) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -40,9 +40,8 @@
 
     <sql id="product-loan-search-company">
         <![CDATA[
-            select id, name, com_kind, register_funds, loan_funds, loan_kind, loan_deadline,
-            bank_id, loan_desc, loan_condition
-            from t_loan_product
+            select id, name, loan_kind, icon
+            from t_code_loan
             where loan_kind = "company"
             and status = 0
         ]]>
@@ -50,10 +49,151 @@
 
     <sql id="product-loan-search-personal">
         <![CDATA[
-            select id, name, com_kind, register_funds, loan_funds, loan_kind, loan_deadline,
-            bank_id, loan_desc, loan_condition
-            from t_loan_product
+            select id, name, loan_kind, icon
+            from t_code_loan
             where loan_kind = "personal"
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-loan-list">
+        <![CDATA[
+            select id as id, name as title, loan_desc as content
+            from t_loan_product
+            where loan_kind_id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-bank">
+        <![CDATA[
+            select name as name, id as value
+            from t_bank
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-banks">
+        <![CDATA[
+            select id as id, name as name, icon as icon
+            from t_bank
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-loan-type">
+        <![CDATA[
+            select name as name, id as value
+            from t_code_loan
+            where loan_kind = (select loan_kind
+                                from t_code_loan
+                                where id = :id)
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-loan-detail">
+        <![CDATA[
+            select id as id, name as title, loan_desc as content
+            from t_loan_product
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-credit-banner">
+        <![CDATA[
+            select id as id, img as img, url as url
+            from t_credit_banner
+            where status = 0
+            order by position
+        ]]>
+    </sql>
+
+    <sql id="product-type-use-card">
+        <![CDATA[
+            select id as id, name as title, image as image, info as info
+            from t_credit_card
+            where type_use = 1
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-type-hot-card">
+        <![CDATA[
+            select id as id, name as title, image as image, info as info
+            from t_credit_card
+            where type_hot = 1
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-credit-detail">
+        <![CDATA[
+            select id as id, name as cardName, image as cardImg, info as cardTxt, product_desc as detail
+            from t_credit_card
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-credit-card">
+        <![CDATA[
+            select id as id, name as cardName, image as cardImg, info as cardTxt, product_desc as detail
+            from t_credit_card
+            where bank_id = :bankId
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-credit-card">
+        <![CDATA[
+            select name as name, id as value
+            from t_type_use
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-card-level">
+        <![CDATA[
+            select name as name, id as value
+            from t_card_level
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-finance">
+        <![CDATA[
+            select id as id, name as title, purchase_point as money,
+            purchase_period,as time, income_rate as profit,
+            num as num, tag as tag
+            from t_finance
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-finance-detail">
+        <![CDATA[
+            select id as id, title as title, product_desc as content
+            from t_finance
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-notice">
+        <![CDATA[
+            select id as id, title as title, url as url
+            from t_notice
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-finance">
+        <![CDATA[
+            select id as id, title as title, product_desc as content
+            from t_finance
+            where bank_id = :bankId
             and status = 0
         ]]>
     </sql>

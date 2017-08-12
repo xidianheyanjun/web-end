@@ -12,7 +12,13 @@ DROP TABLE IF EXISTS t_credit_activity;
 
 DROP TABLE IF EXISTS t_credit_apply;
 
+DROP TABLE IF EXISTS t_type_use;
+
+DROP TABLE IF EXISTS t_card_level;
+
 DROP TABLE IF EXISTS t_credit_card;
+
+DROP TABLE IF EXISTS t_credit_banner;
 
 DROP TABLE IF EXISTS t_credit_query;
 
@@ -23,6 +29,8 @@ DROP TABLE IF EXISTS t_data_info;
 DROP TABLE IF EXISTS t_finance;
 
 DROP TABLE IF EXISTS t_finance_popular;
+
+DROP TABLE IF EXISTS t_notice;
 
 DROP TABLE IF EXISTS t_forum;
 
@@ -43,6 +51,8 @@ DROP TABLE IF EXISTS t_gb_swap_banner;
 DROP TABLE IF EXISTS t_industry;
 
 DROP TABLE IF EXISTS t_industry_banner;
+
+DROP TABLE IF EXISTS t_code_loan;
 
 DROP TABLE IF EXISTS t_loan_product;
 
@@ -66,6 +76,7 @@ CREATE TABLE t_bank
   id          INTEGER NOT NULL AUTO_INCREMENT,
   code        VARCHAR(127),
   name        VARCHAR(255),
+  icon        VARCHAR(255),
   create_time DATETIME,
   create_user INTEGER,
   update_time DATETIME,
@@ -166,30 +177,99 @@ ALTER TABLE t_credit_apply
   COMMENT '信用卡申请表';
 
 /*==============================================================*/
-/* Table: t_credit_card                                         */
+/* Table: t_type_use                                            */
 /*==============================================================*/
-CREATE TABLE t_credit_card
+CREATE TABLE t_type_use
 (
-  id           INTEGER NOT NULL AUTO_INCREMENT,
-  bank_id      INTEGER,
-  work_kind    VARCHAR(127),
-  month_income VARCHAR(127),
-  funds        INTEGER,
-  name         VARCHAR(127),
-  product_desc VARCHAR(255),
-  create_time  DATETIME,
-  create_user  INTEGER,
-  update_time  DATETIME,
-  update_user  INTEGER,
-  status       TINYINT(4) COMMENT '0：生效
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(128),
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
             1：无效',
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB
   DEFAULT CHARSET = UTF8;
 
-ALTER TABLE t_credit_card
-  COMMENT '信用卡表';
+ALTER TABLE t_type_use
+  COMMENT '信用卡用途表';
+
+/*==============================================================*/
+/* Table: t_card_level                                          */
+/*==============================================================*/
+CREATE TABLE t_card_level
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(128),
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_card_level
+  COMMENT '信用卡等级表';
+
+/*==============================================================*/
+/* Table: t_credit_card                                         */
+/*==============================================================*/
+CREATE TABLE t_credit_card
+(
+  id            INTEGER NOT NULL AUTO_INCREMENT,
+  bank_id       INTEGER,
+  work_kind     VARCHAR(127),
+  month_income  VARCHAR(127),
+  type_use_id   INTEGER,
+  card_level_id INTEGER,
+  funds         INTEGER,
+  name          VARCHAR(127),
+  info          VARCHAR(127),
+  image         VARCHAR(255),
+  product_desc  VARCHAR(255),
+  type_use      TINYINT(4) COMMENT '0：非用途卡,1：用途卡',
+  type_hot      TINYINT(4) COMMENT '0：非热卡,1：热卡',
+  create_time   DATETIME,
+  create_user   INTEGER,
+  update_time   DATETIME,
+  update_user   INTEGER,
+  status        TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+/*==============================================================*/
+/* Table: t_credit_banner                                       */
+/*==============================================================*/
+CREATE TABLE t_credit_banner
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(127),
+  img         VARCHAR(255),
+  url         VARCHAR(255),
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_credit_banner
+  COMMENT '信用卡banner表';
 
 /*==============================================================*/
 /* Table: t_credit_coupon                                       */
@@ -251,6 +331,8 @@ CREATE TABLE t_finance
   purchase_point     INTEGER,
   purchase_phone     VARCHAR(32),
   income_rate        INTEGER,
+  num                INTEGER,
+  tag                VARCHAR(32),
   product_desc       VARCHAR(255),
   create_time        DATETIME,
   create_user        INTEGER,
@@ -288,6 +370,28 @@ CREATE TABLE t_finance_popular
 
 ALTER TABLE t_finance_popular
   COMMENT '热销及推荐产品，用于运营配置';
+
+/*==============================================================*/
+/* Table: t_notice                                              */
+/*==============================================================*/
+CREATE TABLE t_notice
+(
+  id                 INTEGER NOT NULL AUTO_INCREMENT,
+  title              VARCHAR(127),
+  url                VARCHAR(255),
+  create_time        DATETIME,
+  create_user        INTEGER,
+  update_time        DATETIME,
+  update_user        INTEGER,
+  status             TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_notice
+  COMMENT '理财轮播表';
 
 /*==============================================================*/
 /* Table: t_forum                                               */
@@ -511,16 +615,40 @@ ALTER TABLE t_industry_banner
   COMMENT '行业动态banner';
 
 /*==============================================================*/
+/* Table: t_code_loan                                           */
+/*==============================================================*/
+CREATE TABLE t_code_loan
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(128),
+  loan_kind   VARCHAR(128) COMMENT 'company:企业, personal:个人',
+  icon        VARCHAR(256),
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_code_loan
+  COMMENT '贷款形式表';
+
+/*==============================================================*/
 /* Table: t_loan_product                                        */
 /*==============================================================*/
 CREATE TABLE t_loan_product
 (
   id             INTEGER NOT NULL AUTO_INCREMENT,
   name           VARCHAR(127),
+  icon           VARCHAR(256),
   com_kind       VARCHAR(64),
   register_funds INTEGER,
   loan_funds     INTEGER,
-  loan_kind      VARCHAR(64),
+  loan_kind_id   INTEGER,
   loan_deadline  INTEGER,
   bank_id        INTEGER,
   loan_desc      TEXT,

@@ -110,4 +110,11 @@
             and detail.status = 0
         ]]>
     </sql>
+
+    <sql id="gb-message">
+        <![CDATA[
+            insert into t_gb_swap_detail(swap_id, content, create_user, create_time, status)
+            values(:commontId, :message, :userId, now(), 0)
+        ]]>
+    </sql>
 </sqls>

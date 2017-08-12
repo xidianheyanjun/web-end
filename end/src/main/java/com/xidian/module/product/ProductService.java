@@ -46,4 +46,68 @@ public class ProductService implements SampleService {
     public List<Map<String, Object>> productLoanSearchPersonal(Map<String, Object> paramMap) {
         return dao.query4List("product-loan-search-personal", paramMap);
     }
+
+    public List<Map<String, Object>> productLoanList(Map<String, Object> paramMap) {
+        return dao.query4List("product-loan-list", paramMap);
+    }
+
+    public List<Map<String, Object>> queryBank(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-bank", paramMap);
+    }
+
+    public List<Map<String, Object>> queryLoanType(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-loan-type", paramMap);
+    }
+
+    public Map<String, Object> productLoanDetail(Map<String, Object> paramMap) {
+        return dao.executeQuery("product-loan-detail", paramMap);
+    }
+
+    public List<Map<String, Object>> productQueryBanks(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-banks", paramMap);
+    }
+
+    public List<Map<String, Object>> productCreditBanner(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-credit-banner", paramMap);
+    }
+
+    public List<Map<String, Object>> productTypeUseCard(Map<String, Object> paramMap) {
+        return dao.query4List("product-type-use-card", paramMap);
+    }
+
+    public List<Map<String, Object>> productTypeHotCard(Map<String, Object> paramMap) {
+        return dao.query4List("product-type-hot-card", paramMap);
+    }
+
+    public Map<String, Object> productCreditDetail(Map<String, Object> paramMap) {
+        return dao.executeQuery("product-credit-detail", paramMap);
+    }
+
+    public List<Map<String, Object>> productQueryCreditCard(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-credit-card", paramMap);
+    }
+
+    public List<Map<String, Object>> productQueryTypeUse(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-type-use", paramMap);
+    }
+
+    public List<Map<String, Object>> productQueryCardLevel(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-card-level", paramMap);
+    }
+
+    public List<Map<String, Object>> productFinance(Map<String, Object> paramMap) {
+        return dao.query4List("product-finance", paramMap);
+    }
+
+    public List<Map<String, Object>> productNotice(Map<String, Object> paramMap) {
+        return dao.query4List("product-notice", paramMap);
+    }
+
+    public Map<String, Object> productFinanceDetail(Map<String, Object> paramMap) {
+        return dao.executeQuery("product-finance-detail", paramMap);
+    }
+
+    public List<Map<String, Object>> productQueryFinance(Map<String, Object> paramMap) {
+        return dao.query4List("product-query-finance", paramMap);
+    }
 }

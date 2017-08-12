@@ -75,4 +75,8 @@ public class GbService implements SampleService {
         swap.put("message", dao.query4List("gb-comment-message", paramMap));
         return swap;
     }
+
+    public Object gbMessage(Map<String, Object> paramMap) {
+        return dao.executeUpdate("gb-message", paramMap);
+    }
 }

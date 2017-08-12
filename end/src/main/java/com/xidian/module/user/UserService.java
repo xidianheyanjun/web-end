@@ -53,7 +53,7 @@ public class UserService implements SampleService {
 
         if (list.size() == 0) {
             logger.info(String.format("%s|%s", account, list.size()));
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "帳號不存在");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "账号不存在");
         }
 
         // 生成token
