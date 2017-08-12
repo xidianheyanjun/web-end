@@ -84,7 +84,9 @@ public class ProductService implements SampleService {
     }
 
     public List<Map<String, Object>> productQueryCreditCard(Map<String, Object> paramMap) {
-        return dao.query4List("product-query-credit-card", paramMap);
+        String bankId = (String) paramMap.get("bankId");
+        String sql = "all".equals(bankId) ? "product-query-credit-card-all" : "product-query-credit-card";
+        return dao.query4List(sql, paramMap);
     }
 
     public List<Map<String, Object>> productQueryTypeUse(Map<String, Object> paramMap) {

@@ -60,7 +60,7 @@
         <![CDATA[
             select id as id, name as title, loan_desc as content
             from t_loan_product
-            where loan_kind_id = :id
+            where loan_kind_id in (select id from t_code_loan where loan_kind = :type)
             and status = 0
         ]]>
     </sql>
@@ -137,16 +137,24 @@
         ]]>
     </sql>
 
+    <sql id="product-query-credit-card-all">
+        <![CDATA[
+            select id as id, name as title, image as image, info as info
+            from t_credit_card
+            where status = 0
+        ]]>
+    </sql>
+
     <sql id="product-query-credit-card">
         <![CDATA[
-            select id as id, name as cardName, image as cardImg, info as cardTxt, product_desc as detail
+            select id as id, name as title, image as image, info as info
             from t_credit_card
             where bank_id = :bankId
             and status = 0
         ]]>
     </sql>
 
-    <sql id="product-query-credit-card">
+    <sql id="product-query-type-use">
         <![CDATA[
             select name as name, id as value
             from t_type_use
@@ -165,7 +173,7 @@
     <sql id="product-finance">
         <![CDATA[
             select id as id, name as title, purchase_point as money,
-            purchase_period,as time, income_rate as profit,
+            purchase_period as time, income_rate as profit,
             num as num, tag as tag
             from t_finance
             where status = 0
@@ -174,7 +182,7 @@
 
     <sql id="product-finance-detail">
         <![CDATA[
-            select id as id, title as title, product_desc as content
+            select id as id, name as title, product_desc as content
             from t_finance
             where id = :id
             and status = 0
@@ -191,7 +199,7 @@
 
     <sql id="product-query-finance">
         <![CDATA[
-            select id as id, title as title, product_desc as content
+            select id as id, name as title, product_desc as content
             from t_finance
             where bank_id = :bankId
             and status = 0

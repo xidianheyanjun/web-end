@@ -169,7 +169,7 @@ values(1, "kind1", "5-10", 100000, 1, 2, "招商信用卡", "给高颜值的你"
 
 insert into t_code_loan(id, name, loan_kind, icon, create_time, create_user, status)
 values(1, "贷款形式1", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
-(2, "贷款形式2", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0,
+(2, "贷款形式2", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
 (3, "贷款形式3", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
 (4, "贷款形式4", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
 (5, "贷款形式5", "company", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),

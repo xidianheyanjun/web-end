@@ -93,7 +93,7 @@ public class ProductController {
     public Object productLoanSearch(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        String pageType = jsonObject.getString("pageType");
+        String pageType = (String) jsonObject.get("type");
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
         if ("company".equals(pageType)) {
@@ -116,7 +116,7 @@ public class ProductController {
     public Object productLoanList(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("query", jsonObject.getString("query"));
+        paramMap.put("type", jsonObject.get("type"));
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("list", productService.productLoanList(paramMap));
@@ -176,10 +176,11 @@ public class ProductController {
 
     @RequestMapping(value = "/product/credit/list", method = {RequestMethod.POST})
     @ResponseBody
-    public Object productCreditList(String data) {
+    public Object productCreditList(String data, String query) {
+        logger.info("query|" + query);
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("bankId", jsonObject.getString("query"));
+        paramMap.put("bankId", query);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
@@ -235,10 +236,10 @@ public class ProductController {
 
     @RequestMapping(value = "/product/finance/list", method = {RequestMethod.POST})
     @ResponseBody
-    public Object productFinanceList(String data) {
+    public Object productFinanceList(String data, String query) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("bankId", jsonObject.getString("query"));
+        paramMap.put("bankId", query);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
