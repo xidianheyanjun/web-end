@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sqls>
+    <sql id="service-specials-type">
+        <![CDATA[
+			select id, name, icon
+			from t_coupon_kind
+			where status = 0
+			order by position
+		]]>
+    </sql>
+
+    <sql id="service-specials-coupons">
+        <![CDATA[
+			select id as id, name as title, info as info, image as image
+			from t_credit_coupon
+			where home_kind = 'coupons'
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="service-specials-margets">
+        <![CDATA[
+			select id as id, name as title, info as info, image as image
+			from t_credit_coupon
+			where home_kind = 'markets'
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="service-specials-detail">
+        <![CDATA[
+			select id as id, name as cardName, info as cardTxt, image as cardImg, coupon_desc as details
+			from t_credit_coupon
+			where id = :id
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="service-query-kind">
+        <![CDATA[
+			select id, name
+			from t_coupon_kind
+			where status = 0
+		]]>
+    </sql>
+
+    <sql id="service-query-bank">
+        <![CDATA[
+			select id, name
+			from t_bank
+			where status = 0
+		]]>
+    </sql>
+
+    <sql id="service-credit-coupon-list">
+        <![CDATA[
+			select id as id, name as title, info as info, image as image
+			from t_credit_coupon
+			where status = 0
+		]]>
+    </sql>
+</sqls>

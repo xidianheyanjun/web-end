@@ -24,6 +24,8 @@ DROP TABLE IF EXISTS t_credit_query;
 
 DROP TABLE IF EXISTS t_credit_coupon;
 
+DROP TABLE IF EXISTS t_coupon_kind;
+
 DROP TABLE IF EXISTS t_data_info;
 
 DROP TABLE IF EXISTS t_finance;
@@ -272,6 +274,29 @@ ALTER TABLE t_credit_banner
   COMMENT '信用卡banner表';
 
 /*==============================================================*/
+/* Table: t_coupon_kind                                         */
+/*==============================================================*/
+CREATE TABLE t_coupon_kind
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(127),
+  icon        VARCHAR(255),
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_coupon_kind
+  COMMENT '信用卡分类表';
+
+/*==============================================================*/
 /* Table: t_credit_coupon                                       */
 /*==============================================================*/
 CREATE TABLE t_credit_coupon
@@ -280,6 +305,10 @@ CREATE TABLE t_credit_coupon
   bank_id        INTEGER,
   activity_id    INTEGER,
   name           VARCHAR(127),
+  home_kind      VARCHAR(31),
+  info           VARCHAR(127),
+  txt            VARCHAR(255),
+  image          VARCHAR(255),
   belong_kind_id INTEGER,
   popular_star   INTEGER,
   coupon_desc    VARCHAR(255),
@@ -376,14 +405,14 @@ ALTER TABLE t_finance_popular
 /*==============================================================*/
 CREATE TABLE t_notice
 (
-  id                 INTEGER NOT NULL AUTO_INCREMENT,
-  title              VARCHAR(127),
-  url                VARCHAR(255),
-  create_time        DATETIME,
-  create_user        INTEGER,
-  update_time        DATETIME,
-  update_user        INTEGER,
-  status             TINYINT(4) COMMENT '0：生效
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  title       VARCHAR(127),
+  url         VARCHAR(255),
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
             1：无效',
   PRIMARY KEY (id)
 )

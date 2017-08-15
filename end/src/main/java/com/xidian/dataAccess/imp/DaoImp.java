@@ -60,7 +60,7 @@ public class DaoImp implements Dao {
         logger.info("---------------加载sql模版	end---------------");
     }
 
-    private String getSqlById(String id) {
+    public String getSqlById(String id) {
         return this.sqlTemplateMap.get(id);
     }
 
@@ -101,6 +101,16 @@ public class DaoImp implements Dao {
             return this.jdbcTemplate.queryForList(getSqlById(sqlId), map);
         } catch (Exception e) {
             logger.error("query4List---Exception", e);
+            return new ArrayList<Map<String, Object>>();
+        }
+    }
+
+    @Override
+    public List<Map<String, Object>> query4ListBySql(String sql, Map<String, Object> map) {
+        try {
+            return this.jdbcTemplate.queryForList(sql, map);
+        } catch (Exception e) {
+            logger.error("query4ListBySql---Exception", e);
             return new ArrayList<Map<String, Object>>();
         }
     }
