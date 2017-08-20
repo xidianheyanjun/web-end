@@ -9,6 +9,34 @@
 		]]>
     </sql>
 
+    <sql id="user-indentify-code">
+        <![CDATA[
+			insert into t_indentify_code(acc, type, code, create_time)
+			values(:account, :type, :code, now())
+		]]>
+    </sql>
+
+    <sql id="user-query-code">
+        <![CDATA[
+			select id
+			from t_indentify_code
+			where acc = :acc
+			and type = :type
+			and code = :indentifyCode
+			and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 300
+		]]>
+    </sql>
+
+    <sql id="user-query-indentify-code">
+        <![CDATA[
+			select id
+			from t_indentify_code
+			where acc = :account
+			and type = :type
+			and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 300
+		]]>
+    </sql>
+
     <sql id="user-register">
         <![CDATA[
 			insert into t_user(acc, psw, create_time, status)
@@ -22,6 +50,15 @@
 			from t_user
 			where acc = :acc
 			and psw = password(:psw)
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="user-query">
+        <![CDATA[
+			select id as id, id as userId
+			from t_user
+			where acc = :acc
 			and status = 0
 		]]>
     </sql>
@@ -60,6 +97,15 @@
             and kind = :storeKind
             and status = 0
             order by create_time desc
+		]]>
+    </sql>
+
+    <sql id="user-set-password">
+        <![CDATA[
+            update t_user
+            set psw = :psw
+            where acc = :acc
+            and status = 0
 		]]>
     </sql>
 </sqls>

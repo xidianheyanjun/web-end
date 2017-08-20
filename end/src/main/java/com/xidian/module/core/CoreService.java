@@ -46,6 +46,12 @@ public class CoreService {
     @Value("#{config[mail_smtp_ssl_enable]}")
     private String mailSmtpSslEnable;
 
+    @Value("#{config[sms_app_id]}")
+    private int smsAppId;
+
+    @Value("#{config[sms_app_key]}")
+    private String smsAppKey;
+
     @Autowired
     private Dao dao;
 
@@ -58,6 +64,15 @@ public class CoreService {
         SmsSingleSender singleSender = new SmsSingleSender(1400033948, "6ae48758520d67b596053de7fa5dc083");
         ArrayList<String> params = new ArrayList<>();
         SmsSingleSenderResult singleSenderResult = singleSender.sendWithParam("86", "13692141127", 27348, params, "", "", "");
+        logger.info(singleSenderResult);
+        return true;
+    }
+
+    public boolean sendSms(int templateId, String mobile, String code) throws Exception {
+        SmsSingleSender singleSender = new SmsSingleSender(smsAppId, smsAppKey);
+        ArrayList<String> params = new ArrayList<>();
+        params.add(code);
+        SmsSingleSenderResult singleSenderResult = singleSender.sendWithParam("86", mobile, templateId, params, "", "", "");
         logger.info(singleSenderResult);
         return true;
     }

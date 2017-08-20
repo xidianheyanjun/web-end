@@ -70,6 +70,8 @@ DROP TABLE IF EXISTS t_store;
 
 DROP TABLE IF EXISTS t_user;
 
+DROP TABLE IF EXISTS t_indentify_code;
+
 /*==============================================================*/
 /* Table: t_bank                                                */
 /*==============================================================*/
@@ -838,3 +840,22 @@ CREATE TABLE t_credit_query
 
 ALTER TABLE t_credit_query
   COMMENT '征信信息表';
+
+/*==============================================================*/
+/* Table: t_indentify_code                                      */
+/*==============================================================*/
+CREATE TABLE t_indentify_code
+(
+  id          INT NOT NULL AUTO_INCREMENT,
+  acc         VARCHAR(32),
+  type        VARCHAR(32) COMMENT 'find:找回密码,register:注册',
+  code        INTEGER,
+  create_time DATETIME,
+  update_time DATETIME,
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_indentify_code
+  COMMENT '验证码表';

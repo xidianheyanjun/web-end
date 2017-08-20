@@ -12,9 +12,15 @@ public class ValidHelper {
         }
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if (!isNum.matches()) {
+        return isNum.matches();
+    }
+
+    public static boolean isMobile(String mobile) {
+        if (mobile == null || "".equals(mobile)) {
             return false;
         }
-        return true;
+        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+        Matcher m = p.matcher(mobile);
+        return m.matches();
     }
 }

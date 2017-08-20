@@ -1,6 +1,7 @@
 package com.xidian.module.user;
 
 import com.xidian.common.ResponseHelper;
+import com.xidian.common.ValidHelper;
 import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,18 +22,52 @@ public class UserController {
     @Qualifier("UserService")
     private UserService userService;
 
+    @RequestMapping(value = "/user/indentifyCode", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object indentifyCode(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String type = (String) jsonObject.get("type");
+        String account = (String) jsonObject.get("account");
+        logger.info(String.format("%s|%s", type, account));
+        if (!ValidHelper.isMobile(account)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
+        }
+        userService.indentifyCode(type, account);
+        return ResponseHelper.createResponse();
+    }
+
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})
     @ResponseBody
     public Object register(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String account = (String) jsonObject.get("account");
         String password = (String) jsonObject.get("password");
-        // String verifyCode = (String) jsonObject.get("verifyCode");
-        String verifyCode = "";
-        logger.info(String.format("%s|%s|%s", account, password, verifyCode));
+        String indentifyCode = (String) jsonObject.get("indentifyCode");
+        logger.info(String.format("%s|%s|%s", account, password, indentifyCode));
         // 校验数据合法性 todo
+        if (!ValidHelper.isMobile(account)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
+        }
 
-        return userService.register(account, password, verifyCode);
+        return userService.register(account, password, indentifyCode);
+    }
+
+    @RequestMapping(value = "/user/find", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object find(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String account = (String) jsonObject.get("account");
+        String password = (String) jsonObject.get("password");
+        String indentifyCode = (String) jsonObject.get("indentifyCode");
+        logger.info(String.format("%s|%s|%s", account, password, indentifyCode));
+        // 校验数据合法性 todo
+        if (!ValidHelper.isMobile(account)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
+        }
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.find(account, password, indentifyCode));
+        return map;
     }
 
     @RequestMapping(value = "/user/login", method = {RequestMethod.POST})
