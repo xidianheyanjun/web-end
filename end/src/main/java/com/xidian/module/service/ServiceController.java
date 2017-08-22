@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -76,5 +77,36 @@ public class ServiceController {
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", serviceService.serviceSpecialsDetail(paramMap));
         return map;
+    }
+
+    @RequestMapping(value = "/service/zx", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceZx(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        String userId = (String) jsonObject.get("userId");
+        String name = (String) jsonObject.get("name");
+        String cardNo = (String) jsonObject.get("cardNo");
+        if (userId == null || "".equals(userId)) {
+            logger.info(String.format("%s|%s|%s|请先登录", userId, name, cardNo));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
+        paramMap.put("userId", userId);
+        paramMap.put("name", name);
+        paramMap.put("cardNo", cardNo);
+
+        Map<String, Object> retMap = null;
+        try {
+            retMap = serviceService.serviceZx(paramMap);
+        } catch (IOException e) {
+            logger.info(String.format("%s|%s|%s|error", userId, name, cardNo), e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
+        }
+        String msg = (String) retMap.get("msg");
+        if (msg != null || !"".equals(msg)) {
+            logger.info(String.format("%s|%s|%s|%s", userId, name, cardNo, msg));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
+        }
+        return ResponseHelper.createResponse();
     }
 }

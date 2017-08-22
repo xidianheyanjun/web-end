@@ -2,10 +2,20 @@ package com.xidian.module.service;
 
 import com.xidian.dataAccess.Dao;
 import com.xidian.sample.service.SampleService;
+import net.sf.json.JSONObject;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -13,6 +23,10 @@ import java.util.Map;
 @Service("ServiceService")
 public class ServiceService implements SampleService {
     private Logger logger = Logger.getLogger(getClass());
+
+    @Value("#{config[credit_url]}")
+    private String creditUrl;
+
     @Autowired
     private Dao dao;
 
@@ -62,5 +76,38 @@ public class ServiceService implements SampleService {
         }
 
         return dao.query4ListBySql(sql, paramMap);
+    }
+
+    public Map<String, Object> serviceZx(Map<String, Object> paramMap) throws IOException {
+        String userId = (String) paramMap.get("userId");
+        String name = (String) paramMap.get("name");
+        String cardNo = (String) paramMap.get("cardNo");
+        String url = String.format(this.creditUrl, cardNo, name);
+        logger.info("creaditQuery|" + url);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpPost httpPost = new HttpPost(url);
+        HttpResponse response = httpClient.execute(httpPost);
+        HttpEntity responseEntity = response.getEntity();
+        logger.info("creaditQuery|" + responseEntity.toString());
+        String result = EntityUtils.toString(responseEntity, Charset.forName("UTF-8"));
+        logger.info("creaditQuery|" + result);
+        JSONObject jsonBean = JSONObject.fromObject(result);
+        httpClient.close();
+        String success = (String) jsonBean.get("success");
+        Map<String, Object> map = new HashMap<String, Object>();
+        if ("e".equals(success)) {
+            String message = (String) jsonBean.get("message");
+            logger.error("creaditQuery|error|" + message);
+            map.put("msg", "查询失败");
+            return map;
+        }
+
+        String content = (String) jsonBean.get("content");
+        map.put("stype", 1);
+        map.put("user_name", name);
+        map.put("card_id", cardNo);
+        map.put("content", content);
+        dao.executeUpdate("credit-insert", map);
+        return map;
     }
 }

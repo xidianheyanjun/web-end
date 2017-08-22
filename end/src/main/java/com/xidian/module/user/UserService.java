@@ -143,6 +143,7 @@ public class UserService implements SampleService {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("acc", account);
         paramMap.put("psw", password);
+        paramMap.put("type", "find");
         paramMap.put("indentifyCode", indentifyCode);
         List<Map<String, Object>> list = dao.query4List("user-query-acc", paramMap);
 

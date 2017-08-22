@@ -54,7 +54,7 @@
 		]]>
     </sql>
 
-    <sql id="user-query">
+    <sql id="user-query-acc">
         <![CDATA[
 			select id as id, id as userId
 			from t_user
@@ -103,7 +103,7 @@
     <sql id="user-set-password">
         <![CDATA[
             update t_user
-            set psw = :psw
+            set psw = password(:psw)
             where acc = :acc
             and status = 0
 		]]>
