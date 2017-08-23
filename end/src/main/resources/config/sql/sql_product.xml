@@ -65,6 +65,18 @@
         ]]>
     </sql>
 
+    <sql id="product-list-query-bank">
+        <![CDATA[
+            select '全部银行' as name, 0 as id
+            from t_bank
+            union
+            select name as name, id as id
+            from t_bank
+            where status = 0
+            order by id
+        ]]>
+    </sql>
+
     <sql id="product-query-bank">
         <![CDATA[
             select name as name, id as value
@@ -81,6 +93,19 @@
         ]]>
     </sql>
 
+    <sql id="product-list-query-loan-type">
+        <![CDATA[
+            select '全部贷款形式' as name, 0 as id
+            from t_code_loan
+            union
+            select name as name, id as id
+            from t_code_loan
+            where loan_kind = :type
+            and status = 0
+            order by id
+        ]]>
+    </sql>
+
     <sql id="product-query-loan-type">
         <![CDATA[
             select name as name, id as value
@@ -94,10 +119,12 @@
 
     <sql id="product-loan-detail">
         <![CDATA[
-            select id as id, name as title, loan_desc as content
-            from t_loan_product
-            where id = :id
-            and status = 0
+            select loan.id as id, loan.name as title, loan.loan_desc as content,
+            if(store.id, true, false) as isStar
+            from t_loan_product loan left join t_store store
+            on store.path = concat('#/product/loan/detail/', loan.id)
+            where loan.id = :id
+            and loan.status = 0
         ]]>
     </sql>
 
@@ -202,6 +229,27 @@
             select id as id, name as title, product_desc as content
             from t_finance
             where bank_id = :bankId
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-loan-store-list">
+        <![CDATA[
+            select id
+            from t_store
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-loan-store">
+        <![CDATA[
+            insert into t_store(user_id, name, kind, path, create_time, status)
+            select :userId, name, :kind, :path, now(), 0
+            from t_loan_product
+            where id = :id
             and status = 0
         ]]>
     </sql>

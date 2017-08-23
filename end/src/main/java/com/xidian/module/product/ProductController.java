@@ -113,21 +113,27 @@ public class ProductController {
 
     @RequestMapping(value = "/product/loan/list", method = {RequestMethod.POST})
     @ResponseBody
-    public Object productLoanList(String data) {
+    public Object productLoanList(String data, String query) {
+        logger.info(query);
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("type", jsonObject.get("type"));
+        paramMap.put("type", jsonObject.get("loan_kind"));
+        paramMap.put("query", query);
+
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
         retMap.put("list", productService.productLoanList(paramMap));
+
         List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
         Map<String, Object> loanTypeMap = new HashMap<String, Object>();
         loanTypeMap.put("list", productService.queryLoanType(paramMap));
         retList.add(loanTypeMap);
+
         Map<String, Object> bankMap = new HashMap<String, Object>();
-        loanTypeMap.put("list", productService.queryBank(paramMap));
-        retList.add(loanTypeMap);
-        retMap.put("pickList", productService.productLoanSearchCompany(paramMap));
+        bankMap.put("list", productService.queryBank(paramMap));
+        retList.add(bankMap);
+        retMap.put("pickList", retList);
+
         map.put("data", retMap);
 
         return map;
@@ -141,6 +147,25 @@ public class ProductController {
         paramMap.put("id", id);
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", productService.productLoanDetail(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/product/loan/store/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productLoanStore(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            logger.info(String.format("%s|%d|请先登录", userId, id));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("userId", userId);
+        paramMap.put("kind", "loan");
+        paramMap.put("path", "#/product/loan/detail/" + id);
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productLoanStore(paramMap));
         return map;
     }
 

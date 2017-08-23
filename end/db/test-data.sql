@@ -185,20 +185,20 @@ values(1, "贷款形式1", "company", "http://119.23.41.237:8180/front/static/im
 (15, "贷款形式15", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0),
 (16, "贷款形式16", "personal", "http://119.23.41.237:8180/front/static/images/bank.png", now(), 0, 0);
 
-insert into t_loan_product(name, loan_kind_id, icon, loan_desc, create_time, create_user, status)
-values("loan_product_1", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_2", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_3", 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_4", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_5", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_6", 2, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_7", 3, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_8", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_9", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_10", 8, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_11", 9, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_12", 9, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
-("loan_product_13", 10, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0);
+insert into t_loan_product(name, loan_kind_id, bank_id, icon, loan_desc, create_time, create_user, status)
+values("loan_product_1", 1, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_2", 1, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_3", 1, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_4", 2, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_5", 2, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_6", 2, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_7", 3, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_8", 8, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_9", 8, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_10", 8, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_11", 9, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_12", 9, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0),
+("loan_product_13", 10, 1, "http://119.23.41.237:8180/front/static/images/bank.png", "贷款产品详细介绍", now(), 0, 0);
 
 
 insert into t_notice(title, url, create_time, create_user, status)

@@ -2,6 +2,7 @@ package com.xidian.module.product;
 
 import com.xidian.dataAccess.Dao;
 import com.xidian.sample.service.SampleService;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,15 +49,30 @@ public class ProductService implements SampleService {
     }
 
     public List<Map<String, Object>> productLoanList(Map<String, Object> paramMap) {
-        return dao.query4List("product-loan-list", paramMap);
+        String query = (String) paramMap.get("query");
+        String sql = dao.getSqlById("product-loan-list");
+        if (StringUtils.isNotEmpty(query)) {
+            String[] queryArr = query.split(",");
+            logger.info(queryArr);
+            if (StringUtils.isNotEmpty(queryArr[0]) && !"0".equals(queryArr[0])) {
+                sql += " and loan_kind_id = :loan_kind_id";
+                paramMap.put("loan_kind_id", queryArr[0]);
+            }
+
+            if (queryArr.length == 2 && StringUtils.isNotEmpty(queryArr[1]) && !"0".equals(queryArr[1])) {
+                sql += " and bank_id = :bank_id";
+                paramMap.put("bank_id", queryArr[1]);
+            }
+        }
+        return dao.query4ListBySql(sql, paramMap);
     }
 
     public List<Map<String, Object>> queryBank(Map<String, Object> paramMap) {
-        return dao.query4List("product-query-bank", paramMap);
+        return dao.query4List("product-list-query-bank", paramMap);
     }
 
     public List<Map<String, Object>> queryLoanType(Map<String, Object> paramMap) {
-        return dao.query4List("product-query-loan-type", paramMap);
+        return dao.query4List("product-list-query-loan-type", paramMap);
     }
 
     public Map<String, Object> productLoanDetail(Map<String, Object> paramMap) {
@@ -111,5 +127,13 @@ public class ProductService implements SampleService {
 
     public List<Map<String, Object>> productQueryFinance(Map<String, Object> paramMap) {
         return dao.query4List("product-query-finance", paramMap);
+    }
+
+    public Object productLoanStore(Map<String, Object> paramMap) {
+        List<Map<String, Object>> list = dao.query4List("product-loan-store-list", paramMap);
+        if (list.size() == 0) {
+            return dao.executeUpdate("product-loan-store", paramMap);
+        }
+        return 0;
     }
 }
