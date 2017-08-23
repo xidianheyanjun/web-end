@@ -41,7 +41,12 @@ public class ProductController {
     @ResponseBody
     public Object productCreditApply(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
         Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("cardId", jsonObject.get("cardId"));// 姓名
         paramMap.put("userName", jsonObject.get("name"));// 姓名
         paramMap.put("cardNo", jsonObject.get("cardNo"));// 身份证号
         paramMap.put("cardExpire", jsonObject.get("cardExpiredDate"));// 证件到期日
@@ -60,6 +65,13 @@ public class ProductController {
         paramMap.put("empAddress", jsonObject.get("workCompanyAddress"));// 单位地址
         paramMap.put("empPhone", jsonObject.get("workCompanyTel"));// 单位电话
         paramMap.put("empPosition", jsonObject.get("job"));// 职务
+        paramMap.put("create_user", userId);// 创建人
+
+        paramMap.put("cardOffice", "");
+        paramMap.put("zipCode", "");
+        paramMap.put("empZipCode", "");
+        paramMap.put("empPhoneExt", "");
+        paramMap.put("empKind", "");
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", productService.productCreditApply(paramMap));
@@ -169,6 +181,25 @@ public class ProductController {
         return map;
     }
 
+    @RequestMapping(value = "/product/finance/store/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object productFinanceStore(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            logger.info(String.format("%s|%d|请先登录", userId, id));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("userId", userId);
+        paramMap.put("kind", "finance");
+        paramMap.put("path", "#/product/finance/detail/" + id);
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", productService.productFinanceStore(paramMap));
+        return map;
+    }
+
     @RequestMapping(value = "/product/credit/index", method = {RequestMethod.POST})
     @ResponseBody
     public Object productCreditIndex(String data) {
@@ -205,7 +236,7 @@ public class ProductController {
         logger.info("query|" + query);
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("bankId", query);
+        paramMap.put("query", query);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
@@ -264,7 +295,7 @@ public class ProductController {
     public Object productFinanceList(String data, String query) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("bankId", query);
+        paramMap.put("query", query);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();
@@ -273,7 +304,7 @@ public class ProductController {
 
         List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
         Map<String, Object> bankMap = new HashMap<String, Object>();
-        bankMap.put("list", productService.productQueryBanks(paramMap));
+        bankMap.put("list", productService.productQueryBankList(paramMap));
         retList.add(bankMap);
 
         Map<String, Object> incomeMap = new HashMap<String, Object>();

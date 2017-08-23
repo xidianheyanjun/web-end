@@ -85,8 +85,30 @@
         ]]>
     </sql>
 
+    <sql id="product-query-banks-index">
+        <![CDATA[
+            select id as id, name as name, icon as icon
+            from t_bank
+            where status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-query-banks-list">
+        <![CDATA[
+            select 0 as id, '全部银行' as name
+            from t_bank
+            union
+            select id as id, name as name
+            from t_bank
+            where status = 0
+        ]]>
+    </sql>
+
     <sql id="product-query-banks">
         <![CDATA[
+            select 0 as id, '全部银行' as name, '' as icon
+            from t_bank
+            union
             select id as id, name as name, icon as icon
             from t_bank
             where status = 0
@@ -176,13 +198,15 @@
         <![CDATA[
             select id as id, name as title, image as image, info as info
             from t_credit_card
-            where bank_id = :bankId
-            and status = 0
+            where status = 0
         ]]>
     </sql>
 
     <sql id="product-query-type-use">
         <![CDATA[
+            select '全部用途' as name, 0 as value
+            from t_type_use
+            union
             select name as name, id as value
             from t_type_use
             where status = 0
@@ -191,6 +215,9 @@
 
     <sql id="product-query-card-level">
         <![CDATA[
+            select '全部等级' as name, 0 as value
+            from t_card_level
+            union
             select name as name, id as value
             from t_card_level
             where status = 0
@@ -209,10 +236,12 @@
 
     <sql id="product-finance-detail">
         <![CDATA[
-            select id as id, name as title, product_desc as content
-            from t_finance
-            where id = :id
-            and status = 0
+            select finance.id as id, finance.name as title, finance.product_desc as content,
+            if(store.id, true, false) as isStar
+            from t_finance finance left join t_store store
+            on store.path = concat('#/product/finance/detail/', finance.id)
+            where finance.id = :id
+            and finance.status = 0
         ]]>
     </sql>
 
@@ -228,8 +257,7 @@
         <![CDATA[
             select id as id, name as title, product_desc as content
             from t_finance
-            where bank_id = :bankId
-            and status = 0
+            where status = 0
         ]]>
     </sql>
 
@@ -249,6 +277,27 @@
             insert into t_store(user_id, name, kind, path, create_time, status)
             select :userId, name, :kind, :path, now(), 0
             from t_loan_product
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-finance-store-list">
+        <![CDATA[
+            select id
+            from t_store
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-finance-store">
+        <![CDATA[
+            insert into t_store(user_id, name, kind, path, create_time, status)
+            select :userId, name, :kind, :path, now(), 0
+            from t_finance
             where id = :id
             and status = 0
         ]]>
