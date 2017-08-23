@@ -79,4 +79,9 @@ public class GbService implements SampleService {
     public Object gbMessage(Map<String, Object> paramMap) {
         return dao.executeUpdate("gb-message", paramMap);
     }
+
+    public boolean gbMeetSend(Map<String, Object> paramMap) {
+        dao.executeUpdate("gb-meet-send", paramMap);
+        return true;
+    }
 }

@@ -76,9 +76,9 @@
         <![CDATA[
             select chat.id as id, chat.title as title, chat.content as text, chat.create_user as userId,
             user.acc as name, '' as img
-            from t_gb_chat chat, t_user user
-            where chat.create_user = user.id
-            and chat.status = 0
+            from t_gb_chat chat left join t_user user
+            on user.id = chat.create_user
+            where chat.status = 0
         ]]>
     </sql>
 
@@ -114,7 +114,14 @@
     <sql id="gb-message">
         <![CDATA[
             insert into t_gb_swap_detail(swap_id, content, create_user, create_time, status)
-            values(:commontId, :message, :userId, now(), 0)
+            values(:commontId, :msg, :userId, now(), 0)
+        ]]>
+    </sql>
+
+    <sql id="gb-meet-send">
+        <![CDATA[
+            insert into t_gb_chat(content, create_user, create_time, status)
+            values(:msg, :userId, now(), 0)
         ]]>
     </sql>
 </sqls>

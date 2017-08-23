@@ -3,6 +3,7 @@ package com.xidian.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sf.json.JSONObject;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -36,6 +37,13 @@ public class TokenInterceptor implements HandlerInterceptor {
         if ("dev".equals(this.env_mode)) {
             return true;
         }
+
+        /*JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        String token = (String) jsonObject.get("token");
+        if (userId < 1 || StringUtils.isEmpty(token) || !coreService.isLogin(String.valueOf(userId), token)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "用户未登录");
+        }*/
         return true;
     }
 

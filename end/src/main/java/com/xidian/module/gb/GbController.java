@@ -148,6 +148,27 @@ public class GbController {
         return map;
     }
 
+    @RequestMapping(value = "/gb/meet/send", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object gbMeetSend(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        int userId = (int) jsonObject.get("userId");
+        String msg = (String) jsonObject.get("msg");
+        logger.info(String.format("%d|%s", userId, msg));
+        if (userId < 1) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
+        if (StringUtils.isEmpty(msg)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "消息不能为空");
+        }
+        paramMap.put("userId", userId);
+        paramMap.put("msg", msg);
+        boolean flag = gbService.gbMeetSend(paramMap);
+
+        return flag ? ResponseHelper.createResponse() : ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
+    }
+
     @RequestMapping(value = "/gb/forum", method = {RequestMethod.POST})
     @ResponseBody
     public Object gbForum(String data) {
@@ -175,19 +196,15 @@ public class GbController {
         return map;
     }
 
-    @RequestMapping(value = "/gb/message", method = {RequestMethod.POST})
+    @RequestMapping(value = "/gb/comment/send/{commontId}", method = {RequestMethod.POST})
     @ResponseBody
-    public Object gbMessage(String data) {
+    public Object gbMessage(String data, @PathVariable int commontId) {
         JSONObject jsonObject = JSONObject.fromObject(data);
-        String userId = (String) jsonObject.get("userId");
-        String token = (String) jsonObject.get("token");
-        if (StringUtils.isEmpty(userId) || StringUtils.isEmpty(token) || !coreService.isLogin(userId, token)) {
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "用户未登录");
-        }
+        int userId = (int) jsonObject.get("userId");
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("userId", Integer.valueOf(userId));
-        paramMap.put("commontId", jsonObject.get("commontId"));
-        paramMap.put("message", jsonObject.get("message"));
+        paramMap.put("userId", userId);
+        paramMap.put("commontId", commontId);
+        paramMap.put("msg", jsonObject.get("msg"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", gbService.gbMessage(paramMap));
