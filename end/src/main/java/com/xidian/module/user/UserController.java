@@ -3,6 +3,7 @@ package com.xidian.module.user;
 import com.xidian.common.ResponseHelper;
 import com.xidian.common.ValidHelper;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -32,8 +33,9 @@ public class UserController {
         if (!ValidHelper.isMobile(account)) {
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
         }
-        userService.indentifyCode(type, account);
-        return ResponseHelper.createResponse();
+        Map<String, Object> map = userService.indentifyCode(type, account);
+        String msg = (String) map.get("msg");
+        return StringUtils.isEmpty(msg) ? ResponseHelper.createResponse() : ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, msg);
     }
 
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})

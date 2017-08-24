@@ -58,6 +58,9 @@ public class UserService implements SampleService {
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "验证码不存在或已经过期");
         }
 
+        // 更新验证码状态
+        dao.executeUpdate("user-update-code", paramMap);
+
         // 注册用户
         dao.executeUpdate("user-register", paramMap);
         return ResponseHelper.createResponse();
@@ -159,6 +162,9 @@ public class UserService implements SampleService {
             paramMap.put("msg", "验证码不存在或已经过期");
             return paramMap;
         }
+
+        // 更新验证码状态
+        dao.executeUpdate("user-update-code", paramMap);
 
         dao.executeUpdate("user-set-password", paramMap);
         return paramMap;

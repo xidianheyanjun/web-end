@@ -852,6 +852,8 @@ CREATE TABLE t_indentify_code
   code        INTEGER,
   create_time DATETIME,
   update_time DATETIME,
+  status      TINYINT(4) COMMENT '0：未删除
+            1：已删除',
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB

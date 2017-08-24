@@ -237,7 +237,7 @@ values("美食", "http://119.23.41.237:8180/front/static/images/bank.png", 1, no
 ("酒店", "http://119.23.41.237:8180/front/static/images/bank.png", 1, now(), 0, 0);
 
 
-insert into t_credit_coupon(bank_id, name, home_kind, info, txt, image, belong_kind_id, popular_star, coupon_desc, create_time, create_user, status)
+insert into t_credit_coupon(bank_id, name, info, home_kind, txt, image, belong_kind_id, popular_star, coupon_desc, create_time, create_user, status)
 values(1, "麦当劳", "巨无霸小巨人", "coupons", "九江市快乐城4楼", "http://119.23.41.237:8180/front/static/images/sun.jpg", 1 , 3, "活动期间，刷浦发银行信用卡可享9折优惠（酒水、特价菜除外），不与浦发其他优惠同享。", now(), 0, 0),
 (1, "麦当劳1", "巨无霸小巨人", "coupons", "九江市快乐城4楼", "http://119.23.41.237:8180/front/static/images/sun.jpg", 2 , 4, "活动期间，刷浦发银行信用卡可享9折优惠（酒水、特价菜除外），不与浦发其他优惠同享。", now(), 0, 0),
 (2, "麦当劳2", "巨无霸小巨人", "markets", "九江市快乐城4楼", "http://119.23.41.237:8180/front/static/images/sun.jpg", 2 , 4, "活动期间，刷浦发银行信用卡可享9折优惠（酒水、特价菜除外），不与浦发其他优惠同享。", now(), 0, 0),

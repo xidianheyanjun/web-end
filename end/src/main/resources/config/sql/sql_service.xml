@@ -38,6 +38,9 @@
 
     <sql id="service-query-kind">
         <![CDATA[
+            select 0 as id, '全部优惠' as name
+			from t_coupon_kind
+			union
 			select id, name
 			from t_coupon_kind
 			where status = 0
@@ -46,6 +49,9 @@
 
     <sql id="service-query-bank">
         <![CDATA[
+            select 0 as id, '全部银行' as name
+			from t_bank
+			union
 			select id, name
 			from t_bank
 			where status = 0

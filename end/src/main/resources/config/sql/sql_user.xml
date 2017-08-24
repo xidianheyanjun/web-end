@@ -11,8 +11,8 @@
 
     <sql id="user-indentify-code">
         <![CDATA[
-			insert into t_indentify_code(acc, type, code, create_time)
-			values(:account, :type, :code, now())
+			insert into t_indentify_code(acc, type, code, create_time, status)
+			values(:account, :type, :code, now(), 0)
 		]]>
     </sql>
 
@@ -21,6 +21,18 @@
 			select id
 			from t_indentify_code
 			where acc = :acc
+			and type = :type
+			and code = :indentifyCode
+			and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 300
+			and status = 0
+		]]>
+    </sql>
+
+    <sql id="user-update-code">
+        <![CDATA[
+            update t_indentify_code
+            set status = 1
+            where acc = :acc
 			and type = :type
 			and code = :indentifyCode
 			and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 300
@@ -34,6 +46,7 @@
 			where acc = :account
 			and type = :type
 			and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 300
+			and status = 0
 		]]>
     </sql>
 
