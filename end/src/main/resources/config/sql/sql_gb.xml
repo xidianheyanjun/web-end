@@ -75,7 +75,7 @@
     <sql id="gb-meet">
         <![CDATA[
             select chat.id as id, chat.title as title, chat.content as text, chat.create_user as userId,
-            user.acc as name, '' as img
+            unix_timestamp(chat.create_time) as ts, user.acc as name, '' as img
             from t_gb_chat chat left join t_user user
             on user.id = chat.create_user
             where chat.status = 0

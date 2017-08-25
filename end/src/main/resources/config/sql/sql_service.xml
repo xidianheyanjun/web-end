@@ -29,10 +29,12 @@
 
     <sql id="service-specials-detail">
         <![CDATA[
-			select id as id, name as cardName, info as cardTxt, image as cardImg, coupon_desc as details
-			from t_credit_coupon
-			where id = :id
-			and status = 0
+			select coupon.id as id, coupon.name as cardName, coupon.info as cardTxt, coupon.image as cardImg, coupon.coupon_desc as details,
+			if(store.id, true, false) as isStar
+			from t_credit_coupon coupon left join t_store store
+			on store.path = concat('#/service/specials/detail/', coupon.id)
+			where coupon.id = :id
+			and coupon.status = 0
 		]]>
     </sql>
 
@@ -64,5 +66,36 @@
 			from t_credit_coupon
 			where status = 0
 		]]>
+    </sql>
+
+    <sql id="service-specials-store-list">
+        <![CDATA[
+            select id
+            from t_store
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="service-specials-store">
+        <![CDATA[
+            insert into t_store(user_id, name, kind, path, create_time, status)
+            select :userId, name, :kind, :path, now(), 0
+            from t_credit_coupon
+            where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="service-specials-store-delete">
+        <![CDATA[
+            delete from t_store
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
+            and status = 0
+        ]]>
     </sql>
 </sqls>

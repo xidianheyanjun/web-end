@@ -138,8 +138,7 @@ public class GbController {
     public Object gbMeet(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("pageIndex", jsonObject.get("pageIndex"));
-        paramMap.put("pageSize", jsonObject.get("pageSize"));
+        paramMap.put("ts", jsonObject.get("ts"));
 
         Map<String, Object> map = ResponseHelper.createResponse();
         Map<String, Object> retMap = new HashMap<String, Object>();

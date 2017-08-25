@@ -79,6 +79,25 @@ public class ServiceController {
         return map;
     }
 
+    @RequestMapping(value = "/service/specials/store/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceSpecialsStore(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            logger.info(String.format("%s|%d|请先登录", userId, id));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
+        }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+        paramMap.put("userId", userId);
+        paramMap.put("kind", "credit");
+        paramMap.put("path", "#/service/specials/detail/" + id);
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", serviceService.serviceSpecialsStore(paramMap));
+        return map;
+    }
+
     @RequestMapping(value = "/service/zx", method = {RequestMethod.POST})
     @ResponseBody
     public Object serviceZx(String data) {

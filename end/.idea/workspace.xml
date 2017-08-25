@@ -25,34 +25,34 @@
     <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.57315236">
+    <splitter split-orientation="horizontal" split-proportion="0.52741313">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="db-init.sql" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/db-init.sql">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="349">
-                  <caret line="855" column="19" lean-forward="true" selection-start-line="855" selection-start-column="19" selection-end-line="855" selection-end-column="19" />
+                <state relative-caret-position="282">
+                  <caret line="522" column="23" lean-forward="true" selection-start-line="522" selection-start-column="23" selection-end-line="522" selection-end-column="23" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserController.java">
+          <file leaf-file-name="GbController.java" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbController.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="354">
-                  <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+                <state relative-caret-position="255">
+                  <caret line="144" column="39" lean-forward="false" selection-start-line="144" selection-start-column="39" selection-end-line="144" selection-end-column="39" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="UserService.java" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserService.java">
+          <file leaf-file-name="GbService.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbService.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="356">
-                  <caret line="61" column="56" lean-forward="true" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
+                <state relative-caret-position="279">
+                  <caret line="70" column="42" lean-forward="false" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
@@ -65,8 +65,8 @@
           <file leaf-file-name="test-data.sql" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/db/test-data.sql">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="176">
-                  <caret line="238" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="267" selection-end-column="0" />
+                <state relative-caret-position="0">
+                  <caret line="237" column="0" lean-forward="false" selection-start-line="237" selection-start-column="0" selection-end-line="237" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -75,18 +75,18 @@
           <file leaf-file-name="sql_service.xml" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_service.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="371">
-                  <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+                <state relative-caret-position="169">
+                  <caret line="85" column="32" lean-forward="true" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="32" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="sql_user.xml" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_user.xml">
+          <file leaf-file-name="sql_gb.xml" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_gb.xml">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="207">
-                  <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="29" />
+                <state relative-caret-position="194">
+                  <caret line="77" column="44" lean-forward="false" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="44" />
                   <folding />
                 </state>
               </provider>
@@ -105,11 +105,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>product-query-bank</find>
-      <find>t_code_loan</find>
-      <find>product-loan-list</find>
-      <find>product-loan-store</find>
-      <find>t_store</find>
       <find>user-collect</find>
       <find>product-loan-detail</find>
       <find>t_loan_product</find>
@@ -126,7 +121,6 @@
       <find>t_finance</find>
       <find>/service/specials/index</find>
       <find>service-specials-coupons</find>
-      <find>t_credit_coupon</find>
       <find>service-query-bank</find>
       <find>service-query-kind</find>
       <find>user-query-indentify-code</find>
@@ -135,6 +129,12 @@
       <find>user-register</find>
       <find>user-query-code</find>
       <find>user-update-code</find>
+      <find>t_credit_coupon</find>
+      <find>product-finance-store</find>
+      <find>/gb/meet</find>
+      <find>service-specials-detail</find>
+      <find>gb-meet</find>
+      <find>t_gb_chat</find>
     </findStrings>
     <replaceStrings>
       <replace>t_swap_banner</replace>
@@ -177,22 +177,22 @@
         <option value="$PROJECT_DIR$/src/main/resources/sms.properties" />
         <option value="$PROJECT_DIR$/src/main/java/com/xidian/common/ValidHelper.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config.properties" />
-        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceService.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbService.java" />
         <option value="$PROJECT_DIR$/src/main/webapp/WEB-INF/web.xml" />
-        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_gb.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/xidian/interceptor/TokenInterceptor.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductController.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductService.java" />
-        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_product.xml" />
         <option value="$PROJECT_DIR$/db/test-data.sql" />
-        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_service.xml" />
         <option value="$PROJECT_DIR$/db/db-init.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_user.xml" />
         <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserService.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceService.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_service.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductService.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_product.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/config/sql/sql_gb.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbService.java" />
       </list>
     </option>
   </component>
@@ -442,10 +442,10 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -1096,12 +1096,13 @@
       <workItem from="1503180357181" duration="5868000" />
       <workItem from="1503365659774" duration="5861000" />
       <workItem from="1503452181884" duration="15037000" />
-      <workItem from="1503537213953" duration="3464000" />
+      <workItem from="1503537213953" duration="5916000" />
+      <workItem from="1503622641653" duration="7464000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131722000" />
+    <option name="totallyTimeSpent" value="141638000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="1912" y="-8" width="1616" height="916" extended-state="6" />
@@ -1124,10 +1125,10 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4878361" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35851473" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24583867" sideWeight="0.4969834" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.14781491" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25096032" sideWeight="0.4969834" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16773778" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -1375,30 +1376,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_gb.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="413">
-          <caret line="116" column="55" lean-forward="true" selection-start-line="116" selection-start-column="55" selection-end-line="116" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/core/CoreService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="72">
           <caret line="127" column="19" lean-forward="false" selection-start-line="127" selection-start-column="19" selection-end-line="127" selection-end-column="19" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="79" column="57" lean-forward="true" selection-start-line="79" selection-start-column="57" selection-end-line="79" selection-end-column="57" />
-          <folding>
-            <element signature="e#2823#2824#0" expanded="true" />
-            <element signature="e#2887#2888#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1409,23 +1391,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="206" column="51" lean-forward="false" selection-start-line="206" selection-start-column="51" selection-end-line="206" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://$MAVEN_REPOSITORY$/org/apache/commons/commons-lang3/3.3.2/commons-lang3-3.3.2-sources.jar!/org/apache/commons/lang3/StringUtils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
           <caret line="217" column="26" lean-forward="false" selection-start-line="217" selection-start-column="26" selection-end-line="217" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserService.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="893">
+          <caret line="61" column="56" lean-forward="false" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_user.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="551">
+          <caret line="29" column="0" lean-forward="false" selection-start-line="29" selection-start-column="0" selection-end-line="29" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/db/test-data.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="237" column="0" lean-forward="false" selection-start-line="237" selection-start-column="0" selection-end-line="237" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="125">
+          <caret line="46" column="0" lean-forward="false" selection-start-line="46" selection-start-column="0" selection-end-line="46" selection-end-column="0" />
           <folding>
-            <element signature="e#8193#8194#0" expanded="false" />
-            <element signature="e#8246#8247#0" expanded="false" />
-            <element signature="e#8898#8899#0" expanded="false" />
-            <element signature="e#8945#8946#0" expanded="false" />
+            <element signature="e#4330#4346#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1434,93 +1436,86 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="380">
           <caret line="43" column="5" lean-forward="true" selection-start-line="43" selection-start-column="5" selection-end-line="43" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5472">
-          <caret line="302" column="55" lean-forward="false" selection-start-line="302" selection-start-column="55" selection-end-line="302" selection-end-column="55" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_product.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4921">
-          <caret line="259" column="28" lean-forward="false" selection-start-line="259" selection-start-column="28" selection-end-line="259" selection-end-column="28" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="151" column="58" lean-forward="false" selection-start-line="151" selection-start-column="37" selection-end-line="151" selection-end-column="58" />
+        <state relative-caret-position="282">
+          <caret line="168" column="45" lean-forward="false" selection-start-line="168" selection-start-column="45" selection-end-line="168" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_product.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="386">
+          <caret line="284" column="40" lean-forward="true" selection-start-line="284" selection-start-column="40" selection-end-line="284" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/product/ProductController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="364">
+          <caret line="198" column="49" lean-forward="false" selection-start-line="198" selection-start-column="49" selection-end-line="198" selection-end-column="49" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="74" column="63" lean-forward="true" selection-start-line="74" selection-start-column="63" selection-end-line="74" selection-end-column="63" />
+        <state relative-caret-position="196">
+          <caret line="107" column="35" lean-forward="true" selection-start-line="107" selection-start-column="35" selection-end-line="107" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/service/ServiceController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="95">
+          <caret line="85" column="52" lean-forward="false" selection-start-line="85" selection-start-column="52" selection-end-line="85" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_service.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="371">
-          <caret line="46" column="11" lean-forward="true" selection-start-line="46" selection-start-column="11" selection-end-line="46" selection-end-column="11" />
+        <state relative-caret-position="169">
+          <caret line="85" column="32" lean-forward="true" selection-start-line="85" selection-start-column="32" selection-end-line="85" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="144" column="39" lean-forward="false" selection-start-line="144" selection-start-column="39" selection-end-line="144" selection-end-column="39" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/db/db-init.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="349">
-          <caret line="855" column="19" lean-forward="true" selection-start-line="855" selection-start-column="19" selection-end-line="855" selection-end-column="19" />
+        <state relative-caret-position="282">
+          <caret line="522" column="23" lean-forward="true" selection-start-line="522" selection-start-column="23" selection-end-line="522" selection-end-column="23" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/db/test-data.sql">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_gb.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="238" column="0" lean-forward="true" selection-start-line="0" selection-start-column="0" selection-end-line="267" selection-end-column="0" />
+        <state relative-caret-position="194">
+          <caret line="77" column="44" lean-forward="false" selection-start-line="77" selection-start-column="12" selection-end-line="77" selection-end-column="44" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/sql/sql_user.xml">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/gb/GbService.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="30" column="29" lean-forward="false" selection-start-line="30" selection-start-column="13" selection-end-line="30" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserService.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="61" column="56" lean-forward="true" selection-start-line="61" selection-start-column="56" selection-end-line="61" selection-end-column="56" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/xidian/module/user/UserController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="354">
-          <caret line="53" column="33" lean-forward="false" selection-start-line="53" selection-start-column="33" selection-end-line="53" selection-end-column="33" />
+        <state relative-caret-position="279">
+          <caret line="70" column="42" lean-forward="false" selection-start-line="70" selection-start-column="42" selection-end-line="70" selection-end-column="42" />
           <folding />
         </state>
       </provider>

@@ -165,15 +165,17 @@ public class ProductService implements SampleService {
         List<Map<String, Object>> list = dao.query4List("product-loan-store-list", paramMap);
         if (list.size() == 0) {
             return dao.executeUpdate("product-loan-store", paramMap);
+        } else {
+            return dao.executeUpdate("product-loan-store-delete", paramMap);
         }
-        return 0;
     }
 
     public Object productFinanceStore(Map<String, Object> paramMap) {
         List<Map<String, Object>> list = dao.query4List("product-finance-store-list", paramMap);
         if (list.size() == 0) {
             return dao.executeUpdate("product-finance-store", paramMap);
+        } else {
+            return dao.executeUpdate("product-finance-store-delete", paramMap);
         }
-        return 0;
     }
 }

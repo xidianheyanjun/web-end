@@ -282,6 +282,16 @@
         ]]>
     </sql>
 
+    <sql id="product-loan-store-delete">
+        <![CDATA[
+            delete from t_loan_product
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
+            and status = 0
+        ]]>
+    </sql>
+
     <sql id="product-finance-store-list">
         <![CDATA[
             select id
@@ -299,6 +309,16 @@
             select :userId, name, :kind, :path, now(), 0
             from t_finance
             where id = :id
+            and status = 0
+        ]]>
+    </sql>
+
+    <sql id="product-finance-store-delete">
+        <![CDATA[
+            delete from t_finance
+            where user_id = :userId
+            and kind = :kind
+            and path = :path
             and status = 0
         ]]>
     </sql>

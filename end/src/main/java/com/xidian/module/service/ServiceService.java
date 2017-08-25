@@ -110,4 +110,13 @@ public class ServiceService implements SampleService {
         dao.executeUpdate("credit-insert", map);
         return map;
     }
+
+    public Object serviceSpecialsStore(Map<String, Object> paramMap) {
+        List<Map<String, Object>> list = dao.query4List("service-specials-store-list", paramMap);
+        if (list.size() == 0) {
+            return dao.executeUpdate("service-specials-store", paramMap);
+        } else {
+            return dao.executeUpdate("service-specials-store-delete", paramMap);
+        }
+    }
 }
