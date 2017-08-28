@@ -169,4 +169,16 @@ public class UserService implements SampleService {
         dao.executeUpdate("user-set-password", paramMap);
         return paramMap;
     }
+
+    public List<Map<String, Object>> userHotsKind(Map<String, Object> paramMap) {
+        return dao.query4List("user-hots-kind", paramMap);
+    }
+
+    public Map<String, Object> userHotsList(Map<String, Object> paramMap) {
+        return dao.pageQuery("user-hots-list", paramMap, (int) paramMap.get("pageIndex"), (int) paramMap.get("pageSize"));
+    }
+
+    public Map<String, Object> userHotsDetail(Map<String, Object> paramMap) {
+        return dao.executeQuery("user-hots-detail", paramMap);
+    }
 }

@@ -121,4 +121,32 @@
             and status = 0
 		]]>
     </sql>
+
+    <sql id="user-hots-kind">
+        <![CDATA[
+            select id, name
+            from t_hots_kind
+            where status = 0
+            order by position
+		]]>
+    </sql>
+
+    <sql id="user-hots-list">
+        <![CDATA[
+            select id, name
+            from t_hots
+            where kind_id = :kindId
+            and status = 0
+            order by position
+		]]>
+    </sql>
+
+    <sql id="user-hots-detail">
+        <![CDATA[
+            select id, name, content
+            from t_hots
+            where id = :id
+            and status = 0
+		]]>
+    </sql>
 </sqls>

@@ -72,6 +72,10 @@ DROP TABLE IF EXISTS t_user;
 
 DROP TABLE IF EXISTS t_indentify_code;
 
+DROP TABLE IF EXISTS t_hots_kind;
+
+DROP TABLE IF EXISTS t_hots;
+
 /*==============================================================*/
 /* Table: t_bank                                                */
 /*==============================================================*/
@@ -862,3 +866,49 @@ CREATE TABLE t_indentify_code
 
 ALTER TABLE t_indentify_code
   COMMENT '验证码表';
+
+/*==============================================================*/
+/* Table: t_hots_kind                                           */
+/*==============================================================*/
+CREATE TABLE t_hots_kind
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(255),
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_hots_kind
+  COMMENT '热点分类表';
+
+/*==============================================================*/
+/* Table: t_hots                                                */
+/*==============================================================*/
+CREATE TABLE t_hots
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  kind_id     INTEGER,
+  name        VARCHAR(255),
+  content     TEXT,
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_hots
+  COMMENT '热点表';

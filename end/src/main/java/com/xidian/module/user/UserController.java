@@ -8,6 +8,7 @@ import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -108,6 +109,47 @@ public class UserController {
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", userService.userCollect(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/user/hots/kind", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHotsKind(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.userHotsKind(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/user/hotsList", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHotsList(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        int kindId = (int) jsonObject.get("hotsKind");
+        int pageIndex = (int) jsonObject.get("pageIndex");
+        int pageSize = (int) jsonObject.get("pageSize");
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("kindId", kindId);
+        paramMap.put("pageIndex", pageIndex);
+        paramMap.put("pageSize", pageSize);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.userHotsList(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/user/hotsDetail/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHotsDetail(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        int kindId = (int) jsonObject.get("hotsKind");
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.userHotsDetail(paramMap));
         return map;
     }
 }
