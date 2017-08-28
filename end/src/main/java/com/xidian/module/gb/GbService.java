@@ -63,7 +63,7 @@ public class GbService implements SampleService {
     }
 
     public List<Map<String, Object>> gbMeet(Map<String, Object> paramMap) {
-        int ts = (int) paramMap.get("ts");
+        long ts = (long) paramMap.get("ts");
         String sql = dao.getSqlById("gb-meet");
         if (ts > 0) {
             sql += " and unix_timestamp(chat.create_time) > :ts";

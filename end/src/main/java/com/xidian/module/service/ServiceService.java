@@ -79,9 +79,23 @@ public class ServiceService implements SampleService {
     }
 
     public Map<String, Object> serviceZx(Map<String, Object> paramMap) throws IOException {
-        String userId = (String) paramMap.get("userId");
+        int userId = (int) paramMap.get("userId");
         String name = (String) paramMap.get("name");
         String cardNo = (String) paramMap.get("cardNo");
+        Map<String, Object> map = new HashMap<String, Object>();
+        map.put("stype", 1);
+        map.put("user_name", name);
+        map.put("card_id", cardNo);
+        map.put("create_user", userId);
+
+        // 判断用户是否已经查询过
+        List<Map<String, Object>> list = dao.query4List("credit-query", map);
+        logger.error(String.format("creaditQuery|已经查询过|%d|%s|%s|%d", userId, name, cardNo, list.size()));
+        if (list.size() > 1) {
+            logger.error(String.format("creaditQuery|已经查询过|%d|%s|%s", userId, name, cardNo));
+            return map;
+        }
+
         String url = String.format(this.creditUrl, cardNo, name);
         logger.info("creaditQuery|" + url);
         CloseableHttpClient httpClient = HttpClients.createDefault();
@@ -94,7 +108,6 @@ public class ServiceService implements SampleService {
         JSONObject jsonBean = JSONObject.fromObject(result);
         httpClient.close();
         String success = (String) jsonBean.get("success");
-        Map<String, Object> map = new HashMap<String, Object>();
         if ("e".equals(success)) {
             String message = (String) jsonBean.get("message");
             logger.error("creaditQuery|error|" + message);
@@ -102,11 +115,7 @@ public class ServiceService implements SampleService {
             return map;
         }
 
-        String content = (String) jsonBean.get("content");
-        map.put("stype", 1);
-        map.put("user_name", name);
-        map.put("card_id", cardNo);
-        map.put("content", content);
+        map.put("content", result);
         dao.executeUpdate("credit-insert", map);
         return map;
     }

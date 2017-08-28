@@ -103,10 +103,10 @@ public class ServiceController {
     public Object serviceZx(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        String userId = (String) jsonObject.get("userId");
+        int userId = (int) jsonObject.get("userId");
         String name = (String) jsonObject.get("name");
         String cardNo = (String) jsonObject.get("cardNo");
-        if (userId == null || "".equals(userId)) {
+        if (userId < 1) {
             logger.info(String.format("%s|%s|%s|请先登录", userId, name, cardNo));
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
         }
@@ -122,7 +122,7 @@ public class ServiceController {
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
         }
         String msg = (String) retMap.get("msg");
-        if (msg != null || !"".equals(msg)) {
+        if (msg != null && !"".equals(msg)) {
             logger.info(String.format("%s|%s|%s|%s", userId, name, cardNo, msg));
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
         }

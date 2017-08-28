@@ -1,9 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sqls>
+    <sql id="credit-query">
+        <![CDATA[
+            select id
+            from t_credit_query
+            where stype = :stype
+            and user_name = :user_name
+            and card_id = :card_id
+        ]]>
+    </sql>
+
     <sql id="credit-insert">
         <![CDATA[
-            insert into t_credit_query(stype, user_name, card_id, content, create_time)
-            values(:stype, :user_name, :card_id, :content, now())
+            insert into t_credit_query(stype, user_name, card_id, content, create_time, create_user)
+            values(:stype, :user_name, :card_id, :content, now(), :create_user)
         ]]>
     </sql>
 </sqls>

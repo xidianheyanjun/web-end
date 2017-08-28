@@ -832,6 +832,7 @@ CREATE TABLE t_credit_query
   card_id     VARCHAR(32),
   content     TEXT,
   create_time DATETIME,
+  create_user INTEGER,
   update_time DATETIME,
   PRIMARY KEY (id)
 )
