@@ -158,7 +158,12 @@ public class ProductController {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", productService.productLoanDetail(paramMap));
+        int userId = (int) jsonObject.get("userId");
+        Map<String, Object> retMap = productService.productLoanDetail(paramMap);
+        if (userId < 1) {
+            retMap.put("isStar", 0);
+        }
+        map.put("data", retMap);
         return map;
     }
 
@@ -286,7 +291,12 @@ public class ProductController {
         paramMap.put("id", id);
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", productService.productFinanceDetail(paramMap));
+        int userId = (int) jsonObject.get("userId");
+        Map<String, Object> retMap = productService.productFinanceDetail(paramMap);
+        if (userId < 1) {
+            retMap.put("isStar", 0);
+        }
+        map.put("data", retMap);
         return map;
     }
 

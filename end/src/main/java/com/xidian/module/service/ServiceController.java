@@ -75,7 +75,12 @@ public class ServiceController {
         paramMap.put("id", id);
 
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("data", serviceService.serviceSpecialsDetail(paramMap));
+        int userId = (int) jsonObject.get("userId");
+        Map<String, Object> retMap = serviceService.serviceSpecialsDetail(paramMap);
+        if (userId < 1) {
+            retMap.put("isStar", 0);
+        }
+        map.put("data", retMap);
         return map;
     }
 
