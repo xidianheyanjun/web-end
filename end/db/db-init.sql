@@ -76,6 +76,10 @@ DROP TABLE IF EXISTS t_hots_kind;
 
 DROP TABLE IF EXISTS t_hots;
 
+DROP TABLE IF EXISTS t_help_kind;
+
+DROP TABLE IF EXISTS t_help;
+
 /*==============================================================*/
 /* Table: t_bank                                                */
 /*==============================================================*/
@@ -912,3 +916,51 @@ CREATE TABLE t_hots
 
 ALTER TABLE t_hots
   COMMENT '热点表';
+
+/*==============================================================*/
+/* Table: t_help_kind                                           */
+/*==============================================================*/
+CREATE TABLE t_help_kind
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(255),
+  icon        VARCHAR(255),
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_help_kind
+  COMMENT '帮助与反馈分类表';
+
+/*==============================================================*/
+/* Table: t_help                                                */
+/*==============================================================*/
+CREATE TABLE t_help
+(
+  id          INTEGER NOT NULL AUTO_INCREMENT,
+  kind_id     INTEGER,
+  name        VARCHAR(255),
+  content     TEXT,
+  flag        VARCHAR(32),
+  position    INTEGER,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  update_user INTEGER,
+  status      TINYINT(4) COMMENT '0：生效
+            1：无效',
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_help
+  COMMENT '帮助与反馈表';

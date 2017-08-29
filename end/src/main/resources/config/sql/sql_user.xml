@@ -133,7 +133,7 @@
 
     <sql id="user-hots-list">
         <![CDATA[
-            select id, name
+            select id as id, name as title
             from t_hots
             where kind_id = :kindId
             and status = 0
@@ -147,6 +147,45 @@
             from t_hots
             where id = :id
             and status = 0
+		]]>
+    </sql>
+
+    <sql id="user-help-types">
+        <![CDATA[
+            select id, name, icon
+            from t_help_kind
+            where status = 0
+            order by position
+		]]>
+    </sql>
+
+    <sql id="user-help-kind-list">
+        <![CDATA[
+            select id as id, name as title
+            from t_help
+            where flag = 'hot'
+            and status = 0
+            order by position
+		]]>
+    </sql>
+
+    <sql id="user-help-detail">
+        <![CDATA[
+            select id as id, name as title, content as content
+            from t_help
+            where id = :id
+            and status = 0
+		]]>
+    </sql>
+
+    <sql id="user-help-list">
+        <![CDATA[
+            select kind.id as kindId, kind.name as kindTitle, help.id as id, help.name as title
+            from t_help_kind kind, t_help help
+            where kind.id = help.kind_id
+            and kind.status = 0
+            and help.status = 0
+            order by kind.position, help.position
 		]]>
     </sql>
 </sqls>

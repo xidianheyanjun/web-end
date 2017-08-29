@@ -2,7 +2,7 @@
 <sqls>
     <sql id="credit-query">
         <![CDATA[
-            select id
+            select id, stype, user_name, card_id, content, create_user
             from t_credit_query
             where stype = :stype
             and user_name = :user_name

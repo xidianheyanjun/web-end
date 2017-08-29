@@ -181,4 +181,20 @@ public class UserService implements SampleService {
     public Map<String, Object> userHotsDetail(Map<String, Object> paramMap) {
         return dao.executeQuery("user-hots-detail", paramMap);
     }
+
+    public Object userHelpTypes(Map<String, Object> paramMap) {
+        return dao.query4List("user-help-types", paramMap);
+    }
+
+    public Object userHelpKindList(Map<String, Object> paramMap) {
+        return dao.query4List("user-help-kind-list", paramMap);
+    }
+
+    public Map<String, Object> userHelpDetail(Map<String, Object> paramMap) {
+        return dao.executeQuery("user-help-detail", paramMap);
+    }
+
+    public List<Map<String, Object>> userHelpList(Map<String, Object> paramMap) {
+        return dao.query4List("user-help-list", paramMap);
+    }
 }

@@ -90,10 +90,10 @@ public class ServiceService implements SampleService {
 
         // 判断用户是否已经查询过
         List<Map<String, Object>> list = dao.query4List("credit-query", map);
-        logger.error(String.format("creaditQuery|已经查询过|%d|%s|%s|%d", userId, name, cardNo, list.size()));
+        logger.info(String.format("creaditQuery|%d|%s|%s|%d", userId, name, cardNo, list.size()));
         if (list.size() > 1) {
             logger.error(String.format("creaditQuery|已经查询过|%d|%s|%s", userId, name, cardNo));
-            return map;
+            return list.get(0);
         }
 
         String url = String.format(this.creditUrl, cardNo, name);

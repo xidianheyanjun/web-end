@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -144,12 +146,82 @@ public class UserController {
     @ResponseBody
     public Object userHotsDetail(String data, @PathVariable int id) {
         JSONObject jsonObject = JSONObject.fromObject(data);
-        int kindId = (int) jsonObject.get("hotsKind");
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("id", id);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", userService.userHotsDetail(paramMap));
+        return map;
+    }
+
+    @RequestMapping(value = "/user/help", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHelp(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("types", userService.userHelpTypes(paramMap));
+        retMap.put("list", userService.userHelpKindList(paramMap));
+        map.put("data", retMap);
+        return map;
+    }
+
+    @RequestMapping(value = "/user/helpList/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHelpList(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        List<Map<String, Object>> list = userService.userHelpList(paramMap);
+        List<Map<String, Object>> retList = new ArrayList<Map<String, Object>>();
+        int curKindId = -1;
+        Map<String, Object> pushMap = null;
+        for (int m = 0; m < list.size(); ++m) {
+            Map<String, Object> tmpMap = list.get(m);
+            int kindId = (int) tmpMap.get("kindId");
+            if (curKindId == kindId) {
+                continue;
+            }
+
+            curKindId = kindId;
+            pushMap = new HashMap<String, Object>();
+            pushMap.put("id", kindId);
+            pushMap.put("title", tmpMap.get("kindTitle"));
+            retList.add(pushMap);
+        }
+        for (int m = 0; m < retList.size(); ++m) {
+            Map<String, Object> tmpMap = retList.get(m);
+            int kindId = (int) tmpMap.get("id");
+            List<Map<String, Object>> pushList = new ArrayList<Map<String, Object>>();
+            for (int n = 0; n < list.size(); ++n) {
+                Map<String, Object> detailMap = list.get(n);
+                int detailKindId = (int) detailMap.get("kindId");
+                if (detailKindId != kindId) {
+                    continue;
+                }
+                pushList.add(detailMap);
+            }
+            tmpMap.put("list", pushList);
+        }
+        Map<String, Object> retMap = new HashMap<String, Object>();
+        retMap.put("list", retList);
+        map.put("data", retMap);
+        return map;
+    }
+
+    @RequestMapping(value = "/user/helpDetail/{id}", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object userHelpDetail(String data, @PathVariable int id) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("id", id);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", userService.userHelpDetail(paramMap));
         return map;
     }
 }
