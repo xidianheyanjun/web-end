@@ -284,7 +284,7 @@
 
     <sql id="product-loan-store-delete">
         <![CDATA[
-            delete from t_loan_product
+            delete from t_store
             where user_id = :userId
             and kind = :kind
             and path = :path
@@ -315,7 +315,7 @@
 
     <sql id="product-finance-store-delete">
         <![CDATA[
-            delete from t_finance
+            delete from t_store
             where user_id = :userId
             and kind = :kind
             and path = :path

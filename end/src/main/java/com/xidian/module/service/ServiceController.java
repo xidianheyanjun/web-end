@@ -132,6 +132,10 @@ public class ServiceController {
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
         }
 
+        String content = (String) retMap.get("content");
+        JSONObject jsonBean = content == null || "".equals(content) ? new JSONObject() : JSONObject.fromObject(content);
+        retMap.put("content", jsonBean);
+
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", retMap);
         return map;
