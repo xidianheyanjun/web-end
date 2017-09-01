@@ -209,32 +209,4 @@ public class GbController {
         map.put("data", gbService.gbMessage(paramMap));
         return map;
     }
-
-    @RequestMapping(value = "/gb/send/email", method = {RequestMethod.POST})
-    @ResponseBody
-    public Object sendEmail(String name) {
-        logger.info("name:" + name);
-        boolean sendFlag = coreService.sendEmail("1538302885@qq.com",
-                "这里是title", "这里是正文");
-        Map<String, Object> map = new HashMap<String, Object>();
-        map.put("send-flag", sendFlag);
-        return map;
-    }
-
-    @RequestMapping(value = "/gb/send/sms", method = {RequestMethod.POST})
-    @ResponseBody
-    public Object sendSms(String name) {
-        logger.info("name:" + name);
-        try {
-            SmsSingleSender singleSender = new SmsSingleSender(this.sms_app_id,
-                    this.sms_app_key);
-            SmsSingleSenderResult singleSenderResult = singleSender.send(0,
-                    "86", "13692141127", "测试短信，普通单发，深圳，小明，上学。", "", "");
-            logger.info(singleSenderResult);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Map<String, Object> map = new HashMap<String, Object>();
-        return map;
-    }
 }
