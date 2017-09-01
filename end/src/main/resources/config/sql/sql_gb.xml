@@ -108,6 +108,7 @@
             where detail.swap_id = :id
             and detail.create_user = user.id
             and detail.status = 0
+            order by detail.create_time
         ]]>
     </sql>
 
