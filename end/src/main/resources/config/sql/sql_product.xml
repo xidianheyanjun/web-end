@@ -141,7 +141,7 @@
 
     <sql id="product-loan-detail">
         <![CDATA[
-            select loan.id as id, loan.name as title, loan.loan_desc as content,
+            select distinct loan.id as id, loan.name as title, loan.loan_desc as content,
             if(store.id, true, false) as isStar
             from t_loan_product loan left join t_store store
             on store.path = concat('#/product/loan/detail/', loan.id)
@@ -236,7 +236,7 @@
 
     <sql id="product-finance-detail">
         <![CDATA[
-            select finance.id as id, finance.name as title, finance.product_desc as content,
+            select distinct finance.id as id, finance.name as title, finance.product_desc as content,
             if(store.id, true, false) as isStar
             from t_finance finance left join t_store store
             on store.path = concat('#/product/finance/detail/', finance.id)

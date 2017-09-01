@@ -29,7 +29,7 @@
 
     <sql id="service-specials-detail">
         <![CDATA[
-			select coupon.id as id, coupon.name as cardName, coupon.info as cardTxt, coupon.image as cardImg, coupon.coupon_desc as details,
+			select distinct coupon.id as id, coupon.name as cardName, coupon.info as cardTxt, coupon.image as cardImg, coupon.coupon_desc as details,
 			if(store.id, true, false) as isStar
 			from t_credit_coupon coupon left join t_store store
 			on store.path = concat('#/service/specials/detail/', coupon.id)
