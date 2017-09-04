@@ -111,7 +111,7 @@ public class ServiceService implements SampleService {
         if ("e".equals(success)) {
             String message = (String) jsonBean.get("message");
             logger.error("creaditQuery|error|" + message);
-            map.put("msg", "查询失败");
+            map.put("msg", message);
             return map;
         }
 

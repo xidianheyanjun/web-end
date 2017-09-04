@@ -1,7 +1,9 @@
 package com.xidian.module.service;
 
 import com.xidian.common.ResponseHelper;
+import com.xidian.common.ValidHelper;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -115,6 +117,14 @@ public class ServiceController {
             logger.info(String.format("%s|%s|%s|请先登录", userId, name, cardNo));
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请先登录");
         }
+        if (StringUtils.isEmpty(name)) {
+            logger.info(String.format("%s|%s|%s|请填写姓名", userId, name, cardNo));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请填写姓名");
+        }
+        if (StringUtils.isEmpty(cardNo)) {
+            logger.info(String.format("%s|%s|%s|请填写身份证号", userId, name, cardNo));
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请填写身份证号");
+        }
         paramMap.put("userId", userId);
         paramMap.put("name", name);
         paramMap.put("cardNo", cardNo);
@@ -129,7 +139,7 @@ public class ServiceController {
         String msg = (String) retMap.get("msg");
         if (msg != null && !"".equals(msg)) {
             logger.info(String.format("%s|%s|%s|%s", userId, name, cardNo, msg));
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, msg);
         }
 
         String content = (String) retMap.get("content");
