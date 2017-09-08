@@ -75,7 +75,7 @@ public class UserService implements SampleService {
 
         if (list.size() == 0) {
             logger.info(String.format("%s|%s", account, list.size()));
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "账号不存在");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "账号不存在或密码不正确");
         }
 
         // 生成token
@@ -115,6 +115,21 @@ public class UserService implements SampleService {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("type", "find".equals(type) ? "find" : "register");
         paramMap.put("account", account);
+
+        List<Map<String, Object>> accountList = dao.query4List("user-indentify-query-user", paramMap);
+        if ("find".equals(type)) {
+            if (accountList.size() == 0) {
+                logger.info(String.format("%s|%s|%s|找回密码", account, type, accountList.size()));
+                paramMap.put("msg", "账号不存在");
+                return paramMap;
+            }
+        } else {
+            if (accountList.size() > 0) {
+                logger.info(String.format("%s|%s|%s|注册账号", account, type, accountList.size()));
+                paramMap.put("msg", "账号已注册");
+                return paramMap;
+            }
+        }
 
         List<Map<String, Object>> list = dao.query4List("user-query-indentify-code", paramMap);
 

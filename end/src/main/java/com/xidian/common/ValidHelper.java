@@ -19,7 +19,7 @@ public class ValidHelper {
         if (mobile == null || "".equals(mobile)) {
             return false;
         }
-        Pattern p = Pattern.compile("^((13[0-9])|(15[^4,\\D])|(18[0,5-9]))\\d{8}$");
+        Pattern p = Pattern.compile("^(1)\\d{10}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
     }

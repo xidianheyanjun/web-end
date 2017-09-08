@@ -9,6 +9,15 @@
 		]]>
     </sql>
 
+    <sql id="user-indentify-query-user">
+        <![CDATA[
+			select id, acc
+			from t_user
+			where acc = :account
+			and status = 0
+		]]>
+    </sql>
+
     <sql id="user-indentify-code">
         <![CDATA[
 			insert into t_indentify_code(acc, type, code, create_time, status)
