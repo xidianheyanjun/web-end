@@ -5,7 +5,14 @@ import com.qcloud.sms.SmsSingleSenderResult;
 import com.sun.mail.util.MailSSLSocketFactory;
 import com.xidian.common.CacheHelper;
 import com.xidian.dataAccess.Dao;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.util.EntityUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -14,7 +21,9 @@ import org.springframework.stereotype.Service;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.*;
 
@@ -51,6 +60,12 @@ public class CoreService {
 
     @Value("#{config[sms_app_key]}")
     private String smsAppKey;
+
+    @Value("#{config[jdwx_url]}")
+    private String jdwxUrl;
+
+    @Value("#{config[jdwx_key]}")
+    private String jdwxKey;
 
     @Autowired
     private Dao dao;
@@ -142,5 +157,30 @@ public class CoreService {
         }
 
         return false;
+    }
+
+    public Map<String, Object> sendMsg2Jdwx(String path, Map<String, Object> paramMap) throws IOException {
+        StringBuffer searchParam = new StringBuffer();
+        if (paramMap != null && !paramMap.isEmpty()) {
+            logger.info("paramMap is not empty");
+            for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+                searchParam.append(entry.getKey());
+                searchParam.append("=");
+                searchParam.append(entry.getValue());
+                searchParam.append("&");
+            }
+        }
+        String url = String.format(this.jdwxUrl, path, searchParam.toString());
+        logger.info("url|" + url);
+        CloseableHttpClient httpClient = HttpClients.createDefault();
+        HttpGet httpGet = new HttpGet(url);
+        HttpResponse response = httpClient.execute(httpGet);
+        HttpEntity responseEntity = response.getEntity();
+        logger.info("responseEntity|" + responseEntity.toString());
+        String result = EntityUtils.toString(responseEntity, Charset.forName("UTF-8"));
+        logger.info("result|" + result);
+        JSONObject jsonBean = JSONObject.fromObject(result);
+        httpClient.close();
+        return jsonBean;
     }
 }
