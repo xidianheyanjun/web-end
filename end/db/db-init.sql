@@ -80,6 +80,8 @@ DROP TABLE IF EXISTS t_help_kind;
 
 DROP TABLE IF EXISTS t_help;
 
+DROP TABLE IF EXISTS t_zx;
+
 /*==============================================================*/
 /* Table: t_bank                                                */
 /*==============================================================*/
@@ -830,7 +832,7 @@ ALTER TABLE t_user
   COMMENT '用户信息表';
 
 /*==============================================================*/
-/* Table: t_credit_query                                                */
+/* Table: t_credit_query                                        */
 /*==============================================================*/
 CREATE TABLE t_credit_query
 (
@@ -849,6 +851,31 @@ CREATE TABLE t_credit_query
 
 ALTER TABLE t_credit_query
   COMMENT '征信信息表';
+
+/*==============================================================*/
+/* Table: t_zx                                                  */
+/*==============================================================*/
+CREATE TABLE t_zx
+(
+  id          INT NOT NULL AUTO_INCREMENT,
+  name        VARCHAR(256),
+  idNo        VARCHAR(32),
+  idType      VARCHAR(16),
+  loginName   VARCHAR(32),
+  passWord    VARCHAR(32),
+  mobileTel   VARCHAR(32),
+  email       VARCHAR(128),
+  report      TEXT,
+  create_time DATETIME,
+  create_user INTEGER,
+  update_time DATETIME,
+  PRIMARY KEY (id)
+)
+  ENGINE = InnoDB
+  DEFAULT CHARSET = UTF8;
+
+ALTER TABLE t_zx
+  COMMENT '京东万象征信信息表';
 
 /*==============================================================*/
 /* Table: t_indentify_code                                      */

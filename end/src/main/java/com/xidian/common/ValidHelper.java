@@ -1,5 +1,6 @@
 package com.xidian.common;
 
+import net.sf.json.JSONObject;
 import org.springframework.util.StringUtils;
 
 import java.util.regex.Matcher;
@@ -22,5 +23,19 @@ public class ValidHelper {
         Pattern p = Pattern.compile("^(1)\\d{10}$");
         Matcher m = p.matcher(mobile);
         return m.matches();
+    }
+
+    public static boolean validJdwxResponse(JSONObject jsonObj) {
+        String code = jsonObj.getString("code");
+        if (!"10000".equals(code)) {
+            return false;
+        }
+
+        JSONObject result = jsonObj.getJSONObject("result");
+        if (!result.getBoolean("result")) {
+            return false;
+        }
+
+        return true;
     }
 }

@@ -159,15 +159,17 @@ public class CoreService {
         return false;
     }
 
-    public Map<String, Object> sendMsg2Jdwx(String path, Map<String, Object> paramMap) throws IOException {
+    public JSONObject sendMsg2Jdwx(String path, Map<String, Object> paramMap) throws IOException {
         StringBuffer searchParam = new StringBuffer();
+        searchParam.append("appkey=");
+        searchParam.append(jdwxKey);
         if (paramMap != null && !paramMap.isEmpty()) {
             logger.info("paramMap is not empty");
             for (Map.Entry<String, Object> entry : paramMap.entrySet()) {
+                searchParam.append("&");
                 searchParam.append(entry.getKey());
                 searchParam.append("=");
                 searchParam.append(entry.getValue());
-                searchParam.append("&");
             }
         }
         String url = String.format(this.jdwxUrl, path, searchParam.toString());

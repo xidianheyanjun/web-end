@@ -2,6 +2,7 @@ package com.xidian.module.user;
 
 import com.xidian.common.ResponseHelper;
 import com.xidian.common.ValidHelper;
+import com.xidian.module.core.CoreService;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +27,10 @@ public class UserController {
     @Autowired
     @Qualifier("UserService")
     private UserService userService;
+
+    @Autowired
+    @Qualifier("CoreService")
+    private CoreService coreService;
 
     @RequestMapping(value = "/user/indentifyCode", method = {RequestMethod.POST})
     @ResponseBody
@@ -41,6 +47,25 @@ public class UserController {
         return StringUtils.isEmpty(msg) ? ResponseHelper.createResponse() : ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, msg);
     }
 
+    @RequestMapping(value = "/user/register/prepare", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object registerPrepare() {
+        try {
+            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
+            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+                logger.info("valid|generateIdObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+            }
+
+            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
+            String userId = resultGenerateId.getString("msg");
+        } catch (IOException e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+        }
+        return ResponseHelper.createResponse();
+    }
+
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})
     @ResponseBody
     public Object register(String data) {
@@ -49,7 +74,7 @@ public class UserController {
         String password = (String) jsonObject.get("password");
         String indentifyCode = (String) jsonObject.get("indentifyCode");
         logger.info(String.format("%s|%s|%s", account, password, indentifyCode));
-        // 校验数据合法性 todo
+        // 校验数据合法性
         if (!ValidHelper.isMobile(account)) {
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
         }
