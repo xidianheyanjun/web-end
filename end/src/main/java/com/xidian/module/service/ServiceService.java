@@ -128,4 +128,8 @@ public class ServiceService implements SampleService {
             return dao.executeUpdate("service-specials-store-delete", paramMap);
         }
     }
+
+    public List<Map<String, Object>> listUserReport(Map<String, Object> paramMap) {
+        return dao.query4List("service-list-user-report", paramMap);
+    }
 }

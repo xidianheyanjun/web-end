@@ -28,10 +28,6 @@ public class UserController {
     @Qualifier("UserService")
     private UserService userService;
 
-    @Autowired
-    @Qualifier("CoreService")
-    private CoreService coreService;
-
     @RequestMapping(value = "/user/indentifyCode", method = {RequestMethod.POST})
     @ResponseBody
     public Object indentifyCode(String data) {
@@ -45,25 +41,6 @@ public class UserController {
         Map<String, Object> map = userService.indentifyCode(type, account);
         String msg = (String) map.get("msg");
         return StringUtils.isEmpty(msg) ? ResponseHelper.createResponse() : ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, msg);
-    }
-
-    @RequestMapping(value = "/user/register/prepare", method = {RequestMethod.POST})
-    @ResponseBody
-    public Object registerPrepare() {
-        try {
-            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
-            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
-                logger.info("valid|generateIdObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
-            }
-
-            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
-            String userId = resultGenerateId.getString("msg");
-        } catch (IOException e) {
-            logger.error(e);
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
-        }
-        return ResponseHelper.createResponse();
     }
 
     @RequestMapping(value = "/user/register", method = {RequestMethod.POST})

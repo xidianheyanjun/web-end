@@ -2,6 +2,7 @@ package com.xidian.module.service;
 
 import com.xidian.common.ResponseHelper;
 import com.xidian.common.ValidHelper;
+import com.xidian.module.core.CoreService;
 import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
@@ -27,6 +28,10 @@ public class ServiceController {
     @Autowired
     @Qualifier("ServiceService")
     private ServiceService serviceService;
+
+    @Autowired
+    @Qualifier("CoreService")
+    private CoreService coreService;
 
     @RequestMapping(value = "/service/specials/index", method = {RequestMethod.POST})
     @ResponseBody
@@ -149,5 +154,76 @@ public class ServiceController {
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", retMap);
         return map;
+    }
+
+    @RequestMapping(value = "/service/user/check", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceUserCheck(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String name = (String) jsonObject.get("name");
+        String cardNo = (String) jsonObject.get("cardNo");
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("name", name);
+        paramMap.put("cardNo", cardNo);
+        paramMap.put("idType", "0");
+
+        Map<String, Object> map = ResponseHelper.createResponse();
+        List<Map<String, Object>> list = serviceService.listUserReport(paramMap);
+        paramMap.put("hasRegister", list.size() > 0 ? 1 : 0);
+        map.put("data", paramMap);
+        return map;
+    }
+
+    @RequestMapping(value = "/service/jdwx/register/prepare", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceJdwxRegisterPrepare(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String name = (String) jsonObject.get("name");
+        try {
+            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
+            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+                logger.info("valid|generateIdObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+            }
+
+            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
+            String userId = resultGenerateId.getString("msg");
+
+            Map<String, Object> paramMap = new HashMap<String, Object>();
+            paramMap.put("name", name);
+            paramMap.put("userId", userId);
+            JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
+            if (!ValidHelper.validJdwxResponse(captchaObj)) {
+                logger.info("valid|captchaObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+            }
+            JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
+            String captchaImg = resultCaptchaObj.getString("msg");
+        } catch (IOException e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
+        }
+        return ResponseHelper.createResponse();
+    }
+
+    @RequestMapping(value = "/service/jdwx/register", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceJdwxRegister(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        try {
+            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
+            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+                logger.info("valid|generateIdObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+            }
+
+            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
+            String userId = resultGenerateId.getString("msg");
+        } catch (IOException e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+        }
+        return ResponseHelper.createResponse();
     }
 }

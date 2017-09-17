@@ -864,11 +864,11 @@ CREATE TABLE t_zx
   loginName   VARCHAR(32),
   passWord    VARCHAR(32),
   mobileTel   VARCHAR(32),
+  tcId        VARCHAR(32),
   email       VARCHAR(128),
   report      TEXT,
   create_time DATETIME,
   create_user INTEGER,
-  update_time DATETIME,
   PRIMARY KEY (id)
 )
   ENGINE = InnoDB

@@ -98,4 +98,15 @@
             and status = 0
         ]]>
     </sql>
+
+    <sql id="service-list-user-report">
+        <![CDATA[
+            select id, report
+            from t_zx
+            where name = :name
+            and idNo = :cardNo
+            and idType = :idType
+            and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 15552000
+        ]]>
+    </sql>
 </sqls>
