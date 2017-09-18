@@ -156,9 +156,9 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/user/check", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/checkStatus", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceUserCheck(String data) {
+    public Object serviceZxCheckStatus(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String name = (String) jsonObject.get("name");
         String cardNo = (String) jsonObject.get("cardNo");
@@ -169,47 +169,107 @@ public class ServiceController {
 
         Map<String, Object> map = ResponseHelper.createResponse();
         List<Map<String, Object>> list = serviceService.listUserReport(paramMap);
-        paramMap.put("hasRegister", list.size() > 0 ? 1 : 0);
+        if (list.size() == 0) {
+            // 注册逻辑
+            try {
+                JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
+                if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+                    logger.info("valid|generateIdObj|failure");
+                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                }
+
+                JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
+                String userid = resultGenerateId.getString("msg");
+                paramMap.put("userid", userid);
+                JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
+                if (!ValidHelper.validJdwxResponse(captchaObj)) {
+                    logger.info("valid|captchaObj|failure");
+                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                }
+                JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
+                String captchaImg = resultCaptchaObj.getString("msg");
+                paramMap.put("captchaImg", captchaImg);
+            } catch (IOException e) {
+                logger.error(e);
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
+            }
+        } else {
+            // 登陆和查询过的
+        }
         map.put("data", paramMap);
         return map;
     }
 
-    @RequestMapping(value = "/service/jdwx/register/prepare", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/captchaCode", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceJdwxRegisterPrepare(String data) {
+    public Object serviceZxCaptchaCode(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String name = (String) jsonObject.get("name");
+        String userid = (String) jsonObject.get("userid");
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("name", name);
+        paramMap.put("userid", userid);
+        Map<String, Object> map = ResponseHelper.createResponse();
         try {
-            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
-            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+            JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
+            if (!ValidHelper.validJdwxResponse(captchaObj)) {
                 logger.info("valid|generateIdObj|failure");
                 return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
             }
 
-            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
-            String userId = resultGenerateId.getString("msg");
-
-            Map<String, Object> paramMap = new HashMap<String, Object>();
-            paramMap.put("name", name);
-            paramMap.put("userId", userId);
-            JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
-            if (!ValidHelper.validJdwxResponse(captchaObj)) {
-                logger.info("valid|captchaObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
-            }
-            JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
-            String captchaImg = resultCaptchaObj.getString("msg");
+            JSONObject result = captchaObj.getJSONObject("result");
+            map.put("data", result);
         } catch (IOException e) {
             logger.error(e);
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
         }
-        return ResponseHelper.createResponse();
+        return map;
+    }
+
+    @RequestMapping(value = "/service/zx/mobileCode", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceZxMobileCode(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String name = (String) jsonObject.get("name");
+        String userid = (String) jsonObject.get("userid");
+        String mobileTel = (String) jsonObject.get("mobileTel");
+        if (!ValidHelper.isMobile(mobileTel)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
+        }
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("name", name);
+        paramMap.put("userid", userid);
+        paramMap.put("mobileTel", mobileTel);
+        try {
+            JSONObject mobileObj = coreService.sendMsg2Jdwx("ReportgetMobileVerifyCode", paramMap);
+            if (!ValidHelper.validJdwxResponse(mobileObj)) {
+                logger.info("valid|generateIdObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+            }
+
+            JSONObject resultGenerateId = mobileObj.getJSONObject("result");
+            JSONObject msg = resultGenerateId.getJSONObject("msg");
+            String tcId = msg.getString("tcId");
+            paramMap.put("tcId", tcId);
+        } catch (IOException e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+        }
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", paramMap);
+        return map;
     }
 
     @RequestMapping(value = "/service/jdwx/register", method = {RequestMethod.POST})
     @ResponseBody
     public Object serviceJdwxRegister(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        String name = (String) jsonObject.get("name");
+        String userid = (String) jsonObject.get("userid");
+        String mobileTel = (String) jsonObject.get("mobileTel");
+        if (!ValidHelper.isMobile(mobileTel)) {
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "手机号格式不正确");
+        }
         Map<String, Object> paramMap = new HashMap<String, Object>();
         try {
             JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
