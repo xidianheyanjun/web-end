@@ -132,4 +132,8 @@ public class ServiceService implements SampleService {
     public List<Map<String, Object>> listUserReport(Map<String, Object> paramMap) {
         return dao.query4List("service-list-user-report", paramMap);
     }
+
+    public Object saveUser(Map<String, Object> paramMap) {
+        return dao.executeUpdate("service-save-user", paramMap);
+    }
 }
