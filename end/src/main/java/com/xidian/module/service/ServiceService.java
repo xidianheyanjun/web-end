@@ -136,4 +136,8 @@ public class ServiceService implements SampleService {
     public Object saveUser(Map<String, Object> paramMap) {
         return dao.executeUpdate("service-save-user", paramMap);
     }
+
+    public Object saveReport(Map<String, Object> paramMap) {
+        return dao.executeUpdate("service-save-report", paramMap);
+    }
 }

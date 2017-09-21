@@ -116,4 +116,12 @@
             values(:name, :idNo, :idType, :loginName, :passWord, :mobileTel, :tcId, :email, now(), 0)
         ]]>
     </sql>
+
+    <sql id="service-save-user">
+        <![CDATA[
+            update t_zx
+            set report = :report
+            where loginName = :loginName
+        ]]>
+    </sql>
 </sqls>
