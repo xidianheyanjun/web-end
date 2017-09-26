@@ -112,12 +112,12 @@
 
     <sql id="service-save-user">
         <![CDATA[
-            insert into t_zx(name, idNo, idType, loginName, passWord, mobileTel, tcId, email, create_time, status)
-            values(:name, :idNo, :idType, :loginName, :passWord, :mobileTel, :tcId, :email, now(), 0)
+            insert into t_zx(name, idNo, idType, loginName, passWord, mobileTel, tcId, email, create_time)
+            values(:name, :idNo, :idType, :loginName, :passWord, :mobileTel, :tcId, :email, now())
         ]]>
     </sql>
 
-    <sql id="service-save-user">
+    <sql id="service-save-report">
         <![CDATA[
             update t_zx
             set report = :report

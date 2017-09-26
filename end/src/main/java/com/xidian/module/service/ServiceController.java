@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -189,7 +190,7 @@ public class ServiceController {
                 JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
                 String captchaImg = resultCaptchaObj.getString("msg");
                 paramMap.put("captchaImg", captchaImg);
-                paramMap.put("status", "registered");
+                paramMap.put("status", "unregistered");
             } else {
                 Map<String, Object> reportMap = list.get(0);
                 String report = (String) reportMap.get("report");
@@ -214,14 +215,14 @@ public class ServiceController {
                     String captchaImg = resultLoginCaptchaObj.getString("msg");
                     paramMap.put("captchaImg", captchaImg);
 
-                    paramMap.put("status", "logined");
+                    paramMap.put("status", "registered");
                 } else {
                     // 查询过
-                    paramMap.put("status", "reported");
+                    paramMap.put("status", "result");
                     paramMap.put("report", report);
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
         }
@@ -248,7 +249,7 @@ public class ServiceController {
 
             JSONObject result = captchaObj.getJSONObject("result");
             map.put("data", result);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
         }
@@ -280,7 +281,7 @@ public class ServiceController {
             JSONObject msg = resultGenerateId.getJSONObject("msg");
             String tcId = msg.getString("tcId");
             paramMap.put("tcId", tcId);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
         }
@@ -314,7 +315,7 @@ public class ServiceController {
             JSONObject msgWrite = resultWrite.getJSONObject("msg");
             String htmlToken = msgWrite.getString("htmlToken");
             paramMap.put("htmlToken", htmlToken);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }
@@ -323,7 +324,7 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/jdwx/register", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/register", method = {RequestMethod.POST})
     @ResponseBody
     public Object serviceJdwxRegister(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
@@ -366,7 +367,7 @@ public class ServiceController {
 
             // 保存到数据库
             serviceService.saveUser(paramMap);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
         }
@@ -396,7 +397,7 @@ public class ServiceController {
 
             JSONObject resultLogin = loginObj.getJSONObject("result");
             map.put("data", resultLogin);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }
@@ -424,7 +425,7 @@ public class ServiceController {
 
             JSONObject resultSubmit = submitObj.getJSONObject("result");
             map.put("data", resultSubmit);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }
@@ -446,7 +447,7 @@ public class ServiceController {
                 logger.info("valid|loginCodeObj|failure");
                 return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }
@@ -472,14 +473,14 @@ public class ServiceController {
                 logger.info("valid|loginSubmitQs|failure");
                 return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }
         return ResponseHelper.createResponse();
     }
 
-    @RequestMapping(value = "/service/zx/download", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/getReport", method = {RequestMethod.POST})
     @ResponseBody
     public Object serviceZxDownload(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
@@ -504,7 +505,7 @@ public class ServiceController {
             String msg = resultDownload.getString("msg");
             paramMap.put("msg", msg);
             serviceService.saveReport(paramMap);
-        } catch (IOException e) {
+        } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");
         }

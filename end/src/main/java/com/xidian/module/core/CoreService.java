@@ -23,6 +23,9 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.charset.Charset;
 import java.security.GeneralSecurityException;
 import java.util.*;
@@ -159,7 +162,7 @@ public class CoreService {
         return false;
     }
 
-    public JSONObject sendMsg2Jdwx(String path, Map<String, Object> paramMap) throws IOException {
+    public JSONObject sendMsg2Jdwx(String path, Map<String, Object> paramMap) throws IOException, URISyntaxException {
         StringBuffer searchParam = new StringBuffer();
         searchParam.append("appkey=");
         searchParam.append(jdwxKey);
@@ -172,10 +175,13 @@ public class CoreService {
                 searchParam.append(entry.getValue());
             }
         }
-        String url = String.format(this.jdwxUrl, path, searchParam.toString());
+        String urlStr = String.format(this.jdwxUrl, path, searchParam.toString());
+        URL url = new URL(urlStr);
         logger.info("url|" + url);
+        URI uri = new URI(url.getProtocol(), url.getHost(), url.getPath(), url.getQuery(), null);
+        logger.info("uri|" + uri);
         CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet httpGet = new HttpGet(url);
+        HttpGet httpGet = new HttpGet(uri);
         HttpResponse response = httpClient.execute(httpGet);
         HttpEntity responseEntity = response.getEntity();
         logger.info("responseEntity|" + responseEntity.toString());
