@@ -26,6 +26,39 @@ import java.util.Map;
 public class ServiceController {
     private Logger logger = Logger.getLogger(getClass());
 
+    private Map<String, String> codeMap = new HashMap<String, String>() {{
+        put("20001", "需要刷新验证码");
+        put("20002", "验证码错误");
+        put("20003", "用户名或者密码错误");
+        put("20004", "用户密码过于简单或者为原密码");
+        put("20005", "短信验证码错误");
+        put("20006", "查询没有该记录");
+        put("20007", "用户数据入库中");
+        put("23001", "身份验证码不正确");
+        put("23002", "获取征信报告失败");
+        put("23003", "目前系统尚未收录您的个人信息");
+        put("23004", "登录名已存在");
+        put("23005", "注册失败");
+        put("23006", "登录成功,用户已经生成个人征信报告");
+        put("23007", "获取申请问题集成功");
+        put("23008", "获取申请问题集失败");
+        put("23009", "登录成功,用户个人征信报告申请处理中");
+        put("23010", "请重新注册");
+        put("23011", "提交的重置密码申请正在审核中");
+        put("23012", "已注册过用户,请直接登录");
+        put("23013", "此手机号码已注册");
+        put("23014", "密码连续输入错误,系统已对您的登录名进行锁定,请10分钟以后再登录");
+        put("23015", "征信报告手机验证码错误或过期");
+        put("23016", "页面过期");
+        put("23017", "目前系统尚未收录足够的信息对您的身份进行“问题验证”");
+        put("23018", "您已注册过其他用户,请使用做过身份验证的用户重新登录");
+        put("23019", "三项标识不匹配");
+        put("23020", "登录名不存在");
+        put("23021", "用户没有生成个人信用报告或验证未通过");
+        put("23022", "登录成功,发送手机动态码申请信用信息");
+        put("23023", "安全级别高,建议线下申请查询码后再登录认证");
+    }};
+
     @Autowired
     @Qualifier("ServiceService")
     private ServiceService serviceService;
@@ -189,6 +222,8 @@ public class ServiceController {
                 }
                 JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
                 String captchaImg = resultCaptchaObj.getString("msg");
+                int code = (int) resultCaptchaObj.get("code");
+                paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
                 paramMap.put("captchaImg", captchaImg);
                 paramMap.put("status", "unregistered");
             } else {
@@ -213,6 +248,8 @@ public class ServiceController {
                     }
                     JSONObject resultLoginCaptchaObj = loginCaptchaObj.getJSONObject("result");
                     String captchaImg = resultLoginCaptchaObj.getString("msg");
+                    int code = (int) resultLoginCaptchaObj.get("code");
+                    paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
                     paramMap.put("captchaImg", captchaImg);
 
                     paramMap.put("status", "registered");
@@ -313,6 +350,8 @@ public class ServiceController {
 
             JSONObject resultWrite = writeObj.getJSONObject("result");
             JSONObject msgWrite = resultWrite.getJSONObject("msg");
+            int code = (int) resultWrite.get("code");
+            paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
             String htmlToken = msgWrite.getString("htmlToken");
             paramMap.put("htmlToken", htmlToken);
         } catch (Exception e) {
@@ -358,6 +397,8 @@ public class ServiceController {
         paramMap.put("verifyCode", verifyCode);
         paramMap.put("tcId", tcId);
         paramMap.put("htmlToken", htmlToken);
+
+        Map<String, Object> map = ResponseHelper.createResponse();
         try {
             JSONObject saveObj = coreService.sendMsg2Jdwx("ReportpbccrcSaveUser", paramMap);
             if (!ValidHelper.validJdwxResponse(saveObj)) {
@@ -365,13 +406,18 @@ public class ServiceController {
                 return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
             }
 
+            JSONObject resultSave = saveObj.getJSONObject("result");
+            int code = (int) resultSave.get("code");
+            resultSave.put("retMsg", codeMap.get(String.valueOf(code)));
+            map.put("data", resultSave);
+
             // 保存到数据库
             serviceService.saveUser(paramMap);
         } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
         }
-        return ResponseHelper.createResponse();
+        return map;
     }
 
     @RequestMapping(value = "/service/zx/login", method = {RequestMethod.POST})
@@ -396,6 +442,8 @@ public class ServiceController {
             }
 
             JSONObject resultLogin = loginObj.getJSONObject("result");
+            int code = (int) resultLogin.get("code");
+            resultLogin.put("retMsg", codeMap.get(String.valueOf(code)));
             map.put("data", resultLogin);
         } catch (Exception e) {
             logger.error(e);
@@ -424,6 +472,8 @@ public class ServiceController {
             }
 
             JSONObject resultSubmit = submitObj.getJSONObject("result");
+            int code = (int) resultSubmit.get("code");
+            resultSubmit.put("retMsg", codeMap.get(String.valueOf(code)));
             map.put("data", resultSubmit);
         } catch (Exception e) {
             logger.error(e);
