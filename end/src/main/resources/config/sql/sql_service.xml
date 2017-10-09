@@ -120,7 +120,7 @@
     <sql id="service-save-report">
         <![CDATA[
             update t_zx
-            set report = :report
+            set report = :msg
             where loginName = :loginName
         ]]>
     </sql>

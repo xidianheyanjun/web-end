@@ -209,7 +209,7 @@ public class ServiceController {
                 JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
                 if (!ValidHelper.validJdwxResponse(generateIdObj)) {
                     logger.info("valid|generateIdObj|failure");
-                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                 }
 
                 JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
@@ -218,7 +218,7 @@ public class ServiceController {
                 JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
                 if (!ValidHelper.validJdwxResponse(captchaObj)) {
                     logger.info("valid|captchaObj|failure");
-                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                 }
                 JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
                 String captchaImg = resultCaptchaObj.getString("msg");
@@ -234,7 +234,7 @@ public class ServiceController {
                     JSONObject loginGenerateIdObj = coreService.sendMsg2Jdwx("reportlogingenerateUserId", null);
                     if (!ValidHelper.validJdwxResponse(loginGenerateIdObj)) {
                         logger.info("valid|loginGenerateIdObj|failure");
-                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                     }
 
                     JSONObject resultLoginGenerateId = loginGenerateIdObj.getJSONObject("result");
@@ -244,7 +244,7 @@ public class ServiceController {
                     JSONObject loginCaptchaObj = coreService.sendMsg2Jdwx("Reportlogincaptcha", paramMap);
                     if (!ValidHelper.validJdwxResponse(loginCaptchaObj)) {
                         logger.info("valid|loginCaptchaObj|failure");
-                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                     }
                     JSONObject resultLoginCaptchaObj = loginCaptchaObj.getJSONObject("result");
                     String captchaImg = resultLoginCaptchaObj.getString("msg");
@@ -281,14 +281,14 @@ public class ServiceController {
             JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
             if (!ValidHelper.validJdwxResponse(captchaObj)) {
                 logger.info("valid|generateIdObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject result = captchaObj.getJSONObject("result");
             map.put("data", result);
         } catch (Exception e) {
             logger.error(e);
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
         }
         return map;
     }
@@ -311,7 +311,7 @@ public class ServiceController {
             JSONObject mobileObj = coreService.sendMsg2Jdwx("ReportgetMobileVerifyCode", paramMap);
             if (!ValidHelper.validJdwxResponse(mobileObj)) {
                 logger.info("valid|mobileObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject resultGenerateId = mobileObj.getJSONObject("result");
@@ -320,7 +320,7 @@ public class ServiceController {
             paramMap.put("tcId", tcId);
         } catch (Exception e) {
             logger.error(e);
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
         }
         Map<String, Object> map = ResponseHelper.createResponse();
         map.put("data", paramMap);
@@ -345,7 +345,7 @@ public class ServiceController {
             JSONObject writeObj = coreService.sendMsg2Jdwx("Reportregister", paramMap);
             if (!ValidHelper.validJdwxResponse(writeObj)) {
                 logger.info("valid|writeObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject resultWrite = writeObj.getJSONObject("result");
@@ -403,7 +403,7 @@ public class ServiceController {
             JSONObject saveObj = coreService.sendMsg2Jdwx("ReportpbccrcSaveUser", paramMap);
             if (!ValidHelper.validJdwxResponse(saveObj)) {
                 logger.info("valid|saveObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject resultSave = saveObj.getJSONObject("result");
@@ -415,7 +415,7 @@ public class ServiceController {
             serviceService.saveUser(paramMap);
         } catch (Exception e) {
             logger.error(e);
-            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取唯一标识异常");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
         }
         return map;
     }
@@ -438,11 +438,18 @@ public class ServiceController {
             JSONObject loginObj = coreService.sendMsg2Jdwx("Report2login", paramMap);
             if (!ValidHelper.validJdwxResponse(loginObj)) {
                 logger.info("valid|loginObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject resultLogin = loginObj.getJSONObject("result");
             int code = (int) resultLogin.get("code");
+            if (code == 23022) {
+                JSONObject loginCodeObj = coreService.sendMsg2Jdwx("Report2sendPhoneMsg", paramMap);
+                if (!ValidHelper.validJdwxResponse(loginCodeObj)) {
+                    logger.info("valid|serviceZxLogin|loginCodeObj|failure");
+                    return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
+                }
+            }
             resultLogin.put("retMsg", codeMap.get(String.valueOf(code)));
             map.put("data", resultLogin);
         } catch (Exception e) {
@@ -468,7 +475,7 @@ public class ServiceController {
             JSONObject submitObj = coreService.sendMsg2Jdwx("Report2submitKBA", paramMap);
             if (!ValidHelper.validJdwxResponse(submitObj)) {
                 logger.info("valid|submitObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
             JSONObject resultSubmit = submitObj.getJSONObject("result");
@@ -495,7 +502,7 @@ public class ServiceController {
             JSONObject loginCodeObj = coreService.sendMsg2Jdwx("Report2sendPhoneMsg", paramMap);
             if (!ValidHelper.validJdwxResponse(loginCodeObj)) {
                 logger.info("valid|loginCodeObj|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
         } catch (Exception e) {
             logger.error(e);
@@ -521,7 +528,7 @@ public class ServiceController {
             JSONObject loginSubmitQs = coreService.sendMsg2Jdwx("Report2submitQS", paramMap);
             if (!ValidHelper.validJdwxResponse(loginSubmitQs)) {
                 logger.info("valid|loginSubmitQs|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
         } catch (Exception e) {
             logger.error(e);
@@ -546,15 +553,24 @@ public class ServiceController {
         Map<String, Object> map = ResponseHelper.createResponse();
         try {
             JSONObject loginDownload = coreService.sendMsg2Jdwx("Report2downloadCreditR", paramMap);
-            if (!ValidHelper.validJdwxResponse(loginDownload)) {
+            if (!ValidHelper.validReportResponse(loginDownload)) {
                 logger.info("valid|loginDownload|failure");
-                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "请求数据异常");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
             }
 
-            JSONObject resultDownload = loginDownload.getJSONObject("result");
-            String msg = resultDownload.getString("msg");
-            paramMap.put("msg", msg);
-            serviceService.saveReport(paramMap);
+            JSONObject loginReport = coreService.sendMsg2Jdwx("getReportEntry", paramMap);
+            if (!ValidHelper.validReportResponse(loginReport)) {
+                logger.info("valid|loginReport|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
+            }
+            JSONObject resultReport = loginReport.getJSONObject("result");
+            String result = resultReport.getString("result");
+            resultReport.put("msg", JSONObject.fromObject(result));
+            paramMap.put("result", resultReport);
+
+            Map<String, Object> saveMap = new HashMap<String, Object>();
+            saveMap.put("report", result);
+            serviceService.saveReport(saveMap);
         } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器异常");

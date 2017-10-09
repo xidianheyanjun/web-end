@@ -38,4 +38,19 @@ public class ValidHelper {
 
         return true;
     }
+
+    public static boolean validReportResponse(JSONObject jsonObj) {
+        String code = jsonObj.getString("code");
+        if (!"10000".equals(code)) {
+            return false;
+        }
+
+        JSONObject result = jsonObj.getJSONObject("result");
+        int appCode = result.getInt("code");
+        if (appCode != 0) {
+            return false;
+        }
+
+        return true;
+    }
 }
