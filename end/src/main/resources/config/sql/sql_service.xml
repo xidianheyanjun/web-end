@@ -103,9 +103,7 @@
         <![CDATA[
             select id, report
             from t_zx
-            where name = :name
-            and idNo = :cardNo
-            and idType = :idType
+            where create_user = :userId
             and UNIX_TIMESTAMP(now()) - UNIX_TIMESTAMP(create_time) < 15552000
         ]]>
     </sql>
@@ -119,9 +117,8 @@
 
     <sql id="service-save-report">
         <![CDATA[
-            update t_zx
-            set report = :msg
-            where loginName = :loginName
+            insert into t_zx(report, create_time, create_user)
+            values(:msg, now(), :userId)
         ]]>
     </sql>
 </sqls>

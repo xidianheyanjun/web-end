@@ -194,70 +194,46 @@ public class ServiceController {
     @ResponseBody
     public Object serviceZxCheckStatus(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
-        String name = (String) jsonObject.get("name");
-        String cardNo = (String) jsonObject.get("cardNo");
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            logger.info("valid|serviceZxCheckStatus|failure");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "查询前请先登录");
+        }
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("name", name);
-        paramMap.put("cardNo", cardNo);
-        paramMap.put("idType", "0");
+        paramMap.put("userId", userId);
 
         Map<String, Object> map = ResponseHelper.createResponse();
         List<Map<String, Object>> list = serviceService.listUserReport(paramMap);
         try {
             if (list.size() == 0) {
-                // 注册逻辑
-                JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
-                if (!ValidHelper.validJdwxResponse(generateIdObj)) {
-                    logger.info("valid|generateIdObj|failure");
+                JSONObject loginGenerateIdObj = coreService.sendMsg2Jdwx("reportlogingenerateUserId", null);
+                if (!ValidHelper.validJdwxResponse(loginGenerateIdObj)) {
+                    logger.info("valid|loginGenerateIdObj|failure");
                     return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                 }
 
-                JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
-                String userid = resultGenerateId.getString("msg");
+                JSONObject resultLoginGenerateId = loginGenerateIdObj.getJSONObject("result");
+                String userid = resultLoginGenerateId.getString("msg");
                 paramMap.put("userid", userid);
-                JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
-                if (!ValidHelper.validJdwxResponse(captchaObj)) {
-                    logger.info("valid|captchaObj|failure");
+
+                JSONObject loginCaptchaObj = coreService.sendMsg2Jdwx("Reportlogincaptcha", paramMap);
+                if (!ValidHelper.validJdwxResponse(loginCaptchaObj)) {
+                    logger.info("valid|loginCaptchaObj|failure");
                     return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
                 }
-                JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
-                String captchaImg = resultCaptchaObj.getString("msg");
-                int code = (int) resultCaptchaObj.get("code");
+                JSONObject resultLoginCaptchaObj = loginCaptchaObj.getJSONObject("result");
+                String captchaImg = resultLoginCaptchaObj.getString("msg");
+                int code = (int) resultLoginCaptchaObj.get("code");
                 paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
                 paramMap.put("captchaImg", captchaImg);
-                paramMap.put("status", "unregistered");
+
+                paramMap.put("status", "registered");
             } else {
                 Map<String, Object> reportMap = list.get(0);
                 String report = (String) reportMap.get("report");
-                if (report == null || "".equals(report)) {
-                    // 登陆过
-                    JSONObject loginGenerateIdObj = coreService.sendMsg2Jdwx("reportlogingenerateUserId", null);
-                    if (!ValidHelper.validJdwxResponse(loginGenerateIdObj)) {
-                        logger.info("valid|loginGenerateIdObj|failure");
-                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
-                    }
-
-                    JSONObject resultLoginGenerateId = loginGenerateIdObj.getJSONObject("result");
-                    String userid = resultLoginGenerateId.getString("msg");
-                    paramMap.put("userid", userid);
-
-                    JSONObject loginCaptchaObj = coreService.sendMsg2Jdwx("Reportlogincaptcha", paramMap);
-                    if (!ValidHelper.validJdwxResponse(loginCaptchaObj)) {
-                        logger.info("valid|loginCaptchaObj|failure");
-                        return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
-                    }
-                    JSONObject resultLoginCaptchaObj = loginCaptchaObj.getJSONObject("result");
-                    String captchaImg = resultLoginCaptchaObj.getString("msg");
-                    int code = (int) resultLoginCaptchaObj.get("code");
-                    paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
-                    paramMap.put("captchaImg", captchaImg);
-
-                    paramMap.put("status", "registered");
-                } else {
-                    // 查询过
-                    paramMap.put("status", "result");
-                    paramMap.put("report", report);
-                }
+                reportMap.put("msg", JSONObject.fromObject(report));
+                paramMap.put("status", "result");
+                paramMap.put("result", reportMap);
             }
         } catch (Exception e) {
             logger.error(e);
@@ -293,9 +269,9 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/zx/mobileCode", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/registerMobileCode", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceZxMobileCode(String data) {
+    public Object serviceZxRegisterMobileCode(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String name = (String) jsonObject.get("name");
         String userid = (String) jsonObject.get("userid");
@@ -318,6 +294,77 @@ public class ServiceController {
             JSONObject msg = resultGenerateId.getJSONObject("msg");
             String tcId = msg.getString("tcId");
             paramMap.put("tcId", tcId);
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
+        }
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", paramMap);
+        return map;
+    }
+
+    @RequestMapping(value = "/service/zx/register1", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceZxRegister1(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        try {
+            JSONObject generateIdObj = coreService.sendMsg2Jdwx("reportregistergenerateUserId", null);
+            if (!ValidHelper.validJdwxResponse(generateIdObj)) {
+                logger.info("valid|generateIdObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
+            }
+
+            JSONObject resultGenerateId = generateIdObj.getJSONObject("result");
+            String userid = resultGenerateId.getString("msg");
+            paramMap.put("userid", userid);
+            JSONObject captchaObj = coreService.sendMsg2Jdwx("reportRegisterCaptcha", paramMap);
+            if (!ValidHelper.validJdwxResponse(captchaObj)) {
+                logger.info("valid|captchaObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
+            }
+            JSONObject resultCaptchaObj = captchaObj.getJSONObject("result");
+            String captchaImg = resultCaptchaObj.getString("msg");
+            int code = (int) resultCaptchaObj.get("code");
+            paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
+            paramMap.put("captchaImg", captchaImg);
+            paramMap.put("status", "unregistered");
+        } catch (Exception e) {
+            logger.error(e);
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
+        }
+        Map<String, Object> map = ResponseHelper.createResponse();
+        map.put("data", paramMap);
+        return map;
+    }
+
+    @RequestMapping(value = "/service/zx/register2", method = {RequestMethod.POST})
+    @ResponseBody
+    public Object serviceZxRegister2(String data) {
+        JSONObject jsonObject = JSONObject.fromObject(data);
+        String name = (String) jsonObject.get("name");
+        String userid = (String) jsonObject.get("userid");
+        String idNo = (String) jsonObject.get("cardNo");
+        String captchaCode = (String) jsonObject.get("captchaCode");
+        Map<String, Object> paramMap = new HashMap<String, Object>();
+        paramMap.put("name", name);
+        paramMap.put("userid", userid);
+        paramMap.put("idType", "0");
+        paramMap.put("idNo", idNo);
+        paramMap.put("captchaCode", captchaCode);
+        try {
+            JSONObject writeObj = coreService.sendMsg2Jdwx("Reportregister", paramMap);
+            if (!ValidHelper.validJdwxResponse(writeObj)) {
+                logger.info("valid|writeObj|failure");
+                return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "服务器繁忙，请重试");
+            }
+
+            JSONObject resultWrite = writeObj.getJSONObject("result");
+            JSONObject msgWrite = resultWrite.getJSONObject("msg");
+            int code = (int) resultWrite.get("code");
+            paramMap.put("retMsg", codeMap.get(String.valueOf(code)));
+            String htmlToken = msgWrite.getString("htmlToken");
+            paramMap.put("htmlToken", htmlToken);
         } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
@@ -363,7 +410,7 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/zx/register", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/register3", method = {RequestMethod.POST})
     @ResponseBody
     public Object serviceJdwxRegister(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
@@ -410,9 +457,6 @@ public class ServiceController {
             int code = (int) resultSave.get("code");
             resultSave.put("retMsg", codeMap.get(String.valueOf(code)));
             map.put("data", resultSave);
-
-            // 保存到数据库
-            serviceService.saveUser(paramMap);
         } catch (Exception e) {
             logger.error(e);
             return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "获取数据异常");
@@ -459,9 +503,9 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/zx/submit", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/submitAnswers", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceZxSubmit(String data) {
+    public Object serviceZxSubmitAnswers(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String loginName = (String) jsonObject.get("loginName");
         String userid = (String) jsonObject.get("userid");
@@ -489,9 +533,9 @@ public class ServiceController {
         return map;
     }
 
-    @RequestMapping(value = "/service/zx/login/code", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/loginMobileCode", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceZxLoginCode(String data) {
+    public Object serviceZxLoginMobileCode(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String loginName = (String) jsonObject.get("loginName");
         String userid = (String) jsonObject.get("userid");
@@ -511,9 +555,9 @@ public class ServiceController {
         return ResponseHelper.createResponse();
     }
 
-    @RequestMapping(value = "/service/zx/submit/qs", method = {RequestMethod.POST})
+    @RequestMapping(value = "/service/zx/submitMobileCode", method = {RequestMethod.POST})
     @ResponseBody
-    public Object serviceZxSubmitQs(String data) {
+    public Object serviceZxSubmitMobileCode(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
         String loginName = (String) jsonObject.get("loginName");
         String userid = (String) jsonObject.get("userid");
@@ -541,6 +585,11 @@ public class ServiceController {
     @ResponseBody
     public Object serviceZxDownload(String data) {
         JSONObject jsonObject = JSONObject.fromObject(data);
+        int userId = (int) jsonObject.get("userId");
+        if (userId < 1) {
+            logger.info("valid|serviceZxDownload|failure");
+            return ResponseHelper.createResponse(ResponseHelper.CODE_FAILURE, "查询前请先登录");
+        }
         String loginName = (String) jsonObject.get("loginName");
         String userid = (String) jsonObject.get("userid");
         String tradeCode = (String) jsonObject.get("tradeCode");
@@ -550,6 +599,7 @@ public class ServiceController {
         paramMap.put("userid", userid);
         paramMap.put("tradeCode", tradeCode);
         paramMap.put("htmlToken", htmlToken);
+        paramMap.put("userId", userId);
         Map<String, Object> map = ResponseHelper.createResponse();
         try {
             JSONObject loginDownload = coreService.sendMsg2Jdwx("Report2downloadCreditR", paramMap);

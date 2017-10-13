@@ -858,14 +858,6 @@ ALTER TABLE t_credit_query
 CREATE TABLE t_zx
 (
   id          INT NOT NULL AUTO_INCREMENT,
-  name        VARCHAR(256),
-  idNo        VARCHAR(32),
-  idType      VARCHAR(16),
-  loginName   VARCHAR(32),
-  passWord    VARCHAR(32),
-  mobileTel   VARCHAR(32),
-  tcId        VARCHAR(32),
-  email       VARCHAR(128),
   report      TEXT,
   create_time DATETIME,
   create_user INTEGER,
