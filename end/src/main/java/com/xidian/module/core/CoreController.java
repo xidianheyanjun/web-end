@@ -32,7 +32,8 @@ public class CoreController {
     @ResponseBody
     public Object coreImageStart() {
         Map<String, Object> map = ResponseHelper.createResponse();
-        map.put("imageStartUrl", "http://119.23.41.237:8180/end/image/hawk.png");
+        Map<String, Object> imageMap = coreService.queryImageStartUrl();
+        map.put("imageStartUrl", imageMap.get("val"));
         return map;
     }
 }

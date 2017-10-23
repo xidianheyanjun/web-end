@@ -121,4 +121,13 @@
             values(:msg, now(), :userId)
         ]]>
     </sql>
+
+    <sql id="service-query-image-start">
+        <![CDATA[
+            select val
+            from t_config
+            where code = "imageStartUrl"
+            and status = 0
+        ]]>
+    </sql>
 </sqls>

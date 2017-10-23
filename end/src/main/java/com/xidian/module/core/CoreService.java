@@ -191,4 +191,8 @@ public class CoreService {
         httpClient.close();
         return jsonBean;
     }
+
+    public Map<String, Object> queryImageStartUrl() {
+        return dao.executeQuery("service-query-image-start", new HashMap<String, Object>());
+    }
 }

@@ -3,6 +3,9 @@ values(1, "13974680000", password("123456"), now(), 0),
 (2, "13974680001", password("123456"), now(), 0),
 (3, "13974680002", password("123456"), now(), 0);
 
+insert into t_config(code, name, val, create_time, status)
+values("imageStartUrl", "应用启动闪屏", "http://119.23.41.237:8180/end/image/hawk.png", now(), 0);
+
 
 insert into t_gb(title, content, create_time, create_user, status)
 values("t_gb测试标题1", "t_gb测试的内容1", now(), 0, 0),
